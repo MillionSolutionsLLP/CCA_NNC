@@ -66,6 +66,23 @@ public static $routes=[
 						],
 
 
+						[
+						'name'=>'TMS.Task.Delete.Id',
+						'route'=>'/task/delete/{UniqId}',
+						'method'=>'taskDeleteById',
+						'type'=>'get',
+						],
+
+
+							[
+						'name'=>'TMS.Task.Gen.Allocation',
+						'route'=>'/task/gen/allocationLatter/{UniqId}',
+						'method'=>'taskGenAllocationLatterById',
+						'type'=>'get',
+						],
+
+
+
 
 					];
 

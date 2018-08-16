@@ -355,9 +355,8 @@ class Builder{
 		if(array_key_exists('add',$data))$this->listAction['add-btn']=$data['add'];
 		if(array_key_exists('edit',$data))$this->listAction['edit-btn']=$data['edit'];
 		if(array_key_exists('delete',$data))$this->listAction['delete-btn']=$data['delete'];
-
-
-if(array_key_exists('view',$data))$this->listAction['view-btn']=$data['view'];
+		if(array_key_exists('view',$data))$this->listAction['view-btn']=$data['view'];
+		if(array_key_exists('AllocationLater',$data))$this->listAction['AllocationLater-btn']=$data['AllocationLater'];
 
 
 

@@ -161,6 +161,11 @@ protected $base_Field;
         return Base::genUniqID();
     }
 
+    public function deleteTable(){
+       // dd(\MS\Core\Helper\Comman::deleteTable($this->table,$this->connection));
+        \MS\Core\Helper\Comman::deleteTable($this->table,$this->connection);
+    }
+
 
 
     public function MS_all(){
@@ -170,6 +175,7 @@ protected $base_Field;
     }
 
     public function MS_delete($data,$id){
+        \MS\Core\Helper\Comman::DB_flush();
         $row=new Model($id);
         //dd($row); 
         //dd($data);
@@ -178,6 +184,8 @@ protected $base_Field;
         //if(\Storage::cloud()->exists($row->Attachments))\Storage::cloud()->delete($row->Attachments);
         //dd($row); 
         $row->delete();
+
+        \MS\Core\Helper\Comman::DB_flush();
 
         return ['status'=>'200','msg'=>"Data Succesfully removed from MSDB."];
     }
@@ -236,7 +244,7 @@ protected $base_Field;
           if(array_key_exists('_token', $data))unset($data['_token']);
           if(array_key_exists('UniqId', $data))unset($data['UniqId']);
          $row->update($data);
-      
+      \MS\Core\Helper\Comman::DB_flush();
    
         return ['status'=>'200','msg'=>"Data Succesfully added to MSDB."];
 
@@ -272,6 +280,7 @@ protected $base_Field;
             $row->$key=$value;
             
         }
+        \MS\Core\Helper\Comman::DB_flush();
 
         if($row->checkSave()['error']){
             return ['status'=>'200'];

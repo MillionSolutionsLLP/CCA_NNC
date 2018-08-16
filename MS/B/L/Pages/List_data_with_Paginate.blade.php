@@ -221,12 +221,20 @@ if(count($data['List-array'])>0){
         @if(array_key_exists('delete-btn',$data['List-action']))
         <button type="button" class="btn btn-danger ms-text-black ms-mod-btn" ms-live-link="{{route($data['List-action']['delete-btn']['method'],\MS\Core\Helper\Comman::en4url($object->$data['List-action']['delete-btn']['key']))}}"><i class="fa fa-trash"></i></button>
         @endif
-
+         @if(array_key_exists('AllocationLater-btn',$data['List-action']))
+        <button type="button" class="btn  ms-text-black btn-info ms-mod-btn" ms-live-link="{{route($data['List-action']['AllocationLater-btn']['method'],\MS\Core\Helper\Comman::en4url($object->$data['List-action']['AllocationLater-btn']['key']))}}"><i class="fa fa-file-text-o"></i></button>
+        @endif
+       
 
       </div>
 
     </td>
+
     @endif
+
+
+
+
  
 
   </tr>

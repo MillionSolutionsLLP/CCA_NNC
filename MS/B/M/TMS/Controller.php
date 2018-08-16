@@ -9,7 +9,7 @@ class Controller extends \App\Http\Controllers\Controller
         //$this->middleware('groupname')->except(['method_name']);
     }
 	public function index(){
-
+			\MS\Core\Helper\Comman::DB_flush();
 //\MS\Core\Helper\Comman::DB_flush();
 
 	//	dd(session()->all());
@@ -94,7 +94,7 @@ class Controller extends \App\Http\Controllers\Controller
 
 
 	public function taskAddPost(R\AddTask $r){
-
+			\MS\Core\Helper\Comman::DB_flush();
 
 			$input=$r->input();
 			$model=new Model(0);
@@ -115,6 +115,8 @@ class Controller extends \App\Http\Controllers\Controller
 
 
 			$model->MS_add($input);
+
+			\MS\Core\Helper\Comman::DB_flush();
 
 			$modelForLCO=new Model('2');
 			//dd($modelForLCO);
@@ -138,7 +140,7 @@ class Controller extends \App\Http\Controllers\Controller
 			//dd($modelForLCO);
 			if($LCOCheck == null)$modelForLCO->MS_add($dataForLCO);
 
-	
+			\MS\Core\Helper\Comman::DB_flush();
 			$modelOfOwner=new Model('3');
 			//dd($modelForLCO);
 
@@ -192,9 +194,11 @@ class Controller extends \App\Http\Controllers\Controller
 
 					];
 			//dd($uniqid);
-		//	$model2=new Model('1',$uniqid);
+			\MS\Core\Helper\Comman::DB_flush();
+			$model2=new Model('1',$uniqid);
 			//dd($model2);
-			//$model2->MS_add($rData,$returnData['id'],$input['UniqId']);
+			$model2->MS_add($rData,$returnData['id'],$input['UniqId']);
+			\MS\Core\Helper\Comman::DB_flush();
 			$model3=new \B\AMS\Model();
 		//	dd($model3);
 			//dd($model3->where('UniqId',$input['HireAgencyCode'])->pluck('AllocatedJobs')->first());
@@ -232,7 +236,7 @@ class Controller extends \App\Http\Controllers\Controller
 
 
 public function taskView(){
-
+					\MS\Core\Helper\Comman::DB_flush();
 					$tableId=0;
 
 		$build=new \MS\Core\Helper\Builder (__NAMESPACE__);
@@ -266,11 +270,11 @@ public function taskView(){
 
 						$link=[
 
-			// 'delete'=>[
-			// 	'method'=>'AMS.Agency.Delete.Id',
-			// 	'key'=>'UniqId',
+			'delete'=>[
+				'method'=>'TMS.Task.Delete.Id',
+				'key'=>'UniqId',
 
-			// ],
+			],
 
 			// 'edit'=>[
 			// 	'method'=>'AMS.Agency.Edit.Id',
@@ -283,6 +287,11 @@ public function taskView(){
 				'method'=>'TMS.Task.View.Id',
 				'key'=>'UniqId',
 
+			],
+
+			'AllocationLater'=>[
+				'method'=>'TMS.Task.Gen.Allocation',
+				'key'=>'UniqId',
 			],
 
 		];
@@ -341,6 +350,91 @@ public function taskViewById($UniqId){
 	//	dd($newsData);
 
 		return view('TMS.V.Object.TaskDetails')->with('data',$data);
+}
+
+
+public function taskDeleteById($UniqId){
+			\MS\Core\Helper\Comman::DB_flush();
+			$UniqId=\MS\Core\Helper\Comman::de4url($UniqId);
+			$status=200;
+			$tableId=0;
+			$rData=['UniqId'=>$UniqId];
+			
+
+			$m1=new Model($tableId);
+			$agencyCode=$m1->where('UniqId',$UniqId)->first()->toArray()['HireAgencyCode'];
+
+			$m2=new \B\AMS\Model ();
+
+			$jobRowData=$m2->where('UniqId',$agencyCode)->pluck('AllocatedJobs')->first();
+			if($jobRowData!=null){
+
+				$jobArray=json_decode($m2->where('UniqId',$agencyCode)->pluck('AllocatedJobs')->first(),true);
+
+			}else{
+				$jobArray=[];	
+			}
+			
+
+			if(in_array($UniqId,$jobArray ))unset($jobArray[array_search($UniqId,$jobArray)]);
+		//	dd($jobArray );
+			if(!count($jobArray)>0)$jobArray=null;
+
+			if($jobArray!=null)$jobArray=json_encode($jobArray,true,3);
+
+			$updatArray=[
+				'UniqId'=>$agencyCode,
+				'AllocatedJobs'=>$jobArray
+			];
+			//dd()
+
+			$m2->MS_update($updatArray,0);
+
+			//dd(json_decode($m2->where('UniqId',$agencyCode)->pluck('AllocatedJobs')->first(),true));
+			
+
+			$m1->MS_delete($rData,$tableId);
+			
+			\MS\Core\Helper\Comman::DB_flush();
+			$m3=new Model(1,$UniqId);
+			$m3->deleteTable();
+			\MS\Core\Helper\Comman::DB_flush();
+			
+
+
+			
+			return  $this->taskView();
+
+
+}
+
+public function taskGenAllocationLatterById($UniqId){
+
+
+
+		$UniqId=\MS\Core\Helper\Comman::de4url($UniqId);
+
+		$m1=new \B\AMS\Model ();
+
+	
+	$taskCode=$UniqId;
+
+	\MS\Core\Helper\Comman::DB_flush();
+
+	$m2=new \B\TMS\Model ();
+	$taskdata=$m2->where('UniqId',$taskCode)->first()->toArray();
+	$agencyCode=$taskdata['HireAgencyCode'];
+	$data=[
+
+		'agency'=>['name'=>$m1->getHireAgencyCodeFromId($agencyCode)],
+		'task'=>$taskdata,
+
+	];
+
+
+	$data['task']['fullAddress']='Town.District,State';
+
+return view('TMS.V.Pages.allocationLatter')->with('data',$data);
 }
 
 }

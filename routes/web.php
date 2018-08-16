@@ -12,6 +12,12 @@
 */
 
 
+Route::get('/test', function () {
+
+	
+});
+
+
 Route::prefix('admin')->group(function () {
 	
 Route::get('/', function () {

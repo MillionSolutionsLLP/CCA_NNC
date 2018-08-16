@@ -2,11 +2,11 @@
 
 	
 			$tableId=0;
-
+		\MS\Core\Helper\Comman::DB_flush();
 		$build=new \MS\Core\Helper\Builder ('B\\TMS');
 		$build->title("View All Assined Task");
 	//	
-
+		\MS\Core\Helper\Comman::DB_flush();
 		$model=new \B\TMS\Model($tableId);
 		$model=$model->paginate($tableId);
 	//	dd($model);
@@ -62,8 +62,9 @@
 												'icon'=>"fa fa-plus",
 												'text'=>"Add Task"
 											])->addListAction($link)->listGetter(['HireAgencyCode']);	
-
+						\MS\Core\Helper\Comman::DB_flush();
 						echo $build->view(true,'list');
+						
 
 
 ?>
