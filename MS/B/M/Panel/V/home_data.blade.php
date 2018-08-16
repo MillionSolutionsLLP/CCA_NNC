@@ -1,0 +1,1 @@
+@include('Panel.V.Object.MasterDetails')
