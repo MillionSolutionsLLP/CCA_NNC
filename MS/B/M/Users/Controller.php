@@ -188,53 +188,29 @@ class Controller extends \App\Http\Controllers\Controller
 	}
 
 	public function add_form(){
-
-		$formData=Base::genFormData();
-
-		//dd($formData);
-    	$form=\MS\Core\Helper\DForm::display($formData);
-
-    	       $btn=[
-	    [
-	    'icon'=>'fa fa-arrow-left',
-	    'text'=>'Back',
-	    'action'=>'\B\Users\Controller@index',
-	    ],
-
-	     [
-	    'icon'=>'fa fa-floppy-o',
-	    'text'=>'Save',
-	    ]
-	    ,
-
-    ];
-    
-    $data=[
-    'form-icon'=>'fa fa-user',
-    'frm-action'=>'\B\Users\Controller@add_form_post',
-    'form-title'=>'Add User',
-    'form-content'=>$form,
-    'form-btn'=>$btn,
-    'breacrumb'=>[
-    		
-
-    				[
-    			'icon'=>'fa fa-bullhorn',
-    			'text' =>'Announcements',
-    			'actionlink' =>'\B\Users\Controller@index',],
-    				
-
-    				[
-    				'icon'=>'fa fa-plus-square',
-    			'text' =>'Add',
-    				],
-    				
-    				],
-
-    ];
-    	
+			$id=0;
+			$model=new Model();
+			$build=new \MS\Core\Helper\Builder (__NAMESPACE__);
 		
-		return view('B.L.Pages.Form')->with('data',$data)	;
+			$build->title("Edit User")->content($id)->action("add_form_post");
+
+			$build->btn([
+									'action'=>"\B\Panel\Controller@index_data",
+									'color'=>"btn-info",
+									'icon'=>"fa fa-fast-backward",
+									'text'=>"Back"
+								]);
+			$build->btn([
+									//'action'=>"\\B\\MAS\\Controller@editCompany",
+									'color'=>"btn-success",
+									'icon'=>"fa fa-floppy-o",
+									'text'=>"Save"
+								]);
+
+		//	$build->content="<div class='ms-mod-tab'>".$build->content."</div>";
+
+			//dd($build->content);
+			return "<div class='ms-mod-tab'>".$build->view()."</div>";
 	}
 
 

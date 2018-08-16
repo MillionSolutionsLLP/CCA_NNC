@@ -14,7 +14,7 @@
 
 Route::get('/test', function () {
 
-	
+dd(\MS\Core\Helper\Comman::en('nidhi123'));	
 });
 
 

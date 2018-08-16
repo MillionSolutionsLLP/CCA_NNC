@@ -48,7 +48,7 @@
 
                 <td>{{$loop->iteration}}</td>
                 <td> {{ \B\TMS\Logics::getTypeOfAction($step['TypeOfAction'])['NameOfAction'] }} </td>
-                <td> {{ \B\Users\Logics::getUserName(session('user.userData.UniqId')) }} </td>
+                <td> {{ \B\Users\Logics::getUserName($step['TakenBy']) }} </td>
                 <td> {{ \Carbon::parse($step['created_at'])->format('d/m/Y') }}  </td>
 
 
