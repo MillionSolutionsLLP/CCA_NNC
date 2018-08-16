@@ -24,6 +24,16 @@ protected $base_Field;
         
     }
 
+    public function getUserNameById($code){
+
+        $m=new Model();
+        //dd($m->where('UniqId',$code)->first()->toArray()['UserName']);
+
+        return $m->where('UniqId',$code)->first()->toArray()['UserName'];
+        
+
+    }
+
     public function genuniqid(){
         return Base::genUniqID();
     }

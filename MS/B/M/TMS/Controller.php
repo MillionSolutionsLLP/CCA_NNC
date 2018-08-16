@@ -27,6 +27,7 @@ class Controller extends \App\Http\Controllers\Controller
 
 	// 		);
 
+		//dd(session()->all());
 
 
 			$data=[
@@ -57,6 +58,7 @@ class Controller extends \App\Http\Controllers\Controller
 
 
 	public function taskAdd(){
+		\MS\Core\Helper\Comman::DB_flush();
 
 		$id=0;
 		$build=new \MS\Core\Helper\Builder (__NAMESPACE__);
@@ -85,7 +87,7 @@ class Controller extends \App\Http\Controllers\Controller
 		// 						'icon'=>"fa fa-floppy-o",
 		// 						'text'=>"Save"
 		// 					]);
-
+	\MS\Core\Helper\Comman::DB_flush();
 
 		return $build->view();
 	}
@@ -186,11 +188,11 @@ class Controller extends \App\Http\Controllers\Controller
 
 					'VerifiedBy'=>'0',
 
-					'TakenBy'=>'',
+					'TakenBy'=>session('user.userData.UniqId'),
 
 					];
 			//dd($uniqid);
-			$model2=new Model('1',$uniqid);
+		//	$model2=new Model('1',$uniqid);
 			//dd($model2);
 			//$model2->MS_add($rData,$returnData['id'],$input['UniqId']);
 			$model3=new \B\AMS\Model();
@@ -239,6 +241,7 @@ public function taskView(){
 
 		$model=new Model($tableId);
 		$model=$model->paginate($tableId);
+			\MS\Core\Helper\Comman::DB_flush();
 	//	dd($model);
 
 						$diplayArray=[

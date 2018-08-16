@@ -70,7 +70,7 @@ protected $base_Field;
 
         $model=new Model(5);
         $data=$model->pluck('UniqId','NameOfPiracy')->toArray();
-        
+        \MS\Core\Helper\Comman::DB_flush();
         $return=[];
      
         foreach ($data as $key => $value) {
@@ -86,12 +86,20 @@ protected $base_Field;
 
     }
 
+    public static function getTypeOfActionFromId($code){
+
+         $model=new Model(6);
+         $data=$model->where('UniqId',$code)->first()->toArray();
+         \MS\Core\Helper\Comman::DB_flush();
+         return $data;
+    }
+
      public static function getNameOperator(){
             
 
         $model=new Model(3);
         $data=$model->pluck('UniqId','NameOfOperator')->toArray();
-        
+        \MS\Core\Helper\Comman::DB_flush();
         $return=[];
      
         foreach ($data as $key => $value) {
@@ -116,7 +124,7 @@ protected $base_Field;
         $data2=$model->pluck('UniqId','NameOfOwner')->toArray();
         
         $return=[];
-     
+        \MS\Core\Helper\Comman::DB_flush();
         foreach ($data as $key => $value) {
            
                    $return[$key]=  $value.",".$data2[$key];
@@ -137,7 +145,7 @@ protected $base_Field;
         $data=$model->pluck('UniqId','NameOfLCO')->toArray();
         
         $return=[];
-     
+        \MS\Core\Helper\Comman::DB_flush();
         foreach ($data as $key => $value) {
            
                    $return[$key]=  $value;

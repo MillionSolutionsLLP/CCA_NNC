@@ -46,10 +46,10 @@
 			// ],
 
 
-			// 'view'=>[
-			// 	'method'=>'AMS.Agency.View.Id',
-			// 	'key'=>'UniqId',
-
+		
+			'view'=>[
+				'method'=>'TMS.Task.View.Id',
+				'key'=>'UniqId',]
 			// ],
 
 		];

@@ -34,15 +34,22 @@
                         </table>
 
 
-
+              <h5>Task Current Status</h5>
               <table class="table table-bordered text-capitalize">
                 
-              <tr> No. </tr>
+              <th> No. </th>
+              <th> Type of Action</th>
+              <th> Action Taken by </th>
+              <th> Date </th>
 
               @foreach($data['taskDetaisls'] as $step)
               <tr>
                 
+
                 <td>{{$loop->iteration}}</td>
+                <td> {{ \B\TMS\Logics::getTypeOfAction($step['TypeOfAction'])['NameOfAction'] }} </td>
+                <td> {{ \B\Users\Logics::getUserName(session('user.userData.UniqId')) }} </td>
+                <td> {{ \Carbon::parse($step['created_at'])->format('d/m/Y') }}  </td>
 
 
               </tr>

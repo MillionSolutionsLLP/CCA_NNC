@@ -64,6 +64,7 @@ class Controller extends \App\Http\Controllers\Controller
 	        'OTP'=>$RT,
 	        'id'=>$id->toArray()[0],
 	        'OV'=>false,
+	      //  'UniqId'=>$row->pluck('UniqId')->first(),
 	        ] ]);
 	   // \MS\Core\Helper\SMS::sendOTP($number,$RT);
 
@@ -86,6 +87,7 @@ class Controller extends \App\Http\Controllers\Controller
 	        'userData'=>[
 	        	'name'=>$name,
 	        	'email'=>$email,
+	        	'UniqId'=>$row->pluck('UniqId')->first(),
 	        ],
 	        'SuperAdmin'=>1,
 	        ] ]);  
