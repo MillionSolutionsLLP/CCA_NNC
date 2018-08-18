@@ -365,7 +365,13 @@ class Comman {
             if($connection!=""){
                Schema::connection($connection)->dropIfExists($name);
                Schema::connection($connection)->create($name, function (Blueprint $table)use ($array)  {
+
+
+
                 $table->increments('id');
+
+
+
              foreach ($array as $value) {
                      
                      self::makeColumn($table,$value['name'],$value['type']);
@@ -376,6 +382,8 @@ class Comman {
             }else
             {
             	Schema::dropIfExists($name);
+
+            	
                   Schema::create($name, function (Blueprint $table) use ($array) {
                     $table->increments('id');
              foreach ($array as $value) {

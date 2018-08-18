@@ -39,6 +39,24 @@ class Controller extends \App\Http\Controllers\Controller
 		
 		
 	}
+public function indexDataWithSide(){
+
+
+			$data=[
+
+			
+
+			];
+
+		//return view('APanel.V.Pages.home')->with('data',$data);
+
+	return view('APanel.V.panel_data')->with('data',$data);
+		
+
+
+}
+
+
 
 
 	public function indexData(){

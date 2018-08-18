@@ -1,11 +1,11 @@
 <?php
 
-namespace B\TMS\R;
+namespace B\ATMS\R;
 
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Contracts\Validation\Validator;
 
-class AddTask extends FormRequest
+class Form extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -26,13 +26,7 @@ class AddTask extends FormRequest
     {
          return [
             'UniqId'=>"required",
-            'HireAgencyCode'=>"required",
-            'NameOperator'=>"required",
-            'NameOwner'=>"required",
-            'AreaPiracy'=>"required",
-            'IllegalTypeBroadcasting'=>"required",
-            'StatusOperator'=>"required",
-            'NameOfNetwork'=>"required",
+     
           
           
             ];

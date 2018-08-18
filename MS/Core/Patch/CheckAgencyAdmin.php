@@ -25,18 +25,57 @@ class CheckAgencyAdmin
         if(!$request->session()->has('user')){
            
 
-
+            //dd($request->all());
             if($request->is( $userType.'/*')){
-  
-    return redirect()->action("\B\APanel\Controller@login_form");  
+            
+            if(array_key_exists('_', $request->all())){
+
+                    $status=422;
+            $array=[
+                    'msg'=>"Access denied",
+                    //'redirectData'=>action('\B\TMS\Controller@indexData'),
+                    
+                ];
+
+    
+         return response()->json($array, $status);
+
+            }
+            return redirect()->action("\B\APanel\Controller@login_form");  
 
             } elseif ( $request->is( $adminType.'/*') ){
 
-              
+            if(array_key_exists('_', $request->all())){
+
+                    $status=422;
+            $array=[
+                    'msg'=>"Access denied",
+                    //'redirectData'=>action('\B\TMS\Controller@indexData'),
+                    
+                ];
+
+    
+         return response()->json($array, $status);
+
+            }
             return redirect()->action("\B\APanel\Controller@login_form");
 
 
             }else{
+
+                if(array_key_exists('_', $request->all())){
+
+                    $status=422;
+            $array=[
+                    'msg'=>"Access denied",
+                    //'redirectData'=>action('\B\TMS\Controller@indexData'),
+                    
+                ];
+
+    
+         return response()->json($array, $status);
+
+            }
 
                 return redirect()->action("\B\APanel\Controller@login_form");  
 

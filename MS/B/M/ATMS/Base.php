@@ -1,5 +1,5 @@
 <?php
-namespace B\APanel;
+namespace B\ATMS;
 
 
 use \Illuminate\Http\Request;
@@ -17,55 +17,48 @@ class Base{
 ///////////////////////////////////////////////////////////
 /////////////////////////////////////////////////////////
 
-public static $controller="\B\APanel\Controller";
-public static $model="\B\M\APanel\Model";
+public static $controller="\B\ATMS\Controller";
+public static $model="\B\M\ATMS\Model";
 
 
 public static $routes=[
 						[
-						'name'=>'APanel.Index',
+						'name'=>'ATMS.Data',
 						'route'=>'/',
 						'method'=>'index',
 						'type'=>'get',
 						],
 
 						[
-						'name'=>'APanel.Data',
+						'name'=>'ATMS.index.Data',
 						'route'=>'/data',
 						'method'=>'indexData',
 						'type'=>'get',
 						],
 
-						[
-						'name'=>'APanel.Index.Data.Side',
-						'route'=>'/data/side',
-						'method'=>'indexDataWithSide',
-						'type'=>'get',
-						],
-
-						
 
 						[
-						'name'=>'APanel.Data',
-						'route'=>'/login',
-						'method'=>'login_form',
-						'type'=>'get',
-						],
-
-						[
-						'name'=>'APanel.Logout',
-						'route'=>'/logout',
-						'method'=>'logout',
+						'name'=>'ATMS.Task.View.Id',
+						'route'=>'/task/view/{UniqId}',
+						'method'=>'taskViewById',
 						'type'=>'get',
 						],
 
 
-						
+						[
+						'name'=>'ATMS.Task.Upload.Id',
+						'route'=>'/task/upload/{UniqId}',
+						'method'=>'taskUploadById',
+						'type'=>'get',
+						],
 
+						[
+						'name'=>'ATMS.Task.Upload.Id.Post',
+						'route'=>'/task/upload/{UniqId}',
+						'method'=>'taskUploadByIdPost',
+						'type'=>'post',
+						],
 
-
-
-						
 					];
 
 public static $tableNo="0";
@@ -81,15 +74,40 @@ public static $allOnSameconnection=true;
 ////////////////////////////////////////////////////////////////////////
 // Sub Module Start
 ////////////////////////////////////////////////////////////////////////
-public static $table="APanel";
+public static $table="ATMS";
 
-public static $connection1 ="APanel_Data";
+public static $connection1 ="ATMS_Data";
 
 public static $tableStatus1=false;
 
 public static $field=[
-['name'=>'UniqId','type'=>'string','input'=>'auto','value'=>'genUniqID','default'=>'genUniqID',],
+['name'=>'UniqId','type'=>'string','input'=>'auto','value'=>'genUniqID',],
 ['name'=>'Status','type'=>'boolean','input'=>'radio','value'=>'status','default'=>'status'],
+
+];
+
+
+
+////////////////////////////////////////////////////////////////////////
+// Sub Module End
+////////////////////////////////////////////////////////////////////////
+
+
+
+
+////////////////////////////////////////////////////////////////////////
+// Sub Module Start
+////////////////////////////////////////////////////////////////////////
+public static $table2="ATMS";
+
+public static $connection12 ="ATMS_Data";
+
+public static $tableStatus12=false;
+
+public static $field2=[
+['name'=>'UniqId','type'=>'string','input'=>'auto','callback'=>'genUniqID',],
+
+['name'=>'agencyDocument','vName'=>'Select File','type'=>'boolean','input'=>'file'],
 
 ];
 
@@ -118,6 +136,9 @@ public static function status(){
 	'Hide','Publish'
 	];
 }
+
+
+
 
 
 

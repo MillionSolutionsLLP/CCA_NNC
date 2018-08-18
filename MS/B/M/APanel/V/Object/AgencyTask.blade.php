@@ -59,11 +59,11 @@
 			// ],
 
 
-			// 'view'=>[
-			// 	'method'=>'AMS.Agency.View.Id',
-			// 	'key'=>'UniqId',
+			'view'=>[
+				'method'=>'ATMS.Task.View.Id',
+				'key'=>'UniqId',
 
-			// ],
+			],
 
 		];
 
@@ -76,7 +76,7 @@
 						// 						'icon'=>"fa fa-plus",
 						// 						'text'=>"Add Agency"
 						// 					])
-						//->addListAction($link)
+						->addListAction($link)
 						;	
 
 					//dd($build);

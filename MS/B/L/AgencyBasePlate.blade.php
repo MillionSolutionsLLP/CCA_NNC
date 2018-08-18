@@ -15,7 +15,7 @@
 
   
             <div class="ms-content">
-                <div class="row">
+                <div class="">
 
                     <div class="ms-live-tab">
                      

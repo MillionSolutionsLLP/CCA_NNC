@@ -14,9 +14,7 @@ for {{B\MAS\Model::getCompanyName()}} , Solution Provided by Million Solutions L
 @section('content')
 
 
-   <span class="col-lg-12 text-center"><br>
-                       <code>Powered by {{env("APP_V_NAME",'MS System For Cloud ')}}</code>
-                        </span> 
+
     <div class="container">
         <div class="row">
      
@@ -86,17 +84,31 @@ box-shadow: 4px 4px 5px 0px rgba(0,0,0,0.5);">
                    </div>
 
 <br>
-                   <div class="panel-footer text-center">
+                   <div class="panel-footer text-center" style="padding:0px;">
 
 
-                
+                   <table class="table " style="margin-bottom: 0px">
 
                      
-                        <span >We provide support 365 days in year.</span >
-                        <br><i class="fa fa-envelope-o" aria-hidden="true"><b > : help@millionsllp.com</b></i>   |
-                         <i class="fa fa-phone-square " aria-hidden="true"><b > : +91 7990563470</b></i> 
-                     <br><i class="fa fa-copyright" aria-hidden="true"></i> {{date('Y')}}-{{date('Y')+1}},All rights reserved By<a href="http://www.millionsllp.com"> <b>Million Solutions LLP</b> </a>.
-                      
+                        <tr> <td colspan="2"><small> We greatly value your business. </small></td> </tr >
+                        <tr> <td><i class="fa fa-envelope-o" aria-hidden="true"> Mail us : <b>help@millionsllp.com</b></i></td> <td><i class="fa fa-phone-square " aria-hidden="true"> Call us : <b >+91 7990563470</b></i></td> </tr>
+
+
+
+                        <tr>
+                          
+                          <td colspan="2">  <code> <small> Powered by <abbr title="Tier I Solution Package">{{env("APP_V_NAME",'MS System For Cloud ')}}</abbr> & Managed by <abbr title="Million Solutions LLP">MSL </abbr> </code></td>
+                        </tr>
+
+                        <tr>
+                          
+                          <td colspan="2" > <i class="fa fa-copyright" aria-hidden="true"></i> {{date('Y')}}-{{date('Y')+1}},All rights reserved by<a href="http://www.millionsllp.com"> <strong>Million Solutions LLP</strong></a>.</td>
+                        </tr>
+
+                           
+                          
+                     
+                      </table>
                          
                     </div>
 </div>

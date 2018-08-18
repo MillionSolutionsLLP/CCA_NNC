@@ -5,7 +5,7 @@ class Controller extends \App\Http\Controllers\Controller
 {
 	public function __construct(){
      
-
+		$this->middleware('backend');
         //$this->middleware('groupname')->except(['method_name']);
     }
 	public function index(){
@@ -16,18 +16,17 @@ class Controller extends \App\Http\Controllers\Controller
 	// 	Base::migrate(
 
 	// [	
-	// //	['id'=>'0'],
-	// 	//		['id'=>'2'],
-	// 	//		['id'=>'3'],
-	// 	//		['id'=>'4'],
-	// 	//		['id'=>'5'],
+	// 			//['id'=>'0'],
+	// 			['id'=>'2'],
+	// 			['id'=>'3'],
+	// 			['id'=>'4'],
 
 	// ]
 
 
 	// 		);
 
-		//dd(session()->all());
+	// 	dd(session()->all());
 
 
 			$data=[
@@ -119,7 +118,9 @@ class Controller extends \App\Http\Controllers\Controller
 			\MS\Core\Helper\Comman::DB_flush();
 
 			$modelForLCO=new Model('2');
-			//dd($modelForLCO);
+
+
+		
 
 			$dataForLCO=[
 
@@ -128,18 +129,19 @@ class Controller extends \App\Http\Controllers\Controller
 				'LastNameOfOperator'=>$input['NameOperator'],
 				'LastModeoPiracy'=>$input['ModePiracy'],
 
-				'NameOfOperatorArray'=>collect([ [ 'TaskId'=>$uniqid,'NameOfOperator'=>$input['NameOperator']  ]  ]),
+				'NameOfOperatorArray'=>collect([ [ 'TaskId'=>$uniqid,'NameOfOperator'=>$input['NameOperator']  ]  ])->toJson(),
 
-				'ModeoPiracyArray'=>collect([ [ 'TaskId'=>$uniqid,'ModePiracy'=>$input['ModePiracy']  ]  ]),
+				'ModeoPiracyArray'=>collect([ [ 'TaskId'=>$uniqid,'ModePiracy'=>$input['ModePiracy']  ]  ])->toJson(),
 
 							];
 
 			$LCOCheck=$modelForLCO->where('NameOfLCO','=',strtolower($input['NameOfNetwork']))->first();
 			//dd($modelForLCO->MS_all());
 			//dd($LCOCheck);
-			//dd($modelForLCO);
-			if($LCOCheck == null)$modelForLCO->MS_add($dataForLCO);
+		//	dd($dataForLCO);
 
+			if($LCOCheck == null)$modelForLCO->MS_add($dataForLCO);
+				//dd($modelForLCO);
 			\MS\Core\Helper\Comman::DB_flush();
 			$modelOfOwner=new Model('3');
 			//dd($modelForLCO);
@@ -195,7 +197,7 @@ class Controller extends \App\Http\Controllers\Controller
 					];
 			//dd($uniqid);
 			\MS\Core\Helper\Comman::DB_flush();
-			$model2=new Model('1',$uniqid);
+			$model2=new Model('1',$input['UniqId']);
 			//dd($model2);
 			$model2->MS_add($rData,$returnData['id'],$input['UniqId']);
 			\MS\Core\Helper\Comman::DB_flush();
@@ -397,7 +399,7 @@ public function taskDeleteById($UniqId){
 			
 			\MS\Core\Helper\Comman::DB_flush();
 			$m3=new Model(1,$UniqId);
-			$m3->deleteTable();
+			$m3->deleteTable();	
 			\MS\Core\Helper\Comman::DB_flush();
 			
 

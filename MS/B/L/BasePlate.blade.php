@@ -14,8 +14,8 @@
         @include('B.L.Object.Nav')
 
   
-            <div class="ms-content container-fluid">
-                <div class="row">
+            <div class="ms-content ">
+                <div class="">
 
                     <div class="ms-live-tab">
                      

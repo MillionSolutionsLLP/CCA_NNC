@@ -1,8 +1,14 @@
 <div class="panel panel-info" >
       <?php 
 
-                  //   dd($data);
-
+      $userRole=0;
+              if(session('user.SuperAdmin')){
+                      $userRole=1;
+                      }elseif (session('user.AgencyAdmin')) {
+                      $userRole=2;
+                      }else{
+                      $userRole=0;
+                      }
                       ?>
                     
                         <div class="panel-heading text-capitalize"><i class="fa fa-newspaper-o" aria-hidden="true"></i> Task. {{  $data['task']['UniqId'] }}
@@ -12,6 +18,9 @@
                       
                         <div class="panel-body" >
 
+                          <span class="col-lg-12">
+
+      </span>
                         <table class="table table-bordered text-capitalize">
 							
 							<tr>
@@ -70,11 +79,31 @@
 
                      <div class="btn-group btn-group-xs btn-group-justified" >
                               
+                      <?php 
+                   //   dd(session()->all());
+                      if(session('user.SuperAdmin')){
+                      $link="TMS.index.Data";
+                      }elseif (session('user.AgencyAdmin')) {
+                      $link="ATMS.Task.Upload.Id";
+                      }else{
+                      $link=null;
+                      }
+
+                      ?>  
 
 
-                              <div class="btn btn-default ms-text-black ms-mod-btn" ms-live-link="{{ route('TMS.Task.View') }}"><i class="fa fa-arrow-left"  ></i> Go Back to Task List</div>
+                        @if($link!=null)
 
-                           
+                              <div class="btn btn-default ms-text-black ms-mod-btn" ms-live-link="{{ route('ATMS.index.Data') }}"><i class="fa fa-arrow-left"  ></i> Go Back to Task List</div>
+                        @endif
+
+                        @if($userRole==2)
+
+                         <div class="btn btn-default ms-text-black ms-mod-btn btn-info" ms-live-link="{{ route($link, 
+
+                         ['UniqId'=>\MS\Core\Helper\Comman::en4url($data['task']['UniqId']) ] ) }}"><i class="fa fa-cloud-upload"  ></i> Upload Documents</div>
+
+                        @endif                           
 
                             </div>
 

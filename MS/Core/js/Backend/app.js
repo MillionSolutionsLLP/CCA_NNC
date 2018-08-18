@@ -504,9 +504,21 @@ $.ajax({
               
                 },
                 error: errorHandler = function(xhr, status, error) {
-                       // console.log(xhr);
-                
-                   // alert("Something went wrong!"+ "Error is : "+status);
+               if(xhr.status == 422){
+                         $('html, body').animate({
+                            scrollTop: $("#error").offset().top
+                           }, 300);
+
+                       alert(status+': Access Denied');
+                       }
+
+                  $(".ms-mod-tab").slideDown("fast");
+       
+
+
+               loadingOff();
+
+
                 },
                 cache: false,
                 contentType: false,

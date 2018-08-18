@@ -15,6 +15,7 @@ class Builder{
 		$this->listAction=[];
 		$this->listGetter=[];
 		$this->btn=[];
+		$this->action_para=null;
 		//$this->multiple=false;
 
 		
@@ -143,7 +144,7 @@ class Builder{
 
 	}
 
-	public function action($method){
+	public function action($method,$para=null){
 		
 		$class=[
 			'',
@@ -158,6 +159,8 @@ class Builder{
 		$class=implode('@', $class);
 		//dd($class);
 		$this->action=$class;
+
+		if($para!=null)$this->action_para=$para;
 
 		return $this;
 
@@ -379,11 +382,14 @@ switch ($type) {
 
 			'form-title'=>$this->title,
 			'form-content'=>$this->content,//."</div>",
-			'frm-action'=>$this->action,
+			'form-action'=>$this->action,
 			"form-btn"=>$this->btn,
 			//"form-js"=>$this->js
 
 		];
+
+		//dd($this->action_para);
+		if($this->action_para!=null)$data['form-action-para']=$this->action_para;
 
 		if($this->form>0)$data['form-content']=$data['form-content'];
 

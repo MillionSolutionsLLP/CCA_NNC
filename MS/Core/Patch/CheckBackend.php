@@ -28,12 +28,36 @@ class CheckBackend
 
             if($request->is('admin/*')){
 
-  
+    if(array_key_exists('_', $request->all())){
+
+                    $status=422;
+            $array=[
+                    'msg'=>"Access denied",
+                    //'redirectData'=>action('\B\TMS\Controller@indexData'),
+                    
+                ];
+
+    
+         return response()->json($array, $status);
+
+            }
     return redirect()->action("\B\Users\Controller@login_form");  
 
             }else{
 
-              
+            if(array_key_exists('_', $request->all())){
+
+                    $status=422;
+            $array=[
+                    'msg'=>"Access denied",
+                    //'redirectData'=>action('\B\TMS\Controller@indexData'),
+                    
+                ];
+
+    
+         return response()->json($array, $status);
+
+            }
             return redirect()->action("\B\APanel\Controller@login_form");
 
 
@@ -53,38 +77,42 @@ class CheckBackend
         if(!$user['SuperAdmin'])
 
         {
-            $status=422;
+           if(array_key_exists('_', $request->all())){
+
+                    $status=422;
             $array=[
-                    'msg'=>[
-                    'User access is not valid.',
-                        
-
-                    ],
-
+                    'msg'=>"Access denied",
+                    //'redirectData'=>action('\B\TMS\Controller@indexData'),
                     
-
                 ];
+
+    
+         return response()->json($array, $status);
+
+            }
                 return redirect()->action("\B\Users\Controller@login_form");  
-                 return response()->json($array, $status);
+               //  return response()->json($array, $status);
 
         }
 
 
        }else{
 
-                $status=422;
+               if(array_key_exists('_', $request->all())){
+
+                    $status=422;
             $array=[
-                    'msg'=>[
-                    'User access is not valid.',
-                        
-
-                    ],
-
+                    'msg'=>"Access denied",
+                    //'redirectData'=>action('\B\TMS\Controller@indexData'),
                     
-
                 ];
+
+    
+         return response()->json($array, $status);
+
+            }
                 return redirect()->action("\B\Users\Controller@login_form");  
-                 return response()->json($array, $status);
+                // return response()->json($array, $status);
        }
 
 

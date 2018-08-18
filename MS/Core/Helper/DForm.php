@@ -119,8 +119,9 @@ public function input($value,$key){
 							break;
 
 						case 'file':
-							//dd($value);
+							
 							$html.=Form::inputFile($value,$key);
+							// /dd($html);
 							break;
 
 						case 'auto':

@@ -57,7 +57,7 @@ protected $base_Field;
         foreach ($this->base_Field as $key => $value) {
             $this->fillable[]=$value['name'];
         }
-
+        $this->fillable[]='id';
         
         
     }
@@ -250,47 +250,26 @@ protected $base_Field;
 
     }
 
+
+
     public function MS_add($data,$id=null,$uniqId=null){
-            
-            if($id!=null)
-                {
 
-                    if($uniqId!=null){
-                        $row=new Model($id,$uniqId);
+         if(array_key_exists('_token', $data))unset($data['_token']);
+         if(!array_key_exists('UniqId', $data))$data['UniqId']=Base::genUniqID();
 
-                    }else{
-                    $row=new Model($id);}
+        if(!array_key_exists('created_at', $data))$data['created_at']=\Carbon::createFromTimestamp(-1)->toDateTimeString();
+        if(!array_key_exists('updated_at', $data))$data['updated_at']=\Carbon::createFromTimestamp(-1)->toDateTimeString();
 
-                }else{
+        $data2=\DB::connection($this->connection)->table($this->table)->insertGetId($data);
 
-                    if(isset($this->id)){
+        return ['status'=>'200'];
+        // dd($data2);
 
-                        $row=new Model($this->id);
-                    }else{
-                        $row=new Model();
 
-                    }
-                    
-                }
-          //  $data['AttachmentsArray']="array";
-           // if(!(array_key_exists('Attachments', $data)))$data['Attachments']="array";
-             if(array_key_exists('_token', $data))unset($data['_token']);
-             if(!array_key_exists('UniqId', $data))$data['UniqId']=Base::genUniqID();
-        foreach ($data as $key => $value) {
-            $row->$key=$value;
-            
-        }
-        \MS\Core\Helper\Comman::DB_flush();
-
-        if($row->checkSave()['error']){
-            return ['status'=>'200'];
-        }
-            return ['status'=>'200','msg'=>$row->checkSave()];
     }
 
 
-    public function checkSave(){
-
+      public function checkSave(){
 
          $error=\MS\Core\Helper\Comman::findDuplicate($this,'UniqId',$this->UniqId);
         // dd($error);

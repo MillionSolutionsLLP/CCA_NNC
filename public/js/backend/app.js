@@ -1136,9 +1136,17 @@ function getMsModLink(link) {
       loadingOff();
     },
     error: errorHandler = function errorHandler(xhr, status, error) {
-      // console.log(xhr);
+      if (xhr.status == 422) {
+        $('html, body').animate({
+          scrollTop: $("#error").offset().top
+        }, 300);
 
-      // alert("Something went wrong!"+ "Error is : "+status);
+        alert(status + ': Access Denied');
+      }
+
+      $(".ms-mod-tab").slideDown("fast");
+
+      loadingOff();
     },
     cache: false,
     contentType: false,
