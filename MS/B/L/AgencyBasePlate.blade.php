@@ -41,7 +41,7 @@
 <li class=" ms-live-link" ms-live-link='{{action("\B\Panel\Controller@index") }}'> {{B\MAS\Model::getCompanyName()}}: </li>
 <li class=" ms-live-link" ms-live-link='{{action("\B\Panel\Controller@index") }}'>Home</li>
 @yield('Page-breadcrumb')
-<dl class=" ms-live-link pull-right" ms-live-link='{{action("\B\Panel\Controller@index") }}'>{{ Carbon::now()->format('l\\, jS \\of F\\, Y')}} <span id="clock">{{ Carbon::now()->format('h:i:s A')}}</span></dl>
+<dl class=" ms-live-link pull-right" ms-live-link='{{action("\B\Panel\Controller@index") }}'>{{ Carbon::now()->format('l\\, jS \\of F\\, Y')}} </dl>
 @endsection
 
 @section('js')

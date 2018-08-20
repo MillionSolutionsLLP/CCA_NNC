@@ -129,7 +129,7 @@ class Builder{
 
 
 
-			$this->content.="<div class='DynamicSection row' style='padding-left:0px;padding-right:0px;'>";
+			$this->content.="<div class='DynamicSection row' ms-has-other='1' style='padding-left:0px;padding-right:0px;'>";
 			$this->content.=\MS\Core\Helper\DForm::display($formdata,$formdataArray);	}
 		else{
 		$this->index=$this->index+count($formdata);

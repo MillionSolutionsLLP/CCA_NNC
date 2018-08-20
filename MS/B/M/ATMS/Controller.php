@@ -12,6 +12,8 @@ class Controller extends \App\Http\Controllers\Controller
 
 
 
+		//Base::migrate([ ['id'=>3] ]);
+
 
 			$data=[
 
@@ -92,28 +94,29 @@ class Controller extends \App\Http\Controllers\Controller
 
 			$id=2;
 		$build=new \MS\Core\Helper\Builder (__NAMESPACE__);
-
-		$build->title("Upload Document For Task No.".$uniqId)->heading(['Basic Details of Documents'])->content($id)->action("taskUploadByIdPost",\MS\Core\Helper\Comman::en4url($uniqId))->btn([
+		\MS\Core\Helper\Comman::DB_flush();
+		$build->title("Upload Document For Task No.".$uniqId)->action("taskUploadByIdPost",\MS\Core\Helper\Comman::en4url($uniqId))->btn([
 								'action'=>"\\B\\ATMS\\Controller@taskViewById",
 								'action-para'=>\MS\Core\Helper\Comman::en4url($uniqId),
 								'color'=>"btn-info",
 								'icon'=>"fa fa-fast-backward",
-								'text'=>"Back"
+								'text'=>"Back to Task Overview"
 							])->btn([
 								//'action'=>"\\B\\MAS\\Controller@addCCPost",
 								'color'=>"btn-success",
 								'icon'=>"fa fa-floppy-o",
 								'text'=>"Upload"
-							]);
+							])->js(["Core.js.Backend.Multiple","ATMS.J.UploadDocument"])->extraFrom(2,['title'=>'Attachments','multiple'=>true,'multipleAdd'=>true]);
 
 		//dd($build);
+		\MS\Core\Helper\Comman::DB_flush();
 		return $build->view();
 
 
 	}
 
 
-	public function taskUploadByIdPost($UniqId){
+	public function taskUploadByIdPost($UniqId,R\UploadDocuments $r){
 
 
 

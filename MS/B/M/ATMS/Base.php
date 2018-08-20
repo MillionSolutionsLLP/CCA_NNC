@@ -67,7 +67,7 @@ public static $tableNo="0";
 
 public static $connection ="MSDBC";
 
-public static $allOnSameconnection=true;
+public static $allOnSameconnection=false;
 
 
 
@@ -81,7 +81,9 @@ public static $connection1 ="ATMS_Data";
 public static $tableStatus1=false;
 
 public static $field=[
-['name'=>'UniqId','type'=>'string','input'=>'auto','value'=>'genUniqID',],
+//['name'=>'UniqId','type'=>'string','input'=>'auto','value'=>'genUniqID',],
+
+
 ['name'=>'Status','type'=>'boolean','input'=>'radio','value'=>'status','default'=>'status'],
 
 ];
@@ -100,14 +102,39 @@ public static $field=[
 ////////////////////////////////////////////////////////////////////////
 public static $table2="ATMS";
 
-public static $connection12 ="ATMS_Data";
+public static $connection2 ="ATMS_Data";
 
-public static $tableStatus12=false;
+public static $tableStatus2=false;
 
 public static $field2=[
-['name'=>'UniqId','type'=>'string','input'=>'auto','callback'=>'genUniqID',],
-
+//['name'=>'UniqId','type'=>'string','input'=>'auto','callback'=>'genUniqID',],
+['name'=>'TypeOfDocuments','type'=>'string','input'=>'option','callback'=>'getTypeofDocuments',],
 ['name'=>'agencyDocument','vName'=>'Select File','type'=>'boolean','input'=>'file'],
+
+];
+
+
+
+////////////////////////////////////////////////////////////////////////
+// Sub Module End
+////////////////////////////////////////////////////////////////////////
+
+
+
+
+////////////////////////////////////////////////////////////////////////
+// Sub Module Start
+////////////////////////////////////////////////////////////////////////
+public static $table3="ATMS_TypeOfDocuments";
+
+public static $connection3 ="ATMS_Master";
+
+public static $tableStatus3=false;
+
+public static $field3=[
+['name'=>'UniqId','type'=>'string','input'=>'auto','callback'=>'genUniqID',],
+['name'=>'NameOfDocuments','type'=>'string','input'=>'option','callback'=>'getTypeofDocuments',],
+
 
 ];
 
@@ -135,6 +162,22 @@ public static function status(){
 	return [
 	'Hide','Publish'
 	];
+}
+
+public static function getTypeofDocuments(){
+
+	$tableId='3';
+	$m1=new Model($tableId);
+	//dd($m1->MS_all());
+
+	$retuenArray=[];
+
+	foreach ($m1->MS_all() as $key => $value) {
+		$retuenArray[$value['UniqId']]=$value['NameOfDocuments'];
+	}
+
+	$retuenArray['000']="Other Document";
+	return $retuenArray;
 }
 
 

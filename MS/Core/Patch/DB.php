@@ -20,7 +20,8 @@ public $modules=[
 //'BM',
 //'PM',
 'AMS',
-'TMS'
+'TMS',
+'ATMS'
 
 ];
 

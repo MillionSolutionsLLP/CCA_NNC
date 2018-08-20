@@ -8,24 +8,48 @@ protected $table;
 protected $connection;
 protected $fillable;
 protected $base_Field;
+protected $id;
 
 
-    public function __construct($id=false,$code=false,$connection=false)
+     public function __construct($id=false,$code=false,$connection=false)
     {
 
+
+
         if($id){    
+            $this->id=$id;
 
+            session(['MSID'=>$id]);
 
-            if($code){ $this->table=Base::getTable($id).$code;}else{$this->table=Base::getTable($id);}
+            if($code){ $this->table=Base::getTable($id).$code;session(['MSCODE'=>$code]);}else{$this->table=Base::getTable($id);}
             if($connection){$this->connection=$connection;}else{$this->connection=Base::getConnection($id);}
             $this->base_Field=Base::getField($id);
 
         }else
         {
 
+            
+            if(session('MSID')!=null){
+
+            if(session('MSCODE')!=null){
+
+                    $this->table=Base::getTable(session('MSID')).session('MSCODE');
+            }else{
+
+              $this->table=Base::getTable(session('MSID'));  
+            }
+            
+            $this->connection=Base::getConnection(session('MSID'));
+            $this->base_Field=Base::getField(session('MSID'));
+
+
+            }else{
+
             $this->table=Base::getTable();
             $this->connection=Base::getConnection();
             $this->base_Field=Base::getField();
+            }
+           
 
         }
         
@@ -33,7 +57,7 @@ protected $base_Field;
         foreach ($this->base_Field as $key => $value) {
             $this->fillable[]=$value['name'];
         }
-
+        $this->fillable[]='id';
         
         
     }
@@ -61,6 +85,11 @@ protected $base_Field;
 
 
     public function MS_all(){
+
+    return \DB::connection($this->connection)->table($this->table)->get()->map(function($x){ return (array) $x; })->toArray(true);
+    
+
+    
         $row=$this->all();
         return $row;
     }
