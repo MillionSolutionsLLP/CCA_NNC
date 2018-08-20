@@ -110,6 +110,10 @@ public static $field2=[
 //['name'=>'UniqId','type'=>'string','input'=>'auto','callback'=>'genUniqID',],
 ['name'=>'TypeOfDocuments','type'=>'string','input'=>'option','callback'=>'getTypeofDocuments',],
 ['name'=>'agencyDocument','vName'=>'Select File','type'=>'boolean','input'=>'file'],
+['name'=>'NoOfDocument','vName'=>'Unique No of Document','type'=>'boolean','input'=>'text'],
+['name'=>'AmountOfDocument','vName'=>'Total Amount','type'=>'boolean','input'=>'text'],
+['name'=>'DateOfDcument','vName'=>'Total Amount','type'=>'boolean','input'=>'date' ,],
+
 
 ];
 
@@ -522,6 +526,7 @@ public static function genFieldData($data){
 			];
 			}
 			if(array_key_exists('vName', $data))$array['vName']=$data['vName'];
+			if(array_key_exists('data', $data))$array['data']=$data['data'];
 
 			break;
 

@@ -36,7 +36,7 @@ $( ".AddSectionBtn" ).bind( "click", function() {
 
 
 
-	$(".DynamicSection [type=text]:last").remove();
+	$(".DynamicSection .ms-other:last").remove();
 
 
  	}

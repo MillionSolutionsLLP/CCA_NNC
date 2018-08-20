@@ -12,7 +12,7 @@ if(!other[id]){
 
 
 	other[id]=1;
-	var html='<input type="text" name="Other Text" class="form-control" placeholder="Enter Document Name" ms-other-target="'+id+'" >';
+	var html='<input type="text" name="Other Text" class="form-control ms-other" placeholder="Enter Document Name" ms-other-target="'+id+'" >';
 
 	otherContaine=html;
 	var div=$(this).after(html);
@@ -30,8 +30,8 @@ if(!other[id]){
 
 	//var id=$(this).next('input').attr('ms-other-target');
 	other[id]=0;
-	$(this).next('input').remove();
-	console.log();
+	$(this).next('.ms-other').remove();
+	//console.log();
 
 	}
 
