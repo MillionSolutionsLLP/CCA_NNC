@@ -1,4 +1,5 @@
 <?php
+$class="col-lg-6";
 
 if(array_key_exists('index', $data))$index=(string)$data['index'];
 
@@ -8,7 +9,8 @@ if(array_key_exists('ClassData',$data)){
 
 
 
-$class=$data['ClassData']['form-class-div'];
+
+if(array_key_exists('form-class-div'))$class=$data['ClassData']['form-class-div'];
 
 }else{
 $class="col-lg-6";
