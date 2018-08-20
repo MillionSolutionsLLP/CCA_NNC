@@ -89,15 +89,15 @@
                       $link=null;
                       }
 
+                 
+
                       ?>  
 
 
-                        @if($link!=null)
+                        @if($userRole==1)
 
-                              <div class="btn btn-default ms-text-black ms-mod-btn" ms-live-link="{{ route('ATMS.index.Data') }}"><i class="fa fa-arrow-left"  ></i> Go Back to Task List</div>
-                        @endif
-
-                        @if($userRole==2)
+                              <div class="btn btn-default ms-text-black ms-mod-btn" ms-live-link="{{ route($link) }}"><i class="fa fa-arrow-left"  ></i> Go Back to Task List</div>
+                        @elseif($userRole==2)
 
                          <div class="btn btn-default ms-text-black ms-mod-btn btn-info" ms-live-link="{{ route($link, 
 
