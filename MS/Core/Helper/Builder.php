@@ -307,7 +307,7 @@ class Builder{
 		}
 		
 		$data2=[
-			'form-class-div'=>"col-lg-3",
+			'form-class-div'=>"col-lg-4",
 			//'form-class-id'=>$id
 
 		];
@@ -334,6 +334,7 @@ class Builder{
 		}else{
 
 			$this->content($id ,$cdata,$data2);
+			
 			$this->content.="</div>";
 
 		}

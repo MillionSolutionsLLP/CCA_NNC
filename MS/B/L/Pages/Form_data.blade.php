@@ -23,8 +23,8 @@
 		</div>
 
 		<div class="panel-footer bg-info ">
-			<center class="">
-			<div class="btn-group">
+		
+			<div class="btn-group btn-group-justified">
 
 
 				
@@ -38,18 +38,18 @@
 			@if(array_key_exists('data',$btn))
 			
 			@if(array_key_exists('color',$btn))
-			{{ Form::button("<i class='".$btn["icon"]." ' aria-hidden='true'></i> ".$btn["text"], ['class'=>'btn   ms-mod-btn '.$btn['color'].' ms-text-black' , 'ms-live-link'=>$action,] ) }}
+			{{ Form::msButton("<i class='".$btn["icon"]." ' aria-hidden='true'></i> ".$btn["text"], ['class'=>'btn   ms-mod-btn '.$btn['color'].' ms-text-black' , 'ms-live-link'=>$action,] ) }}
 			@else
-			{{ Form::button("<i class='".$btn["icon"]."' aria-hidden='true'></i> ".$btn["text"], ['class'=>'btn btn-info   ms-mod-btn'.' ms-text-black' , 'ms-live-link'=>$action,] ) }}
+			{{ Form::msButton("<i class='".$btn["icon"]."' aria-hidden='true'></i> ".$btn["text"], ['class'=>'btn btn-info   ms-mod-btn'.' ms-text-black' , 'ms-live-link'=>$action,] ) }}
 			@endif
 
 
 			@else
 			
 			@if(array_key_exists('color',$btn))
-			{{ Form::button("<i class='".$btn["icon"]."' aria-hidden='true'></i> ".$btn["text"], ['class'=>'btn   ms-mod-btn '.$btn['color'].' ms-text-black' , 'ms-live-link'=>$action,] ) }}
+			{{ Form::msButton("<i class='".$btn["icon"]."' aria-hidden='true'></i> ".$btn["text"], ['class'=>'btn   ms-mod-btn '.$btn['color'].' ms-text-black' , 'ms-live-link'=>$action,] ) }}
 			@else
-			{{ Form::button("<i class='".$btn["icon"]."' aria-hidden='true'></i> ".$btn["text"], ['class'=>'btn btn-info   ms-mod-btn ms-text-black ' , 'ms-live-link'=>$action,] ) }}
+			{{ Form::msButton("<i class='".$btn["icon"]."' aria-hidden='true'></i> ".$btn["text"], ['class'=>'btn btn-info   ms-mod-btn ms-text-black ' , 'ms-live-link'=>$action,] ) }}
 			@endif
 
 
@@ -59,9 +59,9 @@
 			@else
 
 			@if(array_key_exists('color',$btn))
-			{{ Form::button("<i class='".$btn["icon"]."' aria-hidden='true'></i> ".$btn["text"], ['class'=>'btn  btn-frm-submit end-close '.$btn['color'].' ms-text-black'] ) }}
+			{{ Form::msButton("<i class='".$btn["icon"]."' aria-hidden='true'></i> ".$btn["text"], ['class'=>'btn  btn-frm-submit end-close '.$btn['color'].' ms-text-black'] ) }}
 			@else
-			{{ Form::button("<i class='".$btn["icon"]."' aria-hidden='true'></i> ".$btn["text"], ['class'=>'btn btn-success  btn-frm-submit ms-text-black'] ) }}
+			{{ Form::msButton("<i class='".$btn["icon"]."' aria-hidden='true'></i> ".$btn["text"], ['class'=>'btn btn-success  btn-frm-submit ms-text-black'] ) }}
 			@endif
 			
 
@@ -70,7 +70,7 @@
 
 			@endforeach
 			</div>
-			</center>
+	
 		
 		</div>
 

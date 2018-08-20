@@ -8,7 +8,7 @@ $(document).on("click",".RemoveSectionBtn",function(){
   var id2=  $(this).closest('.DynamicSection').attr('ms-has-other'); 
 
   other[id2]=0;
-  $(this).parent('div').remove();
+  $(this).closest('.DynamicSection').remove();
  // alert($("[ms-input-count]").attr('ms-input-count'));
 var input =parseInt($("[ms-input-count]").attr('ms-input-count'));
   $("[ms-input-count]").attr('ms-input-count',input-1);

@@ -31,6 +31,8 @@ class FormServiceProvider extends ServiceProvider
         \Form::component('inputLockTextArea', 'Core.HTML.Form.Input.LockTextArea', ['data','index']);
         \Form::component('inputDate', 'Core.HTML.Form.Input.date', ['data','index']);
 
+        \Form::component('msButton', 'Core.HTML.Form.Button.btnGroup', ['name', 'attributes']);
+
     }
 
     /**
