@@ -28,7 +28,7 @@ $( ".AddSectionBtn" ).bind( "click", function() {
 
  	
 
-	$(".DynamicSection:last").after("<div class='DynamicSection row' ms-has-other='"+input+"'> <div class='col-lg-12'><br>"+html+"<span class='btn btn-sm btn-default btn-danger glyphicon glyphicon-remove pull-right RemoveSectionBtn' style='padding:2px 2px;'></span></div><div class='col-lg-12'></div>");
+	$(".DynamicSection:last").after("<div class='DynamicSection row' style='margin-left: 0px;margin-right: 0px;' ms-has-other='"+input+"'> <div class='col-lg-12'><br>"+html+"<span class='btn btn-sm btn-default btn-danger glyphicon glyphicon-remove pull-right RemoveSectionBtn' style='padding:2px 2px;'></span></div><div class='col-lg-12'></div>");
 
 
 

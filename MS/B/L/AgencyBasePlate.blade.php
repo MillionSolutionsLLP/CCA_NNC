@@ -15,7 +15,7 @@
 
   
             <div class="ms-content">
-                <div class="">
+               
 
                     <div class="ms-live-tab">
                      
@@ -25,7 +25,7 @@
 
                     </div>
 
-                </div>
+             
              
             
             </div>

@@ -10,7 +10,7 @@ class Controller extends \App\Http\Controllers\Controller
     }
 	public function index(){
 
-
+			\MS\Core\Helper\Comman::DB_flush();
 
 		//Base::migrate([ ['id'=>3] ]);
 
@@ -28,7 +28,7 @@ class Controller extends \App\Http\Controllers\Controller
 
 	public function indexData(){
 
-
+	\MS\Core\Helper\Comman::DB_flush();
 
 
 			$data=[
@@ -80,7 +80,7 @@ class Controller extends \App\Http\Controllers\Controller
 		//dd($m->where('UniqId',$uniqId)->first());
 	//	dd($newsData);
 
-		return view('TMS.V.Object.TaskDetails')->with('data',$data);
+		return view('ATMS.V.Object.TaskDetails')->with('data',$data);
 	}
 
 
@@ -93,6 +93,7 @@ class Controller extends \App\Http\Controllers\Controller
 
 
 			$id=2;
+				\MS\Core\Helper\Comman::DB_flush();
 		$build=new \MS\Core\Helper\Builder (__NAMESPACE__);
 		\MS\Core\Helper\Comman::DB_flush();
 		$build->title("Upload Document For Task No.".$uniqId)->action("taskUploadByIdPost",\MS\Core\Helper\Comman::en4url($uniqId))->btn([
@@ -118,6 +119,146 @@ class Controller extends \App\Http\Controllers\Controller
 
 	public function taskUploadByIdPost($UniqId,R\UploadDocuments $r){
 
+		$UniqId=\MS\Core\Helper\Comman::de4url($UniqId);
+		$input=$r->all();
+
+		$dataArray=[];
+
+
+
+		foreach ($input['TypeOfDocuments'] as $key => $value) {
+		
+
+			$dataArray[$key]=[
+
+
+				'type'=>$input['TypeOfDocuments'][$key],
+				'date'=>$input['DateOfDocument'][$key],
+				//'file'=>$input['agencyDocument'][$key],
+
+
+
+			];
+
+			if(array_key_exists('NoOfDocument', $input)){
+
+				if(array_key_exists($key, $input['NoOfDocument'])){
+
+					$dataArray[$key]['NoOfDocument']=$input['NoOfDocument'][$key];
+
+				}
+
+			}
+
+			if(array_key_exists('AmountOfDocument', $input)){
+
+				if(array_key_exists($key, $input['AmountOfDocument'])){
+
+					$dataArray[$key]['AmountOfDocument']=$input['AmountOfDocument'][$key];
+
+				}
+
+			}
+
+
+			if(array_key_exists('agencyDocument', $input)){
+
+				if(array_key_exists($key, $input['agencyDocument'])){
+
+					$dataArray[$key]['file']=$input['agencyDocument'][$key];
+
+				}else{
+
+					$status=402;
+					$array=[
+					'msg'=>[ 'Please select all to upload.' ],
+			 		
+
+				];
+
+	
+				 return response()->json($array, $status);
+
+//					return collect([ 'msg'=> ])->toJ; 
+				}
+
+			}
+
+
+
+
+		}
+
+
+
+		$path=[
+
+			'000'=>'Data'.DIRECTORY_SEPARATOR.$UniqId.DIRECTORY_SEPARATOR.'000',
+			'111'=>'Data'.DIRECTORY_SEPARATOR.$UniqId.DIRECTORY_SEPARATOR.'111',
+			'222'=>'Data'.DIRECTORY_SEPARATOR.$UniqId.DIRECTORY_SEPARATOR.'222',
+			'333'=>'Data'.DIRECTORY_SEPARATOR.$UniqId.DIRECTORY_SEPARATOR.'333',
+			'444'=>'Data'.DIRECTORY_SEPARATOR.$UniqId.DIRECTORY_SEPARATOR.'444',
+			'555'=>'Data'.DIRECTORY_SEPARATOR.$UniqId.DIRECTORY_SEPARATOR.'555',
+			'666'=>'Data'.DIRECTORY_SEPARATOR.$UniqId.DIRECTORY_SEPARATOR.'666',
+			'777'=>'Data'.DIRECTORY_SEPARATOR.$UniqId.DIRECTORY_SEPARATOR.'777',
+			'888'=>'Data'.DIRECTORY_SEPARATOR.$UniqId.DIRECTORY_SEPARATOR.'888',
+			'999'=>'Data'.DIRECTORY_SEPARATOR.$UniqId.DIRECTORY_SEPARATOR.'999',
+			];
+
+			$alltype=Base::getTypeofDocuments();
+			$disk='ATMS';
+			$filePath=[];
+			//dd($alltype);
+
+
+
+		foreach ($dataArray as $key => $value) {
+
+				$fileName=$alltype[$value['type']] ."_".Base::genUniqID().".".$value['file']->getClientOriginalExtension();
+
+				$filePath[$fileName]=$value['file']->storeAs($path[$value['type']], $fileName, $disk);
+		}
+
+
+	\MS\Core\Helper\Comman::DB_flush();
+		$m1=new \B\TMS\Model('1',$UniqId);
+
+
+
+
+		$dbArray=[
+
+			'TypeOfAction'=>'3',
+			'DocumentUploaded'=>true,
+			'DocumentArray'=>json_encode($filePath,true,3),
+			'DocumentVerified'=>false,
+			'DocumentVerifiedArray'=>json_encode([],true,3),
+			'VerifiedBy'=>null,
+			'TakenBy'=>session('user.UniqId'),
+
+		];
+
+
+		$m1->MS_add($dbArray);
+
+		$status=200;
+			$array=[
+					'msg'=>'OK',
+					'redirectData'=>action('\B\ATMS\Controller@indexData'),
+					
+
+				];
+
+				return response()->json($array, $status);
+
+
+				
+
+
+
+
+
+	
 
 
 	}

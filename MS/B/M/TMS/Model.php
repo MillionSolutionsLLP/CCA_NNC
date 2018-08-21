@@ -257,8 +257,8 @@ protected $base_Field;
          if(array_key_exists('_token', $data))unset($data['_token']);
          if(!array_key_exists('UniqId', $data))$data['UniqId']=Base::genUniqID();
 
-        if(!array_key_exists('created_at', $data))$data['created_at']=\Carbon::createFromTimestamp(-1)->toDateTimeString();
-        if(!array_key_exists('updated_at', $data))$data['updated_at']=\Carbon::createFromTimestamp(-1)->toDateTimeString();
+        if(!array_key_exists('created_at', $data))$data['created_at']=\Carbon::now()->toDateTimeString();
+        if(!array_key_exists('updated_at', $data))$data['updated_at']=\Carbon::now()->toDateTimeString();
 
         $data2=\DB::connection($this->connection)->table($this->table)->insertGetId($data);
 

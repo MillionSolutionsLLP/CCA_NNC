@@ -76,6 +76,13 @@ return [
             'visibility' => 'public',
         ],
 
+        'ATMS' => [
+            'driver' => 'local',
+            'root' => public_path('ATMS'),
+            'url' => env('APP_URL').'/ATMS',
+            'visibility' => 'public',
+        ],
+
      
 
     ],

@@ -7,7 +7,7 @@ if(array_key_exists('ClassData',$data)){
 
 
 
-if(array_key_exists('form-class-div'))$class=$data['ClassData']['form-class-div'];
+if(array_key_exists('form-class-div',$data['ClassData']))$class=$data['ClassData']['form-class-div'];
 }else{
 $class="col-lg-6";
 
@@ -30,7 +30,7 @@ if(array_key_exists('data', $data)){
 
 
 
-@foreach($data['data'] as $value=>$lable)
+@foreach($data['dataArray'] as $value=>$lable)
 <label tabindex="{{$index}}" class="form-conrtol">
 
 	@if ($value == $data['value'])

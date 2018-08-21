@@ -181,6 +181,7 @@ public static function getTypeofDocuments(){
 	foreach ($m1->MS_all() as $key => $value) {
 		$retuenArray[$value['UniqId']]=$value['NameOfDocuments'];
 	}
+	\MS\Core\Helper\Comman::DB_flush();
 
 	$retuenArray['000']="Other Document";
 	return $retuenArray;

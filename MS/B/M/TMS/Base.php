@@ -739,9 +739,10 @@ public static function genFieldData($data){
 			'name'=>$data['name'],
 			'type'=>$data['input'],
 			'value'=>(array_key_exists('callback', $data) ? self::$data['callback']() : null),
-			'data'=>(array_key_exists('default', $data) ? self::$data['default']() : null),
+			'dataArray'=>(array_key_exists('default', $data) ? self::$data['default']() : null),
 			];
 			if(array_key_exists('vName', $data))$array['vName']=$data['vName'];
+			if(array_key_exists('data', $data))$array['data']=$data['data'];
 			break;
 
 		case 'check':

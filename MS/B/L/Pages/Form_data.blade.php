@@ -1,4 +1,3 @@
-<div class="conatiner-fluid">
 
 <div class="panel panel-default">
 
@@ -77,9 +76,6 @@
 	
 		{!! Form::close() !!}
 
-
-
-</div>
 
 
 </div>

@@ -25,7 +25,12 @@ class UploadDocuments extends FormRequest
     public function rules()
     {
          return [
-            'UniqId'=>"required",
+          //  'UniqId'=>"required",
+            'TypeOfDocuments.*' =>'required',
+            'DateOfDocument.*'  =>'required',
+            'agencyDocument'    =>'required',
+            'NoOfDocument.*'    =>"required_if:TypeOfDocuments.*,777|required_if:TypeOfDocuments.*,888",
+            'AmountOfDocument.*'=>"required_if:TypeOfDocuments.*,777|required_if:TypeOfDocuments.*,888"
      
           
           
@@ -44,5 +49,18 @@ class UploadDocuments extends FormRequest
 
    
 }
+
+
+
+public function messages()
+{
+    return [
+
+        'NoOfDocument.*.required_if'=>"Unique Document No like Invoice no./Bill No. Required",
+        'AmountOfDocument.*.required_if'=>"Total Amount required that is displayed in selected Bill/Invoice",
+        'DateOfDocument.*.required'=>"Date of document Required."
+    ];
+}
+
 
 }

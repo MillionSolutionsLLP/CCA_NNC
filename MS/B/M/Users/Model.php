@@ -28,8 +28,16 @@ protected $base_Field;
 
         $m=new Model();
         //dd($m->where('UniqId',$code)->first()->toArray()['UserName']);
+        $u=$m->where('UniqId',$code)->first();
+        if($u==null){
+            return null;
+        }else{
 
-        return $m->where('UniqId',$code)->first()->toArray()['UserName'];
+             return $m->where('UniqId',$code)->first()->toArray()['UserName'];
+        }
+
+
+       
         
 
     }
@@ -89,6 +97,8 @@ protected $base_Field;
             $row->$key=$value;
             
         }
+
+        $row->timestamp();
 
         if($row->checkSave()['error']){
             return ['status'=>'200'];

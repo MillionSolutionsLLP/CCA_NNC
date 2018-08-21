@@ -72,7 +72,24 @@ protected $base_Field;
 
         $model=new Model(0);
         $data=$model->where('UniqId',$code)->first();
-        $return='No Agancy Found on This ID';
+        $return=null;
+        if($data ==null)  {return $return;}else{ $return=$data->toArray()['Name']  ;}
+
+        return  $return; 
+
+
+
+
+
+    }
+
+
+     public static function getAgencyFromId($code){
+            
+
+        $model=new Model(0);
+        $data=$model->where('UniqId',$code)->first();
+        $return=null;
         if($data ==null)  {return $return;}else{ $return=$data->toArray()['Name']  ;}
 
         return  $return; 

@@ -6,7 +6,7 @@ if(!array_key_exists('vName', $data))$data['vName']=$data['lable'];
 if(array_key_exists('ClassData',$data)){
 
 
-if(array_key_exists('form-class-div'))$class=$data['ClassData']['form-class-div'];
+if(array_key_exists('form-class-div',$data['ClassData']))$class=$data['ClassData']['form-class-div'];
 }else{
 $class="col-lg-6";
 

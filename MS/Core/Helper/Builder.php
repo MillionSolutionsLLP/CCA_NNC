@@ -128,12 +128,24 @@ class Builder{
 			}
 
 
+			if($this->form ==1){
 
-			$this->content.="<div class='DynamicSection row' ms-has-other='1' style='padding-left:0px;padding-right:0px;'>";
-			$this->content.=\MS\Core\Helper\DForm::display($formdata,$formdataArray);	}
+			$this->content.="<div class='DynamicSection col-lg-12' ms-has-other='1' style='margin-left:0px;margin-right:0px;'>";
+			$this->content.=\MS\Core\Helper\DForm::display($formdata,$formdataArray);
+
+
+			}else{
+
+			$this->content.="<div class='DynamicSection row' ms-has-other='1' style='margin-left:0px;margin-right:0px;'>";
+			$this->content.=\MS\Core\Helper\DForm::display($formdata,$formdataArray);
+
+			}
+			}
+
+
 		else{
 		$this->index=$this->index+count($formdata);
-		$this->content.="<div class='row'>".\MS\Core\Helper\DForm::display($formdata,$formdataArray)."</div>";	
+		$this->content.="<div class='row' style='margin-left:0px;margin-right:0px;' >".\MS\Core\Helper\DForm::display($formdata,$formdataArray)."</div>";	
 		}
 		
 		

@@ -38,8 +38,8 @@
 
 
 @section('breadcrumb')
-<li class=" ms-live-btn" ms-live-link='{{action("\B\MAS\Controller@indexData") }}'> {{B\MAS\Model::getCompanyName()}}: </li>
-<li class=" ms-live-btn ms-breadcrumb-end" ms-live-link='{{action("\B\Panel\Controller@index_data") }}'><i class="fa fa-home" aria-hidden="true"></i></li>
+<li class=" ms-live-link" ms-live-link='{{action("\B\MAS\Controller@indexData") }}'> {{B\MAS\Model::getCompanyName()}}: </li>
+<li class=" ms-live-link ms-breadcrumb-end" ms-live-link='{{action("\B\Panel\Controller@index_data") }}'><i class="fa fa-home" aria-hidden="true"></i></li>
 @yield('Page-breadcrumb')
 <dl class=" ms-live-btn pull-right" ms-live-link='{{action("\B\Panel\Controller@index") }}'> {{ Carbon::now()->format('l\\, jS \\of F\\, Y')}} </dl>
 @endsection
