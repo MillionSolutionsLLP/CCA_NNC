@@ -10,10 +10,10 @@
 
 
 
-         <div class="btn-group" role="group" aria-label="...">
-          <span class="btn btn-default collapsed " role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseOne" aria-expanded="false" aria-controls="collapseOne"><i class="fa fa-archive" aria-hidden="true"></i> Company Master </span>
+         <div class="btn-group ms-btn-full-width" role="group" aria-label="...">
+          <span class="btn btn-default collapsed ms-btn-full-width-main text-left " role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseOne" aria-expanded="false" aria-controls="collapseOne"><i class="fa fa-archive" aria-hidden="true"></i> Company Master </span>
 
-           <span class="pull-right ms-mod-btn btn btn-default" ms-live-link="{{ action("\B\MAS\Controller@indexData") }}">
+           <span class="pull-right ms-mod-btn btn btn-default ms-btn-full-width-side" ms-live-link="{{ action("\B\MAS\Controller@indexData") }}">
             
             <i class="fa fa-home" aria-hidden="true"></i>
 
@@ -28,10 +28,17 @@
     <div id="collapseOne" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingOne">
       <div class="panel-body list-group">
        
-		  <a href="#" class="list-group-item ms-mod-btn" ms-live-link="{{ action("\B\MAS\Controller@editCompany") }}">Manage Company Details</a>
-		  <a href="#" class="list-group-item ms-mod-btn" ms-live-link="{{ action("\B\MAS\Controller@viewTax") }}">Manage Tax Details</a>
-		  <a href="#" class="list-group-item ms-mod-btn" ms-live-link="{{ action("\B\MAS\Controller@editHSNSAC") }}">Manage HSN/SAC</a>
-		  <a href="#" class="list-group-item ms-mod-btn" ms-live-link="{{ action("\B\MAS\Controller@viewTNC") }}">Manage Terms & Conditions</a>
+		  <a href="#" class="list-group-item ms-mod-btn" ms-live-link="{{ action("\B\MAS\Controller@editCompany") }}"><i class="fa fa-university" aria-hidden="true"></i> Manage Company Details</a>
+		  <a href="#" class="list-group-item ms-mod-btn" ms-live-link="{{ action("\B\MAS\Controller@viewTax") }}"><i class="fa fa-percent" aria-hidden="true"></i> Manage Tax Details</a>
+		  <a href="#" class="list-group-item ms-mod-btn" ms-live-link="{{ action("\B\MAS\Controller@editHSNSAC") }}"><i class="fa fa-code" aria-hidden="true"></i> Manage HSN/SAC</a>
+		  <a href="#" class="list-group-item ms-mod-btn" ms-live-link="{{ action("\B\MAS\Controller@viewTNC") }}"><i class="fa fa-handshake-o" aria-hidden="true"></i> Manage Terms & Conditions</a>
+
+
+      <a href="#" class="list-group-item ms-mod-btn" ms-live-link="{{ action("\B\Users\Controller@view_all_users") }}"><i class="fa fa-users" aria-hidden="true"></i> Manage Users</a>
+
+
+
+      
 		
       </div>
     </div>

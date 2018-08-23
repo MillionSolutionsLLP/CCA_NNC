@@ -119,6 +119,7 @@
               <th> Type of Action</th>
               <th> Action Taken by </th>
               <th>Documents</th>
+              <th>Action</th>
               <th> Date </th>
 
               @foreach($data['taskDetaisls'] as $step)
@@ -156,7 +157,7 @@
                  ?>
 
 
-                 @if(!$step['DocumentVerified'])
+   
               <table class="table table-bordered text-capitalize">
 
                 
@@ -177,8 +178,14 @@
                  @endforeach
                
                </table>
+              
 
-               @endif
+
+
+
+
+
+
 
                  @else
 
@@ -186,6 +193,60 @@
 
                 @endif
                 </td>
+
+
+                <td>
+                  
+
+               @if($step['DocumentVerified'])
+                  
+                  <div class="ms-text-white label label-success "> <i class="fa fa-check"></i> Verified by 
+
+
+                     @if(\B\Users\Logics::getUserName($step['VerifiedBy']))
+
+
+              {{ \B\Users\Logics::getUserName($step['VerifiedBy'])  }} ( Admin )
+
+
+                @elseif(\B\AMS\Logics::getUserName($step['VerifiedBy']))
+
+              {{ \B\AMS\Logics::getUserName($step['VerifiedBy']) }} ( Agency ) 
+
+                @else
+
+           No Data Found  {{ $step['VerifiedBy'] }} 
+                @endif
+
+                    </div>
+
+               @else
+
+               @if($step['DocumentUploaded'])
+               <div class="btn-group btn-group-xs">
+                 
+                <div class="btn btn-info ms-text-black" ms-live-link="{{  route('TMS.Task.Approve.Id',['UniqId'=>\MS\Core\Helper\Comman::en4url($data['task']['UniqId']) ,'StepId'=>\MS\Core\Helper\Comman::en4url($step['UniqId']) ] ) }}">
+                  <i class="fa fa-check"></i>
+                  Approve
+                </div>
+
+                <div class="btn btn-danger ms-text-white">
+                  <i class="fa fa-question"></i>
+                  Rise Query
+                </div>
+
+               </div>
+               @else
+
+                 No Document Uploaded
+
+                @endif
+
+               @endif 
+
+
+                </td>
+
                 <td> {{ \Carbon::parse($step['created_at'])->format('d/m/Y') }}  </td>
 
 
@@ -210,7 +271,7 @@
                       <?php 
                    //   dd(session()->all());
                       if(session('user.SuperAdmin')){
-                      $link="TMS.index.Data";
+                      $link="TMS.Task.View";
                       }elseif (session('user.AgencyAdmin')) {
                       $link="ATMS.Task.Upload.Id";
                       }else{

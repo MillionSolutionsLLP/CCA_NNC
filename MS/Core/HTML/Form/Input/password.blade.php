@@ -30,10 +30,12 @@ if(array_key_exists('data', $data)){
 
 
 
-<div class="form-group {{ $class }}">
+<div class="form-group {{ $class }}" style="
+    padding-top: 18px;margin-bottom: 18px;
+">
 
 
-{{ Form::label($data['name'], $data['vName'],['class'=>'col-md-4']) }}
+{{ Form::label($data['name'], $data['vName'],['class'=>'col-md-4','style'=>'padding-top: 8px;']) }}
 
 
  <div class="input-group">

@@ -13,18 +13,18 @@ class Controller extends \App\Http\Controllers\Controller
 //\MS\Core\Helper\Comman::DB_flush();
 
 	//	dd(session()->all());
-	// 	Base::migrate(
+		Base::migrate(
 
-	// [	
-	// 			//['id'=>'0'],
-	// 			['id'=>'2'],
-	// 			['id'=>'3'],
-	// 			['id'=>'4'],
+	[	
+				['id'=>'7'],
+				//['id'=>'2'],
+				//['id'=>'3'],
+				//['id'=>'4'],
 
-	// ]
+	]
 
 
-	// 		);
+			);
 
 	// 	dd(session()->all());
 
@@ -396,6 +396,9 @@ public function taskDeleteById($UniqId){
 			
 
 			$m1->MS_delete($rData,$tableId);
+
+			\Storage::disk('ATMS')->deleteDirectory("Data".DIRECTORY_SEPARATOR.$UniqId);
+
 			
 			\MS\Core\Helper\Comman::DB_flush();
 			$m3=new Model(1,$UniqId);
@@ -437,6 +440,40 @@ public function taskGenAllocationLatterById($UniqId){
 	$data['task']['fullAddress']='Town.District,State';
 
 return view('TMS.V.Pages.allocationLatter')->with('data',$data);
+}
+
+
+public function taskApproveById($UniqId,$StepId){
+
+	\MS\Core\Helper\Comman::DB_flush();
+	$UniqId=\MS\Core\Helper\Comman::de4url($UniqId);
+	$StepId=\MS\Core\Helper\Comman::de4url($StepId);
+
+
+	$m1=new Model('1',$UniqId) ;
+
+	$taskArray=[];
+	if($m1->where('UniqId',$StepId)->first() != null ){
+
+		$taskArray=$m1->where('UniqId',$StepId)->first()->toArray();
+
+		$documentArray=(array)json_decode($taskArray['DocumentArray'],true,3);
+
+		$documentVerifiedArray=(array)json_decode($taskArray['DocumentVerifiedArray'],true,3);
+	}
+
+	//dd(session()->all());
+
+
+
+	//;
+
+	dd($m1->MS_update( ['DocumentVerifiedArray'=>json_encode($documentArray),'DocumentVerified'=>1,'VerifiedBy'=>session('user.userData.UniqId')] , $StepId ) );
+
+	
+
+
+
 }
 
 }

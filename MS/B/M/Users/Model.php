@@ -87,25 +87,26 @@ protected $base_Field;
 
     }
 
-    public function MS_add($data){
+  public function MS_add($data,$id=0){
             
-            $row=new Model();
+            if($id)
+                {$row=new Model($id);}else{
+                    $row=new Model();
+                }
           //  $data['AttachmentsArray']="array";
            // if(!(array_key_exists('Attachments', $data)))$data['Attachments']="array";
              if(array_key_exists('_token', $data))unset($data['_token']);
+             if(!array_key_exists('UniqId', $data))$data['UniqId']=Base::genUniqID();
         foreach ($data as $key => $value) {
             $row->$key=$value;
             
         }
-
-        $row->timestamp();
 
         if($row->checkSave()['error']){
             return ['status'=>'200'];
         }
             return ['status'=>'200','msg'=>$row->checkSave()];
     }
-
 
     public function checkSave(){
 

@@ -1,7 +1,7 @@
 
 <div class="panel panel-default">
 
-<?php //dd($data);?>
+<?php// dd($data);?>
 	<div  class="panel-heading"><h5 class=""> <strong><i class="glyphicon glyphicon-chevron-right"></i> {{$data['form-title']}}</strong> </h5></div>
 
 

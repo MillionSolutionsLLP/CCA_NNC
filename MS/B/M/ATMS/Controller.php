@@ -216,7 +216,8 @@ class Controller extends \App\Http\Controllers\Controller
 
 				$fileName=$alltype[$value['type']] ."_".Base::genUniqID().".".$value['file']->getClientOriginalExtension();
 
-				$filePath[$fileName]=$value['file']->storeAs($path[$value['type']], $fileName, $disk);
+				$filePath[$fileName]['path']=$value['file']->storeAs($path[$value['type']], $fileName, $disk);
+				
 		}
 
 

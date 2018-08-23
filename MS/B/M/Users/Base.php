@@ -22,18 +22,19 @@ public static $controller="\B\Users\Controller";
 public static $model="\B\M\Users\Model";
 
 public static $field=[
-['name'=>'UniqId','type'=>'string','input'=>'auto','callback'=>'genUniqID','default'=>'genUniqID',],
+['name'=>'UniqId','type'=>'string','input'=>'auto','callback'=>'genUniqID','data'=>['input-size'=>'col-lg-2']],
 
-['name'=>'FirstName','type'=>'string','input'=>'text'],
-['name'=>'LastName','type'=>'string','input'=>'text'],
-['name'=>'UserName','type'=>'string','input'=>'text'],
-['name'=>'Password','type'=>'string','input'=>'text'],
-['name'=>'MobileNumber','type'=>'string','input'=>'text'],
-['name'=>'Email','type'=>'string','input'=>'text'],
-['name'=>'OTP','type'=>'string','input'=>'text'],
-['name'=>'RoleCode','type'=>'string','input'=>'text'],
+['name'=>'FirstName','type'=>'string','input'=>'text','data'=>['input-size'=>'col-lg-5']],
+['name'=>'LastName','type'=>'string','input'=>'text','data'=>['input-size'=>'col-lg-5']],
+['name'=>'UserName','type'=>'string','input'=>'text','data'=>['input-size'=>'col-lg-3']],
+['name'=>'Password','type'=>'string','input'=>'password','data'=>['input-size'=>'col-lg-4']],
+['name'=>'ConfirmPassword','type'=>'string','input'=>'password','data'=>['input-size'=>'col-lg-5']],
+['name'=>'MobileNumber','type'=>'string','input'=>'text','data'=>['input-size'=>'col-lg-4']],
+['name'=>'Email','type'=>'string','input'=>'text','data'=>['input-size'=>'col-lg-4']],
+['name'=>'OTP','type'=>'string','input'=>'text','data'=>['input-size'=>'col-lg-1']],
+['name'=>'RoleCode','type'=>'string','input'=>'text','data'=>['input-size'=>'col-lg-2']],
 
-['name'=>'Status','type'=>'boolean','input'=>'radio','value'=>'status','default'=>'status'],
+['name'=>'Status','type'=>'boolean','input'=>'radio','value'=>'status','default'=>'status','data'=>['input-size'=>'col-lg-4']],
 
 ];
 public static $routes=[
@@ -110,6 +111,16 @@ public static $routes=[
 						'type'=>'post',
 						],
 
+
+						[
+						'name'=>'Users.View',
+						'route'=>'/view/user',
+						'method'=>'view_all_users',
+						'type'=>'get',
+						],
+
+
+						
 					];
 
 
@@ -476,6 +487,7 @@ public static function genFieldData($data){
 			}
 			if(array_key_exists('vName', $data))$array['vName']=$data['vName'];
 			if(array_key_exists('editLock', $data))$array['editLock']=$data['editLock'];
+			if(array_key_exists('data', $data))$array['data']=$data['data'];
 			break;
 
 		case 'email':
@@ -487,6 +499,7 @@ public static function genFieldData($data){
 			'default'=>(array_key_exists('default', $data) ? self::$data['default']() : null),
 			];
 			if(array_key_exists('vName', $data))$array['vName']=$data['vName'];
+			if(array_key_exists('data', $data))$array['data']=$data['data'];
 			break;
 
 		case 'number':
@@ -497,6 +510,7 @@ public static function genFieldData($data){
 			'value'=>(array_key_exists('callback', $data) ? self::$data['callback']() : null),
 			];
 			if(array_key_exists('vName', $data))$array['vName']=$data['vName'];
+			if(array_key_exists('data', $data))$array['data']=$data['data'];
 			break;
 		case 'option':
 
@@ -505,10 +519,11 @@ public static function genFieldData($data){
 			'lable'=>ucfirst($data['name']),
 			'name'=>$data['name'],
 			'type'=>$data['input'],
-			'data'=>(array_key_exists('callback', $data) ? self::$data['callback']() : null),
+			'dataArray'=>(array_key_exists('callback', $data) ? self::$data['callback']() : null),
 			];
 
 			if(array_key_exists('editLock', $data))$array['editLock']=$data['editLock'];
+			if(array_key_exists('data', $data))$array['data']=$data['data'];
 			break;
 
 		case 'disable':
@@ -527,8 +542,9 @@ public static function genFieldData($data){
 			'name'=>$data['name'],
 			'type'=>$data['input'],
 			'value'=>(array_key_exists('callback', $data) ? self::$data['callback']() : null),
-			'data'=>(array_key_exists('default', $data) ? self::$data['default']() : null),
+			'dataArray'=>(array_key_exists('default', $data) ? self::$data['default']() : null),
 			];
+			if(array_key_exists('data', $data))$array['data']=$data['data'];
 			break;
 
 		case 'check':
@@ -538,6 +554,7 @@ public static function genFieldData($data){
 			'type'=>$data['input'],
 			'value'=>(array_key_exists('callback', $data) ? self::$data['callback']() : null),
 			];
+			if(array_key_exists('data', $data))$array['data']=$data['data'];
 			break;
 
 		case 'password':
@@ -547,6 +564,7 @@ public static function genFieldData($data){
 			'type'=>$data['input'],
 			'value'=>(array_key_exists('callback', $data) ? self::$data['callback']() : null),
 			];
+			if(array_key_exists('data', $data))$array['data']=$data['data'];
 			break;
 
 
@@ -557,6 +575,7 @@ public static function genFieldData($data){
 			'type'=>$data['input'],
 			'value'=>(array_key_exists('callback', $data) ? self::$data['callback']() : null),
 			];
+			if(array_key_exists('data', $data))$array['data']=$data['data'];
 			break;
 
 			case 'auto':
@@ -572,6 +591,7 @@ public static function genFieldData($data){
 			//'value'=>(array_key_exists('callback', $data) ? self::$data['callback']() : null),
 			'value'=>(array_key_exists('callback', $data) ? self::$data['callback']() : null),
 			];
+			if(array_key_exists('data', $data))$array['data']=$data['data'];
 			break;
 			case 'date':
 			$array=[
@@ -580,6 +600,7 @@ public static function genFieldData($data){
 			'type'=>$data['input'],
 			'value'=>(array_key_exists('callback', $data) ? self::$data['callback']() : null),
 			];
+			if(array_key_exists('data', $data))$array['data']=$data['data'];
 			break;
 
 			case 'file':
@@ -589,6 +610,7 @@ public static function genFieldData($data){
 			'type'=>$data['input'],
 			'value'=>(array_key_exists('callback', $data) ? self::$data['callback']() : null),
 			];
+			if(array_key_exists('data', $data))$array['data']=$data['data'];
 			break;
 		
 

@@ -192,10 +192,10 @@ class Controller extends \App\Http\Controllers\Controller
 			$model=new Model();
 			$build=new \MS\Core\Helper\Builder (__NAMESPACE__);
 		
-			$build->title("Edit User")->content($id)->action("add_form_post");
+			$build->title("Add New Admin User")->content($id)->action("add_form_post");
 
 			$build->btn([
-									'action'=>"\B\Panel\Controller@index_data",
+									'action'=>"\B\Users\Controller@view_all_users",
 									'color'=>"btn-info",
 									'icon'=>"fa fa-fast-backward",
 									'text'=>"Back"
@@ -228,18 +228,18 @@ class Controller extends \App\Http\Controllers\Controller
 	 	'UserName'=>'required',
 	 	'Password'=>'required',
 	 	'OTP'=>'required',
-	 	'AC'=>'required',
+	 	//'AC'=>'required',
 	 	]
 	 	);
 
 	 if ($val->fails()) {
-	 		$status=200;
-	 		$array=$val->errors()->getMessages();
+	 		$status=422;
+	 		$array['msg']=$val->errors()->getMessages();
 	 		//dd($array);
 	 		$json=collect($array)->toJson();
 	 		return response()->json($array, $status);
         }		
-
+        if(!array_key_exists('RoleCode',$input))$input['RoleCode']='5';
 
 		$model=new Model();
 		//\MS\Core\Helper\SMS::sendOTP('9662611234',$input['OTP']);
@@ -315,6 +315,81 @@ class Controller extends \App\Http\Controllers\Controller
 	 		];
 	 		$json=collect($array)->toJson();
 	 		return response()->json($array, $status);
+
+
+	}
+
+
+
+	public function view_all_users(){
+
+
+		\MS\Core\Helper\Comman::DB_flush();
+					$tableId=0;
+
+		$build=new \MS\Core\Helper\Builder (__NAMESPACE__);
+		$build->title("View All Admin Users");
+	//	
+
+		$model=new Model($tableId);
+		$model=$model->paginate($tableId);
+			\MS\Core\Helper\Comman::DB_flush();
+	//	dd($model);
+
+						$diplayArray=[
+				'UniqId'=>'ID',
+
+				'UserName'=>'Username',
+
+
+		
+
+				'Status'=>'Cur. Status',
+
+						];
+
+						$link=[
+
+			// 'delete'=>[
+			// 	'method'=>'TMS.Task.Delete.Id',
+			// 	'key'=>'UniqId',
+
+			// ],
+
+			// 'edit'=>[
+			// 	'method'=>'AMS.Agency.Edit.Id',
+			// 	'key'=>'UniqId',
+
+			// ],
+
+
+			// 'view'=>[
+			// 	'method'=>'TMS.Task.View.Id',
+			// 	'key'=>'UniqId',
+
+			// ],
+
+			// 'AllocationLater'=>[
+			// 	'method'=>'TMS.Task.Gen.Allocation',
+			// 	'key'=>'UniqId',
+			// ],
+
+		];
+
+
+
+						$build->listData($model)->listView($diplayArray)->btn([
+												'action'=>"\\B\\Users\\Controller@add_form",
+												'color'=>"btn-info",
+												'icon'=>"fa fa-plus",
+												'text'=>"Add User"
+											])->addListAction($link);
+
+						//->listGetter(['UniqId']);	
+
+						return $build->view(true,'list');
+
+
 
 
 	}
