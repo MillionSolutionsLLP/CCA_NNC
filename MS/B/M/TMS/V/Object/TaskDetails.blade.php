@@ -164,15 +164,50 @@
                  @foreach($documentArray as $docName=>$docPath )
                  
                  <tr>
+                  <?php
+                  $docPath=(array)$docPath;
 
+                  $url=str_replace('\\' ,'/',$docPath['path']);
+                  $urlArray=explode('/',$url);
+                  $c=\MS\Core\Helper\Comman::random(2);
+                  array_splice($urlArray, 1, 0, $c);
+                  $url=implode('/', $urlArray);
+                  
+
+                 //;
+                 // if('Panchnma Copy_452'==explode('.',$docName)[0])dd($docPath);
+                   ?>
                   
                   
                   <td>
-<a href="{{ \Storage::disk('ATMS')->url(str_replace('\\' ,'/',$docPath)) }}" target="_BLANK">
+<a href="{{ \Storage::disk('ATMS')->url($url) }}" target="_BLANK">
                  {{ explode('.',$docName)[0] }}
                </a>
                </td>
-            
+               @if(array_key_exists('DateOfDocument', $docPath) && ($docPath['DateOfDocument']!=null))
+           
+               <td>
+                 
+                 {{ $docPath['DateOfDocument'] }}
+               </td> 
+
+                @endif
+
+                   @if(array_key_exists('NoOfDocument', $docPath)  && ($docPath['NoOfDocument']!=null))
+               <td>
+                 
+                 Invoice No.{{ $docPath['NoOfDocument'] }}
+               </td> 
+
+                @endif
+
+                @if(array_key_exists('AmountOfDocument', $docPath)  && ($docPath['AmountOfDocument']!=null))
+               <td>
+                 
+                Total Amount: ₹ {{ $docPath['AmountOfDocument'] }}
+               </td> 
+
+                @endif
                </tr>
                 
                  @endforeach

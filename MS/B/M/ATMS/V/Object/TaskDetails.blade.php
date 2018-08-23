@@ -1,6 +1,6 @@
 <div class="panel panel-info" >
       <?php 
-
+      
       $userRole=0;
               if(session('user.SuperAdmin')){
                       $userRole=1;

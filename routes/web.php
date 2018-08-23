@@ -27,6 +27,36 @@ return redirect()->action('\B\Panel\Controller@index');
 
 });
 
+Route::prefix('ATMS')->group(function () {
+
+
+	Route::prefix('Data')->group(function () {
+
+
+			Route::middleware(['backend'])
+
+			->group(function () {
+		Route::get('{UniqId}/{TaskId}/{StepId}/{FileName}',function($UniqId,$TaskId,$StepId,$FileName){
+
+
+
+
+			//dd(implode('/',['ATMS','Data',$TaskId,$StepId,$FileName]));
+
+			return response()->file(implode('/',['ATMS','Data',$TaskId,$StepId,$FileName]));
+
+
+
+			});
+
+		});
+
+
+	});
+
+
+
+});
 
 
 

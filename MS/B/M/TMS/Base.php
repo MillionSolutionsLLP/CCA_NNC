@@ -181,20 +181,19 @@ public static $field1=[
 ['name'=>'TypeOfAction','type'=>'string','input'=>'text',  ],
 
 
-['name'=>'DocumentNo','type'=>'string','input'=>'text',  ],
-
-['name'=>'DocumentDate','type'=>'string','input'=>'text',  ],
-
-['name'=>'DocumentAmount','type'=>'string','input'=>'text',  ],
-
-['name'=>'DocumentUploaded','type'=>'string','input'=>'text',  ],
-
+['name'=>'DocumentUploaded','type'=>'boolean','input'=>'boolean',  ],
 ['name'=>'DocumentArray','type'=>'string','input'=>'text',  ],
 
-['name'=>'DocumentVerified','type'=>'string','input'=>'text',  ],
-
+['name'=>'DocumentVerified','type'=>'boolean','input'=>'text',  ],
 ['name'=>'DocumentVerifiedArray','type'=>'string','input'=>'text',  ],
 
+['name'=>'DocumentQuery','type'=>'boolean','input'=>'text',  ],
+['name'=>'DocumentQueryArray','type'=>'string','input'=>'text',  ],
+
+['name'=>'DocumentReply','type'=>'boolean','input'=>'text',  ],
+['name'=>'DocumentReplyArray','type'=>'string','input'=>'text',  ],
+
+['name'=>'QueryRisedBy','type'=>'string','input'=>'text',  ],
 ['name'=>'VerifiedBy','type'=>'string','input'=>'text',  ],
 ['name'=>'TakenBy','type'=>'string','input'=>'text',  ],
 

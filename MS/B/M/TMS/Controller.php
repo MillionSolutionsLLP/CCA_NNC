@@ -13,18 +13,18 @@ class Controller extends \App\Http\Controllers\Controller
 //\MS\Core\Helper\Comman::DB_flush();
 
 	//	dd(session()->all());
-		Base::migrate(
+	// 	Base::migrate(
 
-	[	
-				['id'=>'7'],
-				//['id'=>'2'],
-				//['id'=>'3'],
-				//['id'=>'4'],
+	// [	
+	// 			['id'=>'7'],
+	// 			//['id'=>'2'],
+	// 			//['id'=>'3'],
+	// 			//['id'=>'4'],
 
-	]
+	// ]
 
 
-			);
+		//	);
 
 	// 	dd(session()->all());
 
@@ -321,17 +321,19 @@ public function taskViewById($UniqId){
 		$id=0;
 		$m=new \B\TMS\Model();
 
-		//dd($m);
-		//$m->MS_flush();
+		
 		if($m->where('UniqId',$uniqId)->first()!=null){$rowData=$m->where('UniqId',$uniqId)->first()->toArray();}
 		else{$rowData=[];}
 
 		if(count($rowData)>0){
 
 
-
+			\MS\Core\Helper\Comman::DB_flush();
 			$m2=new Model('1',$rowData['UniqId']);
 			$rowData2=$m2->MS_all()->toArray();
+
+//dd($rowData2);
+			
 			
 			\MS\Core\Helper\Comman::DB_flush();
 			

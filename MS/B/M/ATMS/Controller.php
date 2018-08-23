@@ -214,10 +214,15 @@ class Controller extends \App\Http\Controllers\Controller
 
 		foreach ($dataArray as $key => $value) {
 
-				$fileName=$alltype[$value['type']] ."_".Base::genUniqID().".".$value['file']->getClientOriginalExtension();
+				$fileUniqId=Base::genUniqID();
+				$fileName=$alltype[$value['type']] ."_".$fileUniqId.".".$value['file']->getClientOriginalExtension();
 
 				$filePath[$fileName]['path']=$value['file']->storeAs($path[$value['type']], $fileName, $disk);
-				
+				$filePath[$fileName]['UniqId']=$fileUniqId;
+				$filePath[$fileName]['DateOfDocument']=$value['date'];
+				if(array_key_exists('NoOfDocument', $value))$filePath[$fileName]['NoOfDocument']=$value['NoOfDocument'];
+
+				if(array_key_exists('AmountOfDocument', $value))$filePath[$fileName]['AmountOfDocument']=$value['AmountOfDocument'];
 		}
 
 
@@ -236,9 +241,15 @@ class Controller extends \App\Http\Controllers\Controller
 			'DocumentVerifiedArray'=>json_encode([],true,3),
 			'VerifiedBy'=>null,
 			'TakenBy'=>session('user.UniqId'),
+			'DocumentQuery'=>false,
+			'DocumentQueryArray'=>json_encode([],true,3),
+			'DocumentReply'=>false,
+			'DocumentReplyArray'=>json_encode([],true,3),
+			'QueryRisedBy'=>null,
 
 		];
 
+		
 
 		$m1->MS_add($dbArray);
 
