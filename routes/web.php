@@ -43,7 +43,11 @@ Route::prefix('ATMS')->group(function () {
 
 			//dd(implode('/',['ATMS','Data',$TaskId,$StepId,$FileName]));
 
-			return response()->file(implode('/',['ATMS','Data',$TaskId,$StepId,$FileName]));
+			$img=\Storage::disk('ATMS')->get(implode('/',['Data',$TaskId,$StepId,$FileName]));
+			
+		//	dd();
+
+			 return (new \Illuminate\Http\Response($img))->header('Content-Type', \Storage::disk('ATMS')->mimeType(implode('/',['Data',$TaskId,$StepId,$FileName])));
 
 
 
