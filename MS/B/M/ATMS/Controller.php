@@ -220,6 +220,7 @@ class Controller extends \App\Http\Controllers\Controller
 				$filePath[$fileName]['path']=$value['file']->storeAs($path[$value['type']], $fileName, $disk);
 				$filePath[$fileName]['UniqId']=$fileUniqId;
 				$filePath[$fileName]['DateOfDocument']=$value['date'];
+				$filePath[$fileName]['TypeOfDocument']=$value['type'];
 				if(array_key_exists('NoOfDocument', $value))$filePath[$fileName]['NoOfDocument']=$value['NoOfDocument'];
 
 				if(array_key_exists('AmountOfDocument', $value))$filePath[$fileName]['AmountOfDocument']=$value['AmountOfDocument'];

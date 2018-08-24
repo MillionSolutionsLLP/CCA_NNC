@@ -59,6 +59,18 @@ public static $routes=[
 						'type'=>'post',
 						],
 
+
+						// [
+						// 'name'=>'ATMS.Task.Get.File.Name',
+						// 'route'=>'{UniqId}/{TaskId}/{StepId}/{FileName}',
+						// 'method'=>'taskUploadByIdPost',
+						// 'type'=>'get',
+						// ],
+
+
+
+						
+
 					];
 
 public static $tableNo="0";

@@ -90,6 +90,23 @@ public static $routes=[
 						],
 
 
+						[
+						'name'=>'TMS.Task.Get.File.Name',
+						'route'=>'{UniqId}/{TaskId}/{StepId}/{TypeOfDocument}/{FileName}',
+						'method'=>'getUploadedFile',
+						'type'=>'get',
+						],
+
+
+							[
+						'name'=>'TMS.Task.Rise.Step.Query',
+						'route'=>'/task/query/{TaskId}/{StepId}',
+						'method'=>'riseQuery',
+						'type'=>'get',
+						],
+
+
+
 
 
 					];

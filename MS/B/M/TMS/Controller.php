@@ -478,4 +478,45 @@ public function taskApproveById($UniqId,$StepId){
 
 }
 
+
+
+
+
+public function getUploadedFile($UniqId,$TaskId,$StepId,$TypeOfDocument,$FileName){
+
+
+			//dd();
+			$UniqId=\MS\Core\Helper\Comman::de4url($UniqId);
+			$TaskId=\MS\Core\Helper\Comman::de4url($TaskId);
+
+			$StepId=\MS\Core\Helper\Comman::de4url($StepId);
+
+			$TypeOfDocument=\MS\Core\Helper\Comman::de4url($TypeOfDocument);
+			//dd($TypeOfDocument);
+
+			//DIRECTORY_SEPARATOR
+			$file=implode('/',['Data',$TaskId,$TypeOfDocument,$FileName]);
+			$img=\Storage::disk('ATMS')->get($file);
+			
+		//	dd();
+
+			 return (new \Illuminate\Http\Response($img))->header('Content-Type', \Storage::disk('ATMS')->mimeType($file));
+
+
+
+			}
+
+
+			public function riseQuery($TaskId,$StepId){
+
+
+			$TaskId=\MS\Core\Helper\Comman::de4url($TaskId);
+			$StepId=\MS\Core\Helper\Comman::de4url($StepId);
+
+
+
+
+
+			}
+
 }

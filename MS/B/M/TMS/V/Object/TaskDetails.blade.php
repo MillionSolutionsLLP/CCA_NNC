@@ -172,7 +172,7 @@
                   $c=\MS\Core\Helper\Comman::random(2);
                   array_splice($urlArray, 1, 0, $c);
                   $url=implode('/', $urlArray);
-                  
+                 // dd($docPath);  
 
                  //;
                  // if('Panchnma Copy_452'==explode('.',$docName)[0])dd($docPath);
@@ -180,7 +180,7 @@
                   
                   
                   <td>
-<a href="{{ \Storage::disk('ATMS')->url($url) }}" target="_BLANK">
+<a href="{{ route('TMS.Task.Get.File.Name',['UniqId'=>\MS\Core\Helper\Comman::en4url($c),'TaskId'=>\MS\Core\Helper\Comman::en4url($data['task']['UniqId']),'StepId'=>\MS\Core\Helper\Comman::en4url($step['UniqId']),'TypeOfDocument'=>\MS\Core\Helper\Comman::en4url($docPath['TypeOfDocument']),'FileName'=>$docName]) }}" target="_BLANK">
                  {{ explode('.',$docName)[0] }}
                </a>
                </td>
@@ -265,7 +265,7 @@
                   Approve
                 </div>
 
-                <div class="btn btn-danger ms-text-white">
+                <div class="btn btn-danger ms-text-white" ms-live-link="{{  route('TMS.Task.Rise.Step.Query',['UniqId'=>\MS\Core\Helper\Comman::en4url($data['task']['UniqId']) ,'StepId'=>\MS\Core\Helper\Comman::en4url($step['UniqId']) ] ) }}">
                   <i class="fa fa-question"></i>
                   Rise Query
                 </div>
