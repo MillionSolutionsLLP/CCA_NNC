@@ -74,12 +74,37 @@ public static $routes=[
 						],
 
 
+						[
+						'name'=>'TMS.Task.Approve.Id',
+						'route'=>'/task/approve/{UniqId}/step/{StepId}',
+						'method'=>'taskApproveById',
+						'type'=>'get',
+						],
+
+
 							[
 						'name'=>'TMS.Task.Gen.Allocation',
 						'route'=>'/task/gen/allocationLatter/{UniqId}',
 						'method'=>'taskGenAllocationLatterById',
 						'type'=>'get',
 						],
+
+
+						[
+						'name'=>'TMS.Task.Get.File.Name',
+						'route'=>'{UniqId}/{TaskId}/{StepId}/{TypeOfDocument}/{FileName}',
+						'method'=>'getUploadedFile',
+						'type'=>'get',
+						],
+
+
+							[
+						'name'=>'TMS.Task.Rise.Step.Query',
+						'route'=>'/task/query/{TaskId}/{StepId}',
+						'method'=>'riseQuery',
+						'type'=>'get',
+						],
+
 
 
 
@@ -106,23 +131,41 @@ public static $connection ="TMS_Master";
 public static $tableStatus=false;
 
 public static $field=[
-['name'=>'UniqId','type'=>'string','input'=>'auto','callback'=>'genUniqID',],
+['name'=>'UniqId','type'=>'string','input'=>'auto','callback'=>'genUniqID','data'=>['input-size'=>'col-lg-2']],
 
 
-['name'=>'HireAgencyCode','vName'=>'Agency Code','type'=>'string','input'=>'text','link'=>'AMS:0'  ],
+['name'=>'HireAgencyCode','vName'=>'Agency Code','type'=>'string','input'=>'text','link'=>'AMS:0','data'=>['input-size'=>'col-lg-2']  ],
 
 
-['name'=>'NameOperator','vName'=>'Name of Operator','type'=>'string','input'=>'text', 'link'=>'TMS:0' ],
+['name'=>'NameOperator','vName'=>'Name of Operator','type'=>'string','input'=>'text', 'link'=>'TMS:0' ,'data'=>['input-size'=>'col-lg-4']],
 
-['name'=>'NameOwner','vName'=>'Name of Owner/Partner','type'=>'string','input'=>'text', 'link'=>'TMS:0' ],
+['name'=>'NameOwner','vName'=>'Name of Owner/Partner','type'=>'string','input'=>'text', 'link'=>'TMS:0' ,'data'=>['input-size'=>'col-lg-4']],
 
-['name'=>'AreaPiracy','vName'=>'Area of Piracy','type'=>'string','input'=>'text',  ],
+['name'=>'NameOperatorAddress1','vName'=>'Address of Operator Line 1','type'=>'string','input'=>'text', 'data'=>['input-size'=>'col-lg-4']],
 
-['name'=>'IllegalTypeBroadcasting','vName'=>'Illegal broadcasting','type'=>'string','input'=>'text',  ],
+['name'=>'NameOperatorAddress2','vName'=>'Address of Operator Line 2','type'=>'string','input'=>'text','data'=>['input-size'=>'col-lg-4'] ],
 
-['name'=>'StatusOperator','vName'=>'Status of Operator','type'=>'string','input'=>'text',  ],
+['name'=>'NameOperatorAddress3','vName'=>'Address of Operator Line 3','type'=>'string','input'=>'text','data'=>['input-size'=>'col-lg-4'] ],
 
-['name'=>'ModePiracy','vName'=>'Mode of Piracy','type'=>'string','input'=>'text','link'=>'TMS:0'  ],
+['name'=>'NameOperatorCity','vName'=>"City located Operator's Headqurter",'type'=>'string','input'=>'text','data'=>['input-size'=>'col-lg-3']  ],
+
+['name'=>'NameOperatorDistrict','vName'=>'District of Operator','type'=>'string','input'=>'text', 'data'=>['input-size'=>'col-lg-3'] ],
+
+['name'=>'NameOperatorState','vName'=>'State of Operator','type'=>'string','input'=>'text', 'data'=>['input-size'=>'col-lg-3'] ],
+
+['name'=>'NameOperatorPincode','vName'=>'Pincode of Operator','type'=>'string','input'=>'number', 'data'=>['input-size'=>'col-lg-3']],
+
+
+['name'=>'AreaPiracy','vName'=>'Area of Piracy','type'=>'string','input'=>'text', 'data'=>['input-size'=>'col-lg-3'] ],
+
+['name'=>'ModePiracy','vName'=>'Mode of Piracy','type'=>'string','input'=>'text','link'=>'TMS:0' ,'data'=>['input-size'=>'col-lg-3'] ],
+
+['name'=>'IllegalTypeBroadcasting','vName'=>'Illegal broadcasting','type'=>'string','input'=>'text', 'data'=>['input-size'=>'col-lg-3'] ],
+
+
+['name'=>'StatusOperator','vName'=>'Status of Operator','type'=>'string','input'=>'text', 'data'=>['input-size'=>'col-lg-3'] ],
+
+
 ['name'=>'NameOfNetwork','vName'=>'Name of Network/LCO','type'=>'string','input'=>'text','link'=>'TMS:0'  ],
 
 ['name'=>'Status','type'=>'boolean','input'=>'radio','value'=>'status','default'=>'status'],
@@ -152,18 +195,24 @@ public static $tableStatus1=false;
 public static $field1=[
 ['name'=>'UniqId','type'=>'string','input'=>'auto','callback'=>'genUniqID',],
 
-['name'=>'TypeOfAction','vName'=>'Name of Operator','type'=>'string','input'=>'text',  ],
+['name'=>'TypeOfAction','type'=>'string','input'=>'text',  ],
 
-['name'=>'DocumentUploaded','vName'=>'Name of Owner/Partner','type'=>'string','input'=>'text',  ],
 
-['name'=>'DocumentArray','vName'=>'Area of Piracy','type'=>'string','input'=>'text',  ],
+['name'=>'DocumentUploaded','type'=>'boolean','input'=>'boolean',  ],
+['name'=>'DocumentArray','type'=>'string','input'=>'text',  ],
 
-['name'=>'DocumentVerified','vName'=>'Illegal broadcasting','type'=>'string','input'=>'text',  ],
+['name'=>'DocumentVerified','type'=>'boolean','input'=>'text',  ],
+['name'=>'DocumentVerifiedArray','type'=>'string','input'=>'text',  ],
 
-['name'=>'DocumentVerifiedArray','vName'=>'Status of Operator','type'=>'string','input'=>'text',  ],
+['name'=>'DocumentQuery','type'=>'boolean','input'=>'text',  ],
+['name'=>'DocumentQueryArray','type'=>'string','input'=>'text',  ],
 
-['name'=>'VerifiedBy','vName'=>'Mode of Piracy','type'=>'string','input'=>'text',  ],
-['name'=>'TakenBy','vName'=>'Name of Network/LCO','type'=>'string','input'=>'text',  ],
+['name'=>'DocumentReply','type'=>'boolean','input'=>'text',  ],
+['name'=>'DocumentReplyArray','type'=>'string','input'=>'text',  ],
+
+['name'=>'QueryRisedBy','type'=>'string','input'=>'text',  ],
+['name'=>'VerifiedBy','type'=>'string','input'=>'text',  ],
+['name'=>'TakenBy','type'=>'string','input'=>'text',  ],
 
 ];
 
@@ -330,6 +379,67 @@ public static $field6=[
 ////////////////////////////////////////////////////////////////////////
 
 
+
+
+////////////////////////////////////////////////////////////////////////
+// Sub Module Start
+////////////////////////////////////////////////////////////////////////
+public static $table7="TMS_Task_Master";
+
+public static $connection7 ="TMS_Master";
+
+public static $tableStatus7=false;
+
+public static $field7=[
+['name'=>'UniqId','type'=>'string','input'=>'auto','callback'=>'genUniqID','data'=>['input-size'=>'col-lg-2']],
+
+
+['name'=>'HireAgencyCode','vName'=>'Agency Code','type'=>'string','input'=>'text','link'=>'AMS:0','data'=>['input-size'=>'col-lg-2']  ],
+
+
+['name'=>'NameOperator','vName'=>'Name of Operator','type'=>'string','input'=>'text', 'link'=>'TMS:0' ,'data'=>['input-size'=>'col-lg-4']],
+
+['name'=>'NameOwner','vName'=>'Name of Owner/Partner','type'=>'string','input'=>'text', 'link'=>'TMS:0' ,'data'=>['input-size'=>'col-lg-4']],
+
+['name'=>'NameOperatorAddress1','vName'=>'Address of Operator Line 1','type'=>'string','input'=>'text', 'data'=>['input-size'=>'col-lg-4']],
+
+['name'=>'NameOperatorAddress2','vName'=>'Address of Operator Line 2','type'=>'string','input'=>'text','data'=>['input-size'=>'col-lg-4'] ],
+
+['name'=>'NameOperatorAddress3','vName'=>'Address of Operator Line 3','type'=>'string','input'=>'text','data'=>['input-size'=>'col-lg-4'] ],
+
+['name'=>'NameOperatorCity','vName'=>"City located Operator's Headqurter",'type'=>'string','input'=>'text','data'=>['input-size'=>'col-lg-3']  ],
+
+['name'=>'NameOperatorDistrict','vName'=>'District of Operator','type'=>'string','input'=>'text', 'data'=>['input-size'=>'col-lg-3'] ],
+
+['name'=>'NameOperatorState','vName'=>'State of Operator','type'=>'string','input'=>'text', 'data'=>['input-size'=>'col-lg-3'] ],
+
+['name'=>'NameOperatorPincode','vName'=>'Pincode of Operator','type'=>'string','input'=>'number', 'data'=>['input-size'=>'col-lg-3']],
+
+
+['name'=>'AreaPiracy','vName'=>'Area of Piracy','type'=>'string','input'=>'text', 'data'=>['input-size'=>'col-lg-3'] ],
+
+['name'=>'ModePiracy','vName'=>'Mode of Piracy','type'=>'string','input'=>'text','link'=>'TMS:0' ,'data'=>['input-size'=>'col-lg-3'] ],
+
+['name'=>'IllegalTypeBroadcasting','vName'=>'Illegal broadcasting','type'=>'string','input'=>'text', 'data'=>['input-size'=>'col-lg-3'] ],
+
+
+['name'=>'StatusOperator','vName'=>'Status of Operator','type'=>'string','input'=>'text', 'data'=>['input-size'=>'col-lg-3'] ],
+
+
+['name'=>'NameOfNetwork','vName'=>'Name of Network/LCO','type'=>'string','input'=>'text','link'=>'TMS:0'  ],
+
+['name'=>'Status','type'=>'boolean','input'=>'radio','value'=>'status','default'=>'status'],
+
+['name'=>'CurrentStatus','vName'=>'Illegal broadcasting','type'=>'string','input'=>'text', 'data'=>['input-size'=>'col-lg-3'] ],
+
+
+];
+
+
+
+////////////////////////////////////////////////////////////////////////
+// Sub Module End
+////////////////////////////////////////////////////////////////////////
 
 
 ////////////////////////////////////
@@ -688,6 +798,7 @@ public static function genFieldData($data){
 			];
 			}
 			if(array_key_exists('vName', $data))$array['vName']=$data['vName'];
+			if(array_key_exists('data', $data))$array['data']=$data['data'];
 
 			break;
 
@@ -700,6 +811,7 @@ public static function genFieldData($data){
 			'default'=>(array_key_exists('default', $data) ? self::$data['default']() : null),
 			];
 			if(array_key_exists('vName', $data))$array['vName']=$data['vName'];
+			if(array_key_exists('data', $data))$array['data']=$data['data'];
 			break;
 
 		case 'number':
@@ -710,6 +822,7 @@ public static function genFieldData($data){
 			'value'=>(array_key_exists('callback', $data) ? self::$data['callback']() : null),
 			];
 			if(array_key_exists('vName', $data))$array['vName']=$data['vName'];
+			if(array_key_exists('data', $data))$array['data']=$data['data'];
 			break;
 		case 'option':
 			$array=[
@@ -720,6 +833,7 @@ public static function genFieldData($data){
 			];
 			if(array_key_exists('vName', $data))$array['vName']=$data['vName'];
 			if(array_key_exists('editLock', $data))$array['editLock']=$data['editLock'];
+			if(array_key_exists('data', $data))$array['data']=$data['data'];
 			break;
 
 		case 'disable':
@@ -730,6 +844,7 @@ public static function genFieldData($data){
 			'value'=>(array_key_exists('callback', $data) ? self::$data['callback']() : null),
 			];
 			if(array_key_exists('vName', $data))$array['vName']=$data['vName'];
+			if(array_key_exists('data', $data))$array['data']=$data['data'];
 			break;
 
 
@@ -739,9 +854,10 @@ public static function genFieldData($data){
 			'name'=>$data['name'],
 			'type'=>$data['input'],
 			'value'=>(array_key_exists('callback', $data) ? self::$data['callback']() : null),
-			'data'=>(array_key_exists('default', $data) ? self::$data['default']() : null),
+			'dataArray'=>(array_key_exists('default', $data) ? self::$data['default']() : null),
 			];
 			if(array_key_exists('vName', $data))$array['vName']=$data['vName'];
+			if(array_key_exists('data', $data))$array['data']=$data['data'];
 			break;
 
 		case 'check':
@@ -752,6 +868,7 @@ public static function genFieldData($data){
 			'value'=>(array_key_exists('callback', $data) ? self::$data['callback']() : null),
 			];
 			if(array_key_exists('vName', $data))$array['vName']=$data['vName'];
+			if(array_key_exists('data', $data))$array['data']=$data['data'];
 			break;
 
 		case 'password':
@@ -762,6 +879,7 @@ public static function genFieldData($data){
 			'value'=>(array_key_exists('callback', $data) ? self::$data['callback']() : null),
 			];
 			if(array_key_exists('vName', $data))$array['vName']=$data['vName'];
+			if(array_key_exists('data', $data))$array['data']=$data['data'];
 			break;
 
 
@@ -773,6 +891,7 @@ public static function genFieldData($data){
 			'value'=>(array_key_exists('callback', $data) ? self::$data['callback']() : null),
 			];
 			if(array_key_exists('vName', $data))$array['vName']=$data['vName'];
+			if(array_key_exists('data', $data))$array['data']=$data['data'];
 			break;
 
 			case 'auto':
@@ -789,6 +908,7 @@ public static function genFieldData($data){
 			'value'=>(array_key_exists('callback', $data) ? self::$data['callback']() : null),
 			];
 			if(array_key_exists('vName', $data))$array['vName']=$data['vName'];
+			if(array_key_exists('data', $data))$array['data']=$data['data'];
 			break;
 
 			case 'date':
@@ -799,6 +919,7 @@ public static function genFieldData($data){
 			'value'=>(array_key_exists('callback', $data) ? self::$data['callback']() : null),
 			];
 			if(array_key_exists('vName', $data))$array['vName']=$data['vName'];
+			if(array_key_exists('data', $data))$array['data']=$data['data'];
 			break;
 
 			case 'file':
@@ -809,6 +930,7 @@ public static function genFieldData($data){
 			'value'=>(array_key_exists('callback', $data) ? self::$data['callback']() : null),
 			];
 			if(array_key_exists('vName', $data))$array['vName']=$data['vName'];
+			if(array_key_exists('data', $data))$array['data']=$data['data'];
 			break;
 		
 

@@ -16,7 +16,8 @@
     <div class="modal-content">
         <div class="modal-header">
         <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-        <h4 class="modal-title text-center"><i class="fa fa-user-circle-o fa-3x" style="padding-top: 10px;padding-bottom: 10px;" aria-hidden="true"></i> <br>Welcome  {{ $user['name']}}<br> <img class="ms-logo"  style="margin-left: 20px;margin-top: 10px;" src="{{asset('images/'.env('APP_V_LOGO_LG','billing.png'))}}" /><br></h4>
+        <h4 class="modal-title text-center"><i class="fa fa-user-circle-o fa-3x" style="padding-top: 10px;padding-bottom: 10px;" aria-hidden="true"></i> <br>Welcome  {{ $user['name']}}<br> <img class="ms-logo"  style="margin-left: 20px;margin-top: 10px;padding: 5px;
+    padding-top: 10px;min-height: 60px;" src="{{asset('images/'.env('APP_V_LOGO_LG','billing.png'))}}" /><br></h4>
       </div>
   <div class="model-footer text-center bg-info">
         
@@ -50,7 +51,8 @@
       </div>
         <div class="model-footer text-center ">
         
-         <small class="">A Genuine <img class="ms-logo" src="{{ asset('/images/logo_final.png') }}" style="margin-bottom: 5px;margin-top: 0px;"> Product</small>
+         <small class="">A Genuine <img class="ms-logo" src="{{ asset('/images/logo_final.png') }}" style="margin-bottom: 5px;margin-top: 0px;    padding-left: 5px;
+    padding-right: 5px;"> Product</small>
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-default" data-dismiss="modal"><i class="fa fa-times"></i> Close</button>

@@ -1,25 +1,34 @@
 
 	<?php
 
-	//$input_class='';
-
-	if(array_key_exists('ClassData', $data)){
-	    	
-		if(array_key_exists('form-class-div',$data['ClassData']))
-		$input_class=$data['ClassData']['form-class-div'];
-
-	}
-
-
+$class="col-lg-6";
+//dd($data);
 if(array_key_exists('index', $data))$index=$index+$data['index'];
+if(!array_key_exists('vName', $data))$data['vName']=$data['lable'];
 
+if(array_key_exists('ClassData',$data)){
+
+if(array_key_exists('form-class-div',$data['ClassData']))$class=$data['ClassData']['form-class-div'];
+
+}else{
+$class="col-lg-6";
+
+}
+
+
+
+if(array_key_exists('data', $data)){
+		
+		if(array_key_exists('input-size', $data['data']))$class= $data['data']['input-size'];
+
+}
 
 
 
 
 	?>
 
-<div class="form-group {{ $input_class or 'col-lg-6'}}">
+<div class="form-group {{ $class }}">
  <fieldset disabled>
     {{ Form::label($data['name'], $data['lable']) }}
     

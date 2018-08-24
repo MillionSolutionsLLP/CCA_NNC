@@ -11,6 +11,7 @@ class Controller extends \App\Http\Controllers\Controller
 	public function index(){
 		//dd(session()->all());
 
+		//dd(\Carbon::now()->toDateTimeString());
 
 
 			$data=[
@@ -69,6 +70,7 @@ class Controller extends \App\Http\Controllers\Controller
 	    $agency['email']=$row->pluck('AttConatctNo')->first();
 		$agency['name']=$row->pluck('Name')->first();
 		$agency['jobs']=json_decode($row->pluck('AllocatedJobs')->first(),true,10);
+		$agency['UniqId']=$row->pluck('UniqId');
 
 
 		$status=200;
@@ -83,6 +85,7 @@ class Controller extends \App\Http\Controllers\Controller
 	        'userData'=>$agency,
 	        'SuperAdmin'=>0,
 	        'AgencyAdmin'=>1,
+	        'UniqId'=>$row->pluck('UniqId')->first(),
 	        ] ]);
 
 				//return redirect()->action("\B\APanel\Controller@index");

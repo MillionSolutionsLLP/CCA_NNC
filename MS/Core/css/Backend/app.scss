@@ -14,8 +14,8 @@
 .DynamicSection{
   
 
-   border-bottom: dotted 1px;
-  border-top: dotted 1px;
+ //  border-bottom: dotted 1px;
+ // border-top: dotted 1px;
 
 }
 
@@ -190,7 +190,13 @@ cursor:pointer;
 
 .ms-text-black{
   
-  color:#212121;
+  color:#212121!important;
+}
+
+
+.ms-text-white{
+  
+  color:white!important;
 }
 
 

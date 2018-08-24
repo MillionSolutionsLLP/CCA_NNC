@@ -1,23 +1,42 @@
-
-<div class="col-lg-6">
-
 <?php
-
-//dd($data);
+$class="col-lg-6";
+if(array_key_exists('index', $data))$index=(string)$data['index'];
 if(!array_key_exists('vName', $data))$data['vName']=$data['lable'];
 
-//if(array_key_exists('editLock', $data))var_dump($data);
+if(array_key_exists('ClassData',$data)){
 
-//if($data['vName'] =='Warehouse')dd($data);
-if(array_key_exists('index', $data))$index=(string)$data['index'];
+
+
+if(array_key_exists('form-class-div',$data['ClassData']))$class=$data['ClassData']['form-class-div'];
+
+}else{
+$class="col-lg-6";
+
+}
+
+
+
+if(array_key_exists('data', $data)){
+		
+		if(array_key_exists('input-size', $data['data']))$class= $data['data']['input-size'];
+
+}
 
 
 ?>
 
 
-{{ Form::label($data['name'], $data['vName'],['class'=>'col-md-4']) }}
 
-<div class="form-group">
+
+
+
+<div class="form-group {{ $class }}" style="
+    padding-top: 18px;margin-bottom: 18px;
+">
+
+
+{{ Form::label($data['name'], $data['vName'],['class'=>'col-md-4','style'=>'padding-top: 8px;']) }}
+
 
  <div class="input-group">
 
@@ -31,4 +50,3 @@ if(array_key_exists('index', $data))$index=(string)$data['index'];
 
  </div>
 
-</div>

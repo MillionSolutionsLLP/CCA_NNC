@@ -16,15 +16,15 @@ class Controller extends \App\Http\Controllers\Controller
 	// 	Base::migrate(
 
 	// [	
-	// 			//['id'=>'0'],
-	// 			['id'=>'2'],
-	// 			['id'=>'3'],
-	// 			['id'=>'4'],
+	// 			['id'=>'7'],
+	// 			//['id'=>'2'],
+	// 			//['id'=>'3'],
+	// 			//['id'=>'4'],
 
 	// ]
 
 
-	// 		);
+		//	);
 
 	// 	dd(session()->all());
 
@@ -321,17 +321,19 @@ public function taskViewById($UniqId){
 		$id=0;
 		$m=new \B\TMS\Model();
 
-		//dd($m);
-		//$m->MS_flush();
+		
 		if($m->where('UniqId',$uniqId)->first()!=null){$rowData=$m->where('UniqId',$uniqId)->first()->toArray();}
 		else{$rowData=[];}
 
 		if(count($rowData)>0){
 
 
-
+			\MS\Core\Helper\Comman::DB_flush();
 			$m2=new Model('1',$rowData['UniqId']);
 			$rowData2=$m2->MS_all()->toArray();
+
+//dd($rowData2);
+			
 			
 			\MS\Core\Helper\Comman::DB_flush();
 			
@@ -396,6 +398,9 @@ public function taskDeleteById($UniqId){
 			
 
 			$m1->MS_delete($rData,$tableId);
+
+			\Storage::disk('ATMS')->deleteDirectory("Data".DIRECTORY_SEPARATOR.$UniqId);
+
 			
 			\MS\Core\Helper\Comman::DB_flush();
 			$m3=new Model(1,$UniqId);
@@ -438,5 +443,80 @@ public function taskGenAllocationLatterById($UniqId){
 
 return view('TMS.V.Pages.allocationLatter')->with('data',$data);
 }
+
+
+public function taskApproveById($UniqId,$StepId){
+
+	\MS\Core\Helper\Comman::DB_flush();
+	$UniqId=\MS\Core\Helper\Comman::de4url($UniqId);
+	$StepId=\MS\Core\Helper\Comman::de4url($StepId);
+
+
+	$m1=new Model('1',$UniqId) ;
+
+	$taskArray=[];
+	if($m1->where('UniqId',$StepId)->first() != null ){
+
+		$taskArray=$m1->where('UniqId',$StepId)->first()->toArray();
+
+		$documentArray=(array)json_decode($taskArray['DocumentArray'],true,3);
+
+		$documentVerifiedArray=(array)json_decode($taskArray['DocumentVerifiedArray'],true,3);
+	}
+
+	//dd(session()->all());
+
+
+
+	//;
+
+	dd($m1->MS_update( ['DocumentVerifiedArray'=>json_encode($documentArray),'DocumentVerified'=>1,'VerifiedBy'=>session('user.userData.UniqId')] , $StepId ) );
+
+	
+
+
+
+}
+
+
+
+
+
+public function getUploadedFile($UniqId,$TaskId,$StepId,$TypeOfDocument,$FileName){
+
+
+			//dd();
+			$UniqId=\MS\Core\Helper\Comman::de4url($UniqId);
+			$TaskId=\MS\Core\Helper\Comman::de4url($TaskId);
+
+			$StepId=\MS\Core\Helper\Comman::de4url($StepId);
+
+			$TypeOfDocument=\MS\Core\Helper\Comman::de4url($TypeOfDocument);
+			//dd($TypeOfDocument);
+
+			//DIRECTORY_SEPARATOR
+			$file=implode('/',['Data',$TaskId,$TypeOfDocument,$FileName]);
+			$img=\Storage::disk('ATMS')->get($file);
+			
+		//	dd();
+
+			 return (new \Illuminate\Http\Response($img))->header('Content-Type', \Storage::disk('ATMS')->mimeType($file));
+
+
+
+			}
+
+
+			public function riseQuery($TaskId,$StepId){
+
+
+			$TaskId=\MS\Core\Helper\Comman::de4url($TaskId);
+			$StepId=\MS\Core\Helper\Comman::de4url($StepId);
+
+
+
+
+
+			}
 
 }

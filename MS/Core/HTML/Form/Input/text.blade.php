@@ -1,17 +1,30 @@
-<div class="form-group col-lg-6">
 <?php
-
+$class="col-lg-6";
+if(array_key_exists('index', $data))$index=(string)$data['index'];
 if(!array_key_exists('vName', $data))$data['vName']=$data['lable'];
 
-//if(array_key_exists('editLock', $data))var_dump($data);
+if(array_key_exists('ClassData',$data)){
 
-//if($data['vName'] =='Warehouse')dd($data);
+if(array_key_exists('form-class-div',$data['ClassData']))$class=$data['ClassData']['form-class-div'];
 
-if(array_key_exists('index', $data))$index=(string)$data['index'];
+}else{
+$class="col-lg-6";
 
-	//if( $data['name']=="AttName")dd($data);
+}
+
+
+
+if(array_key_exists('data', $data)){
+		
+		if(array_key_exists('input-size', $data['data']))$class= $data['data']['input-size'];
+
+}
+
 
 ?>
+
+<div class="form-group {{$class}}">
+
 
 	@if(array_key_exists('link',$data))
 

@@ -218,33 +218,17 @@ protected $base_Field;
 
     }
 
-    public function MS_update($data,$id=null,$uniqId=null){
+    public function MS_update($data,$UniqId){
 
-       if($id!=null)
-                {
+        if(array_key_exists('_token', $data))unset($data['_token']);
+        
 
-                    if($uniqId!=null){
-                        $row=new Model($id,$uniqId);
+        if(!array_key_exists('created_at', $data))$data['created_at']=\Carbon::now()->toDateTimeString();
+        if(!array_key_exists('updated_at', $data))$data['updated_at']=\Carbon::now()->toDateTimeString();
 
-                    }else{
-                    $row=new Model($id);}
-
-                }else{
-
-                    if(isset($this->id)){
-
-                        $row=new Model($this->id);
-                    }else{
-                        $row=new Model();
-
-                    }
-                    
-                }
-        //dd($data);
-          if(array_key_exists('_token', $data))unset($data['_token']);
-          if(array_key_exists('UniqId', $data))unset($data['UniqId']);
-         $row->update($data);
-      \MS\Core\Helper\Comman::DB_flush();
+        $data2=\DB::connection($this->connection)->table($this->table)->where('UniqId',$UniqId)->update($data);
+        dd($data2   );
+          \MS\Core\Helper\Comman::DB_flush();
    
         return ['status'=>'200','msg'=>"Data Succesfully added to MSDB."];
 
@@ -257,8 +241,8 @@ protected $base_Field;
          if(array_key_exists('_token', $data))unset($data['_token']);
          if(!array_key_exists('UniqId', $data))$data['UniqId']=Base::genUniqID();
 
-        if(!array_key_exists('created_at', $data))$data['created_at']=\Carbon::createFromTimestamp(-1)->toDateTimeString();
-        if(!array_key_exists('updated_at', $data))$data['updated_at']=\Carbon::createFromTimestamp(-1)->toDateTimeString();
+        if(!array_key_exists('created_at', $data))$data['created_at']=\Carbon::now()->toDateTimeString();
+        if(!array_key_exists('updated_at', $data))$data['updated_at']=\Carbon::now()->toDateTimeString();
 
         $data2=\DB::connection($this->connection)->table($this->table)->insertGetId($data);
 
@@ -279,6 +263,11 @@ protected $base_Field;
             return $error;
          }
          return $error;
+    }
+
+
+    public function taskApproveById(){
+        
     }
 
 }

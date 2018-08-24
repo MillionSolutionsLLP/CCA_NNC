@@ -176,19 +176,19 @@ public static $connection1 ="AMS_Master";
 public static $tableStatus1=false;
 
 public static $field1=[
-['name'=>'UniqId','type'=>'string','input'=>'auto','callback'=>'genUniqID','default'=>'genUniqID',],
+['name'=>'UniqId','type'=>'string','input'=>'auto','callback'=>'genUniqID','default'=>'genUniqID',  'data'=>['input-size'=>'col-lg-1']],
 
 
 //basic details 
 
-['name'=>'Name','type'=>'string','input'=>'text',  ],
-['name'=>'AddressLine1','vName'=>'Address Line 1','type'=>'string','input'=>'text',  ],
-['name'=>'AddressLine2','vName'=>'Address Line 2','type'=>'string','input'=>'text',  ],
-['name'=>'AddressLine3','vName'=>'Address Line 3','type'=>'string','input'=>'text',  ],
-['name'=>'Landmark','vName'=>'Landmark','type'=>'string','input'=>'text',  ],
-['name'=>'City','vName'=>'City','type'=>'string','input'=>'text',  ],
-['name'=>'State','vName'=>'State','type'=>'string','input'=>'text',  ],
-['name'=>'Pincode','vName'=>'Pincode','type'=>'string','input'=>'number',  ],
+['name'=>'Name','type'=>'string','input'=>'text', 'data'=>['input-size'=>'col-lg-11']  ],
+['name'=>'AddressLine1','vName'=>'Address Line 1','type'=>'string','input'=>'text',  'data'=>['input-size'=>'col-lg-4'] ],
+['name'=>'AddressLine2','vName'=>'Address Line 2','type'=>'string','input'=>'text',  'data'=>['input-size'=>'col-lg-4'] ],
+['name'=>'AddressLine3','vName'=>'Address Line 3','type'=>'string','input'=>'text',  'data'=>['input-size'=>'col-lg-4'] ],
+['name'=>'Landmark','vName'=>'Landmark','type'=>'string','input'=>'text',  'data'=>['input-size'=>'col-lg-2'] ],
+['name'=>'City','vName'=>'City','type'=>'string','input'=>'text',  'data'=>['input-size'=>'col-lg-2'] ],
+['name'=>'State','vName'=>'State','type'=>'string','input'=>'text',  'data'=>['input-size'=>'col-lg-2'] ],
+['name'=>'Pincode','vName'=>'Pincode','type'=>'string','input'=>'number',  'data'=>['input-size'=>'col-lg-2'] ],
 
 
 //Login Credetial
@@ -207,7 +207,7 @@ public static $field1=[
 
 
 
-['name'=>'Status','type'=>'boolean','input'=>'radio','value'=>'status','default'=>'status'],
+['name'=>'Status','type'=>'boolean','input'=>'radio','value'=>'status','default'=>'status', 'data'=>['input-size'=>'col-lg-1']],
 
 ];
 
@@ -286,7 +286,7 @@ public static $field4=[
 ['name'=>'AddressLine2','vName'=>'Address Line 2','type'=>'string','input'=>'text',  ],
 ['name'=>'AddressLine3','vName'=>'Address Line 3','type'=>'string','input'=>'text',  ],
 ['name'=>'Landmark','vName'=>'Landmark','type'=>'string','input'=>'text',  ],
-['name'=>'City','vName'=>'City','type'=>'string','input'=>'text',  ],
+['name'=>'City','vName'=>'City','type'=>'string','input'=>'text', ],
 ['name'=>'State','vName'=>'State','type'=>'string','input'=>'text',  ],
 ['name'=>'Pincode','vName'=>'Pincode','type'=>'string','input'=>'text',  ],
 
@@ -681,6 +681,7 @@ public static function genFieldData($data){
 			];
 			}
 			if(array_key_exists('vName', $data))$array['vName']=$data['vName'];
+			if(array_key_exists('data', $data))$array['data']=$data['data'];
 
 			break;
 
@@ -693,6 +694,7 @@ public static function genFieldData($data){
 			'default'=>(array_key_exists('default', $data) ? self::$data['default']() : null),
 			];
 			if(array_key_exists('vName', $data))$array['vName']=$data['vName'];
+			if(array_key_exists('data', $data))$array['data']=$data['data'];
 			break;
 
 		case 'number':
@@ -703,6 +705,7 @@ public static function genFieldData($data){
 			'value'=>(array_key_exists('callback', $data) ? self::$data['callback']() : null),
 			];
 			if(array_key_exists('vName', $data))$array['vName']=$data['vName'];
+			if(array_key_exists('data', $data))$array['data']=$data['data'];
 			break;
 		case 'option':
 			$array=[
@@ -713,6 +716,7 @@ public static function genFieldData($data){
 			];
 			if(array_key_exists('vName', $data))$array['vName']=$data['vName'];
 			if(array_key_exists('editLock', $data))$array['editLock']=$data['editLock'];
+			if(array_key_exists('data', $data))$array['data']=$data['data'];
 			break;
 
 		case 'disable':
@@ -723,6 +727,7 @@ public static function genFieldData($data){
 			'value'=>(array_key_exists('callback', $data) ? self::$data['callback']() : null),
 			];
 			if(array_key_exists('vName', $data))$array['vName']=$data['vName'];
+			if(array_key_exists('data', $data))$array['data']=$data['data'];
 			break;
 
 
@@ -732,9 +737,10 @@ public static function genFieldData($data){
 			'name'=>$data['name'],
 			'type'=>$data['input'],
 			'value'=>(array_key_exists('callback', $data) ? self::$data['callback']() : null),
-			'data'=>(array_key_exists('default', $data) ? self::$data['default']() : null),
+			'dataArray'=>(array_key_exists('default', $data) ? self::$data['default']() : null),
 			];
 			if(array_key_exists('vName', $data))$array['vName']=$data['vName'];
+			if(array_key_exists('data', $data))$array['data']=$data['data'];
 			break;
 
 		case 'check':
@@ -745,6 +751,7 @@ public static function genFieldData($data){
 			'value'=>(array_key_exists('callback', $data) ? self::$data['callback']() : null),
 			];
 			if(array_key_exists('vName', $data))$array['vName']=$data['vName'];
+			if(array_key_exists('data', $data))$array['data']=$data['data'];
 			break;
 
 		case 'password':
@@ -755,6 +762,7 @@ public static function genFieldData($data){
 			'value'=>(array_key_exists('callback', $data) ? self::$data['callback']() : null),
 			];
 			if(array_key_exists('vName', $data))$array['vName']=$data['vName'];
+			if(array_key_exists('data', $data))$array['data']=$data['data'];
 			break;
 
 
@@ -766,6 +774,7 @@ public static function genFieldData($data){
 			'value'=>(array_key_exists('callback', $data) ? self::$data['callback']() : null),
 			];
 			if(array_key_exists('vName', $data))$array['vName']=$data['vName'];
+			if(array_key_exists('data', $data))$array['data']=$data['data'];
 			break;
 
 			case 'auto':
@@ -782,6 +791,7 @@ public static function genFieldData($data){
 			'value'=>(array_key_exists('callback', $data) ? self::$data['callback']() : null),
 			];
 			if(array_key_exists('vName', $data))$array['vName']=$data['vName'];
+			if(array_key_exists('data', $data))$array['data']=$data['data'];
 			break;
 
 			case 'date':
@@ -792,6 +802,7 @@ public static function genFieldData($data){
 			'value'=>(array_key_exists('callback', $data) ? self::$data['callback']() : null),
 			];
 			if(array_key_exists('vName', $data))$array['vName']=$data['vName'];
+			if(array_key_exists('data', $data))$array['data']=$data['data'];
 			break;
 
 			case 'file':
@@ -802,6 +813,7 @@ public static function genFieldData($data){
 			'value'=>(array_key_exists('callback', $data) ? self::$data['callback']() : null),
 			];
 			if(array_key_exists('vName', $data))$array['vName']=$data['vName'];
+			if(array_key_exists('data', $data))$array['data']=$data['data'];
 			break;
 		
 

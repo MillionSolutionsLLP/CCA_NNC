@@ -28,8 +28,16 @@ protected $base_Field;
 
         $m=new Model();
         //dd($m->where('UniqId',$code)->first()->toArray()['UserName']);
+        $u=$m->where('UniqId',$code)->first();
+        if($u==null){
+            return null;
+        }else{
 
-        return $m->where('UniqId',$code)->first()->toArray()['UserName'];
+             return $m->where('UniqId',$code)->first()->toArray()['UserName'];
+        }
+
+
+       
         
 
     }
@@ -79,12 +87,16 @@ protected $base_Field;
 
     }
 
-    public function MS_add($data){
+  public function MS_add($data,$id=0){
             
-            $row=new Model();
+            if($id)
+                {$row=new Model($id);}else{
+                    $row=new Model();
+                }
           //  $data['AttachmentsArray']="array";
            // if(!(array_key_exists('Attachments', $data)))$data['Attachments']="array";
              if(array_key_exists('_token', $data))unset($data['_token']);
+             if(!array_key_exists('UniqId', $data))$data['UniqId']=Base::genUniqID();
         foreach ($data as $key => $value) {
             $row->$key=$value;
             
@@ -95,7 +107,6 @@ protected $base_Field;
         }
             return ['status'=>'200','msg'=>$row->checkSave()];
     }
-
 
     public function checkSave(){
 
