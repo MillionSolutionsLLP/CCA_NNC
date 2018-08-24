@@ -77,7 +77,7 @@ public static $tableNo="0";
 
 
 
-public static $connection ="MSDBC";
+//public static $connection ="MSDBC";
 
 public static $allOnSameconnection=false;
 
@@ -88,9 +88,9 @@ public static $allOnSameconnection=false;
 ////////////////////////////////////////////////////////////////////////
 public static $table="ATMS";
 
-public static $connection1 ="ATMS_Data";
+public static $connection ="ATMS_Data";
 
-public static $tableStatus1=false;
+public static $tableStatus=false;
 
 public static $field=[
 //['name'=>'UniqId','type'=>'string','input'=>'auto','value'=>'genUniqID',],
@@ -197,6 +197,20 @@ public static function getTypeofDocuments(){
 
 	$retuenArray['000']="Other Document";
 	return $retuenArray;
+}
+
+
+
+public static function getTypeOfDocumentById($UniqId){
+	\MS\Core\Helper\Comman::DB_flush();
+	$tableId='3';
+	$m1=new Model($tableId);
+	\MS\Core\Helper\Comman::DB_flush();
+	return $m1->where('UniqId',$UniqId)->first()->toArray();
+
+
+
+
 }
 
 

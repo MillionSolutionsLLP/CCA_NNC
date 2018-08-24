@@ -265,7 +265,7 @@
                   Approve
                 </div>
 
-                <div class="btn btn-danger ms-text-white" ms-live-link="{{  route('TMS.Task.Rise.Step.Query',['UniqId'=>\MS\Core\Helper\Comman::en4url($data['task']['UniqId']) ,'StepId'=>\MS\Core\Helper\Comman::en4url($step['UniqId']) ] ) }}">
+                <div class="btn btn-danger ms-text-white ms-mod-btn" ms-live-link="{{  route('TMS.Task.Rise.Step.Query',['UniqId'=>\MS\Core\Helper\Comman::en4url($data['task']['UniqId']) ,'StepId'=>\MS\Core\Helper\Comman::en4url($step['UniqId']) ] ) }}">
                   <i class="fa fa-question"></i>
                   Rise Query
                 </div>

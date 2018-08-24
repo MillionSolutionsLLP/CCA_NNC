@@ -314,7 +314,7 @@ public function taskView(){
 
 public function taskViewById($UniqId){
 
-
+\MS\Core\Helper\Comman::DB_flush();
 
 		$uniqId=\MS\Core\Helper\Comman::de4url($UniqId);
 		//$uniqId=$enUniqId;
@@ -327,7 +327,7 @@ public function taskViewById($UniqId){
 
 		if(count($rowData)>0){
 
-
+\MS\Core\Helper\Comman::DB_flush();
 			\MS\Core\Helper\Comman::DB_flush();
 			$m2=new Model('1',$rowData['UniqId']);
 			$rowData2=$m2->MS_all()->toArray();
@@ -508,10 +508,75 @@ public function getUploadedFile($UniqId,$TaskId,$StepId,$TypeOfDocument,$FileNam
 
 
 			public function riseQuery($TaskId,$StepId){
+			\MS\Core\Helper\Comman::DB_flush();
+			$status=200;
+			$array=[
+					'msg'=>"OK",
+			 	//	'redirectData'=>action('\B\TMS\Controller@indexData'),
+			 		
+				];
+
+	
+		 
+							
+			$data['TaskId']=\MS\Core\Helper\Comman::de4url($TaskId);
+			$data['StepId']=\MS\Core\Helper\Comman::de4url($StepId);
+
+			$m1=new Model();
 
 
-			$TaskId=\MS\Core\Helper\Comman::de4url($TaskId);
-			$StepId=\MS\Core\Helper\Comman::de4url($StepId);
+			if($m1->where('UniqId',$data['TaskId'])->first()->toArray() ==null){
+
+					$status=422;
+			$array=[
+					'msg'=>["Task Not Found"],
+			 	//	'redirectData'=>action('\B\TMS\Controller@indexData'),
+			 		
+				];
+
+	
+				return response()->json($array, $status);
+
+
+			}
+			$data['taskData']=$m1->where('UniqId',$data['TaskId'])->first()->toArray();
+
+			\MS\Core\Helper\Comman::DB_flush();
+			$m2=new Model('1',$data['TaskId']) ;
+			
+			if($m2->where('UniqId',$data['StepId'])->first() ==null){
+
+					$status=422;
+			$array=[
+					'msg'=>["Task's Step Details Not Found"],
+			 	//	'redirectData'=>action('\B\TMS\Controller@indexData'),
+			 		
+				];
+
+	
+				return response()->json($array, $status);
+
+
+			}
+
+			$data['stepData']=$m2->where('UniqId',$data['StepId'])->first()->toArray();
+
+			$data['stepData']['DocumentArray']=(array)json_decode($data['stepData']['DocumentArray'],true);
+			$data['stepData']['DocumentVerifiedArray']=(array)json_decode($data['stepData']['DocumentVerifiedArray'],true);
+
+			$data['stepData']['DocumentQueryArray']=(array)json_decode($data['stepData']['DocumentQueryArray'],true);
+			$data['stepData']['DocumentReplyArray']=(array)json_decode($data['stepData']['DocumentReplyArray'],true);
+
+
+
+			
+
+
+
+		//	dd($data);
+
+			return view('TMS.V.Object.TaskQueryRise')->with('data',$data);
+
 
 
 
