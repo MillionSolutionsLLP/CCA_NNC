@@ -98,11 +98,19 @@ public static $routes=[
 						],
 
 
-							[
+						[
 						'name'=>'TMS.Task.Rise.Step.Query',
 						'route'=>'/task/query/{TaskId}/{StepId}',
 						'method'=>'riseQuery',
 						'type'=>'get',
+						],
+
+
+						[
+						'name'=>'TMS.Task.Rise.Step.Query.Post',
+						'route'=>'/task/query/{TaskId}/{StepId}',
+						'method'=>'riseQueryPost',
+						'type'=>'post',
 						],
 
 

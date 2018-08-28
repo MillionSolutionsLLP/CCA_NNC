@@ -36,7 +36,7 @@ if(array_key_exists('data', $data)){
 <div class="checkbox">
 @foreach($data['dataArray'] as $value=>$lable)
 <label tabindex="{{$index}}">
-	{{Form::checkbox($data['name']."[]", $value)}}
+	{{Form::checkbox($data['name']."[".$value."]")}}
     {{$lable}}
   </label>
 @endforeach

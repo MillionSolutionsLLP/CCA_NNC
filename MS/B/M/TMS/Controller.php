@@ -1,6 +1,6 @@
 <?php
 namespace B\TMS;
-
+use Illuminate\Http\Request;
 class Controller extends \App\Http\Controllers\Controller
 {
 	public function __construct(){
@@ -476,7 +476,12 @@ public function taskApproveById($UniqId,$StepId){
 
 
 
+
 }
+
+
+
+
 
 
 
@@ -584,4 +589,87 @@ public function getUploadedFile($UniqId,$TaskId,$StepId,$TypeOfDocument,$FileNam
 
 			}
 
+
+
+			public function riseQueryPost ( Request $r, $TaskId,$StepId){
+
+				\MS\Core\Helper\Comman::DB_flush();
+
+				$input=$r->all();
+				$data['TaskId']=\MS\Core\Helper\Comman::de4url($TaskId);
+				$data['StepId']=\MS\Core\Helper\Comman::de4url($StepId);
+
+
+
+
+			$m1=new Model();
+
+
+			if($m1->where('UniqId',$data['TaskId'])->first()->toArray() ==null){
+
+					$status=422;
+			$array=[
+					'msg'=>["Task Not Found"],
+			 	//	'redirectData'=>action('\B\TMS\Controller@indexData'),
+			 		
+				];
+
+	
+				return response()->json($array, $status);
+
+
+			}
+			$data['taskData']=$m1->where('UniqId',$data['TaskId'])->first()->toArray();
+
+			\MS\Core\Helper\Comman::DB_flush();
+			$m2=new Model('1',$data['TaskId']) ;
+			
+			if($m2->where('UniqId',$data['StepId'])->first() ==null){
+
+					$status=422;
+			$array=[
+					'msg'=>["Task's Step Details Not Found"],
+			 	//	'redirectData'=>action('\B\TMS\Controller@indexData'),
+			 		
+				];
+
+	
+				return response()->json($array, $status);
+
+
+			}
+
+			$data['stepData']=$m2->where('UniqId',$data['StepId'])->first()->toArray();
+
+			$data['stepData']['DocumentArray']=(array)json_decode($data['stepData']['DocumentArray'],true);
+			$data['stepData']['DocumentVerifiedArray']=(array)json_decode($data['stepData']['DocumentVerifiedArray'],true);
+
+			$data['stepData']['DocumentQueryArray']=(array)json_decode($data['stepData']['DocumentQueryArray'],true);
+			$data['stepData']['DocumentReplyArray']=(array)json_decode($data['stepData']['DocumentReplyArray'],true);
+
+
+			foreach ($data['stepData']['DocumentArray'] as $key => $value) {
+				
+				if(!array_key_exists($value['UniqId'], $input['SelectedFiles'])){
+
+					$data['stepData']['DocumentVerifiedArray'][$key]=$value;
+
+				}
+
+
+			}
+
+
+
+				dd($data);
+				if($input['SelectedFiles']==null){
+
+
+
+				}
+
+
+
+
+			}
 }
