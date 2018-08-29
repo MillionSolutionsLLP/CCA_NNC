@@ -58,15 +58,14 @@ public static $routes=[
 						'method'=>'taskUploadByIdPost',
 						'type'=>'post',
 						],
+						
 
-
-						// [
-						// 'name'=>'ATMS.Task.Get.File.Name',
-						// 'route'=>'{UniqId}/{TaskId}/{StepId}/{FileName}',
-						// 'method'=>'taskUploadByIdPost',
-						// 'type'=>'get',
-						// ],
-
+						[
+						'name'=>'ATMS.Task.Get.File.Name',
+						'route'=>'task/uploadedDoc/{UniqId}/{TaskId}/{StepId}/{TypeOfDocument}/{FileName}',
+						'method'=>'getUploadedFile',
+						'type'=>'get',
+						],
 
 
 						

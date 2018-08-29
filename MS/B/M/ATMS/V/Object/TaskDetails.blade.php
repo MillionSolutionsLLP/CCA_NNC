@@ -96,31 +96,21 @@
                      <div class="btn-group btn-group-justified" >
                               
                       <?php 
-                   //   dd(session()->all());
-                      if(session('user.SuperAdmin')){
-                      $link="TMS.index.Data";
-                      }elseif (session('user.AgencyAdmin')) {
+                
                       $link="ATMS.Task.Upload.Id";
-                      }else{
-                      $link=null;
-                      }
-
+                   
                  
 
                       ?>  
 
 
-                        @if($userRole==1)
-
-                              <div class="btn btn-default ms-text-black ms-mod-btn" ms-live-link="{{ route($link) }}"><i class="fa fa-fast-backward"  ></i> Go Back to Task List</div>
-                        @elseif($userRole==2)
-
+                  
                         <div class="btn btn-info ms-text-black ms-mod-btn " ms-live-link="{{ route('ATMS.index.Data') }}"><i class="fa fa-fast-backward"  ></i> Go Back to Task List</div>
                          <div class="btn ms-text-black ms-mod-btn btn-success" ms-live-link="{{ route($link, 
 
                          ['UniqId'=>\MS\Core\Helper\Comman::en4url($data['task']['UniqId']) ] ) }}"><i class="fa fa-cloud-upload"  ></i> Upload Documents</div>
 
-                        @endif                           
+                                       
 
                             </div>
 

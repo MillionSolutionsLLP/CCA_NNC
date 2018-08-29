@@ -27,40 +27,40 @@ return redirect()->action('\B\Panel\Controller@index');
 
 });
 
-Route::prefix('ATMS')->group(function () {
+// Route::prefix('ATMS')->group(function () {
 
 
-	Route::prefix('Data')->group(function () {
+// 	Route::prefix('Data')->group(function () {
 
 
-			Route::middleware(['backend'])
+// 			Route::middleware(['backend'])
 
-			->group(function () {
-		Route::get('{UniqId}/{TaskId}/{StepId}/{FileName}',function($UniqId,$TaskId,$StepId,$FileName){
-
-
+// 			->group(function () {
+// 		Route::get('{UniqId}/{TaskId}/{StepId}/{FileName}',function($UniqId,$TaskId,$StepId,$FileName){
 
 
-			//dd(implode('/',['ATMS','Data',$TaskId,$StepId,$FileName]));
 
-			$img=\Storage::disk('ATMS')->get(implode('/',['Data',$TaskId,$StepId,$FileName]));
+
+// 			//dd(implode('/',['ATMS','Data',$TaskId,$StepId,$FileName]));
+
+// 			$img=\Storage::disk('ATMS')->get(implode('/',['Data',$TaskId,$StepId,$FileName]));
 			
-		//	dd();
+// 		//	dd();
 
-			 return (new \Illuminate\Http\Response($img))->header('Content-Type', \Storage::disk('ATMS')->mimeType(implode('/',['Data',$TaskId,$StepId,$FileName])));
-
-
-
-			});
-
-		});
-
-
-	});
+// 			 return (new \Illuminate\Http\Response($img))->header('Content-Type', \Storage::disk('ATMS')->mimeType(implode('/',['Data',$TaskId,$StepId,$FileName])));
 
 
 
-});
+// 			});
+
+// 		});
+
+
+// 	});
+
+
+
+// });
 
 
 

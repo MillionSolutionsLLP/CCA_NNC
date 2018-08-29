@@ -275,4 +275,45 @@ class Controller extends \App\Http\Controllers\Controller
 
 
 	}
+
+
+	public function getUploadedFile ($UniqId,$TaskId,$StepId,$TypeOfDocument,$FileName){
+
+		
+			//dd();
+			$UniqId=\MS\Core\Helper\Comman::de4url($UniqId);
+			$TaskId=\MS\Core\Helper\Comman::de4url($TaskId);
+
+			$StepId=\MS\Core\Helper\Comman::de4url($StepId);
+
+			$TypeOfDocument=\MS\Core\Helper\Comman::de4url($TypeOfDocument);
+			//dd($TypeOfDocument);
+
+			//DIRECTORY_SEPARATOR
+			$file=implode('/',['Data',$TaskId,$TypeOfDocument,$FileName]);
+			$img=\Storage::disk('ATMS')->get($file);
+			
+			$responseClass=new \Illuminate\Http\Response($img);
+
+
+		//	dd($file);
+			//dd(\Storage::disk('ATMS')->getDriver()->getAdapter()->getPathPrefix().$file);
+
+			$headers=[
+'content-type'=> \Storage::disk('ATMS')->mimeType($file)
+
+			];
+
+	// 		return $responseClass->header('content-type', \Storage::disk('ATMS')->mimeType($file));
+	// dd($responseClass->header('content-type', \Storage::disk('ATMS')->mimeType($file)));
+	// 		return response()->file(\Storage::disk('ATMS')->getDriver()->getAdapter()->getPathPrefix().$file,[
+	// 			'content-type'=> \Storage::disk('ATMS')->mimeType($file)
+
+	// 			]);
+			ob_end_clean();
+			 return $responseClass->header('content-type', \Storage::disk('ATMS')->mimeType($file))->header('Content-Length', \Storage::disk('ATMS')->size($file));//->header('Content-Disposition','attachment; filename=' . $FileName);
+
+
+
+	}
 }

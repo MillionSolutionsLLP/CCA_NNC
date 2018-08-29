@@ -92,7 +92,7 @@ public static $routes=[
 
 						[
 						'name'=>'TMS.Task.Get.File.Name',
-						'route'=>'{UniqId}/{TaskId}/{StepId}/{TypeOfDocument}/{FileName}',
+						'route'=>'task/uploadedDoc/{UniqId}/{TaskId}/{StepId}/{TypeOfDocument}/{FileName}',
 						'method'=>'getUploadedFile',
 						'type'=>'get',
 						],

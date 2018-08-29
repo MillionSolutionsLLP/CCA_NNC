@@ -1,6 +1,6 @@
 <div class="panel panel-info" >
       <?php 
-
+    //  dd($data);
       $userRole=0;
               if(session('user.SuperAdmin')){
                       $userRole=1;
@@ -153,6 +153,8 @@
                 $documentArray=(array)json_decode($step['DocumentArray']);
                 $documenyArrayVeri=(array)json_decode($step['DocumentVerifiedArray']);
                 
+                $DocumentQuery=$step['DocumentQuery'];
+
 
                  ?>
 
@@ -258,9 +260,14 @@
                @else
 
                @if($step['DocumentUploaded'])
+
+
+
                <div class="btn-group btn-group-xs">
+
+               @if(!$DocumentQuery)
                  
-                <div class="btn btn-info ms-text-black" ms-live-link="{{  route('TMS.Task.Approve.Id',['UniqId'=>\MS\Core\Helper\Comman::en4url($data['task']['UniqId']) ,'StepId'=>\MS\Core\Helper\Comman::en4url($step['UniqId']) ] ) }}">
+                <div class="btn btn-info ms-text-black ms-mod-btn" ms-live-link="{{  route('TMS.Task.Approve.Id',['UniqId'=>\MS\Core\Helper\Comman::en4url($data['task']['UniqId']) ,'StepId'=>\MS\Core\Helper\Comman::en4url($step['UniqId']) ] ) }}">
                   <i class="fa fa-check"></i>
                   Approve
                 </div>
@@ -270,7 +277,19 @@
                   Rise Query
                 </div>
 
+                @else
+
+
+                <div class="btn btn-warning ms-text-black" >
+                  <i class="fa fa-refresh fa-spin fa-fw"></i>
+                  Waiting For Agency Replay
+                </div>
+
+                @endif
                </div>
+
+
+
                @else
 
                  No Document Uploaded

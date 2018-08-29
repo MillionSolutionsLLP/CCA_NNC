@@ -470,8 +470,21 @@ public function taskApproveById($UniqId,$StepId){
 
 	//;
 
-	dd($m1->MS_update( ['DocumentVerifiedArray'=>json_encode($documentArray),'DocumentVerified'=>1,'VerifiedBy'=>session('user.userData.UniqId')] , $StepId ) );
+	$m1->MS_update( ['DocumentVerifiedArray'=>json_encode($documentArray),'DocumentVerified'=>1,'VerifiedBy'=>session('user.userData.UniqId')] , $StepId ) ;
 
+
+
+	$status=200;
+			$array=[
+					'msg'=>"OK",
+			 		'redirectData'=>route('TMS.Task.View.Id',['UniqId'=>\MS\Core\Helper\Comman::en4url($UniqId) ]),
+			 		//'data'=>$input,
+			 	//	'array'=>$return
+
+				];
+
+	
+		 return response()->json($array, $status);
 	
 
 
@@ -503,9 +516,25 @@ public function getUploadedFile($UniqId,$TaskId,$StepId,$TypeOfDocument,$FileNam
 			$file=implode('/',['Data',$TaskId,$TypeOfDocument,$FileName]);
 			$img=\Storage::disk('ATMS')->get($file);
 			
-		//	dd();
+			$responseClass=new \Illuminate\Http\Response($img);
 
-			 return (new \Illuminate\Http\Response($img))->header('Content-Type', \Storage::disk('ATMS')->mimeType($file));
+
+		//	dd($file);
+			//dd(\Storage::disk('ATMS')->getDriver()->getAdapter()->getPathPrefix().$file);
+
+			$headers=[
+'content-type'=> \Storage::disk('ATMS')->mimeType($file)
+
+			];
+
+	// 		return $responseClass->header('content-type', \Storage::disk('ATMS')->mimeType($file));
+	// dd($responseClass->header('content-type', \Storage::disk('ATMS')->mimeType($file)));
+	// 		return response()->file(\Storage::disk('ATMS')->getDriver()->getAdapter()->getPathPrefix().$file,[
+	// 			'content-type'=> \Storage::disk('ATMS')->mimeType($file)
+
+	// 			]);
+			ob_end_clean();
+			 return $responseClass->header('content-type', \Storage::disk('ATMS')->mimeType($file))->header('Content-Length', \Storage::disk('ATMS')->size($file));//->header('Content-Disposition','attachment; filename=' . $FileName);
 
 
 
@@ -591,7 +620,7 @@ public function getUploadedFile($UniqId,$TaskId,$StepId,$TypeOfDocument,$FileNam
 
 
 
-			public function riseQueryPost ( Request $r, $TaskId,$StepId){
+			public function riseQueryPost ( R\RiseQuery $r, $TaskId,$StepId){
 
 				\MS\Core\Helper\Comman::DB_flush();
 
@@ -648,25 +677,77 @@ public function getUploadedFile($UniqId,$TaskId,$StepId,$TypeOfDocument,$FileNam
 			$data['stepData']['DocumentReplyArray']=(array)json_decode($data['stepData']['DocumentReplyArray'],true);
 
 
+			$selectedFile=[];
 			foreach ($data['stepData']['DocumentArray'] as $key => $value) {
 				
 				if(!array_key_exists($value['UniqId'], $input['SelectedFiles'])){
 
 					$data['stepData']['DocumentVerifiedArray'][$key]=$value;
 
+				}else{
+				$value['FileName']=$key;
+				$selectedFile[$value['UniqId']]=$value;
 				}
 
 
 			}
 
+			$QueryData=[];
+
+			$QueryNo=Base::genUniqID();
+
+			$QueryData[]=[
+
+			$QueryNo=>[
+			'Query'=>$input['SelectedFilesQuery'],
+			'Replay'=>null,
+			'QueryStatus'=>0,
+			'QueryDocumentArray'=>$selectedFile
+
+			],
 
 
-				dd($data);
-				if($input['SelectedFiles']==null){
+
+			];
+
+
+			if($data['stepData']['DocumentQueryArray'] == null){
+
+				$DocumentQueryArray=collect($QueryData)->toJson();
+
+			}else{
+
+				$DocumentQueryArray=collect($QueryData)->toJson();
+			}
+
+			$updateArray=[
+
+
+			'DocumentQuery'=>1,
+			'DocumentQueryArray'=>$DocumentQueryArray,
+			'QueryRisedBy'=>session('user.userData.UniqId'),
+
+			];
 
 
 
-				}
+			$m2->MS_update($updateArray,$data['StepId']);
+
+			$status=200;
+			$array=[
+					'msg'=>"OK",
+			 		'redirectData'=>route('TMS.Task.View.Id',['UniqId'=>\MS\Core\Helper\Comman::en4url($data['TaskId']) ]),
+			 		//'data'=>$input,
+			 	//	'array'=>$return
+
+				];
+
+	
+		 return response()->json($array, $status);
+
+		//	return $this->taskViewById(\MS\Core\Helper\Comman::en4url());
+				//dd();
+				
 
 
 
