@@ -68,6 +68,23 @@ public static $routes=[
 						],
 
 
+						[
+						'name'=>'ATMS.Task.Rise.Step.Replay',
+						'route'=>'/task/replay/{TaskId}/{StepId}',
+						'method'=>'queryReplay',
+						'type'=>'get',
+						],
+
+
+						[
+						'name'=>'ATMS.Task.Rise.Step.Replay.Post',
+						'route'=>'/task/replay/{TaskId}/{StepId}',
+						'method'=>'queryReplayPost',
+						'type'=>'post',
+						],
+
+
+
 						
 
 					];

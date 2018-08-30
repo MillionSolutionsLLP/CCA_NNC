@@ -478,11 +478,11 @@ public function taskApproveById($UniqId,$StepId){
 			$array=[
 					'msg'=>"OK",
 			 		'redirectData'=>route('TMS.Task.View.Id',['UniqId'=>\MS\Core\Helper\Comman::en4url($UniqId) ]),
-			 		//'data'=>$input,
-			 	//	'array'=>$return
+			 
 
 				];
-
+				\MS\Core\Helper\Comman::DB_flush();
+				return $this->taskViewById(\MS\Core\Helper\Comman::en4url($UniqId));
 	
 		 return response()->json($array, $status);
 	

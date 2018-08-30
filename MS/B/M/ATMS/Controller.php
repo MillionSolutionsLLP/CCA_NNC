@@ -221,6 +221,7 @@ class Controller extends \App\Http\Controllers\Controller
 				$filePath[$fileName]['UniqId']=$fileUniqId;
 				$filePath[$fileName]['DateOfDocument']=$value['date'];
 				$filePath[$fileName]['TypeOfDocument']=$value['type'];
+				$filePath[$fileName]['NameOfDocument']=$key;
 				if(array_key_exists('NoOfDocument', $value))$filePath[$fileName]['NoOfDocument']=$value['NoOfDocument'];
 
 				if(array_key_exists('AmountOfDocument', $value))$filePath[$fileName]['AmountOfDocument']=$value['AmountOfDocument'];
@@ -313,6 +314,253 @@ class Controller extends \App\Http\Controllers\Controller
 			ob_end_clean();
 			 return $responseClass->header('content-type', \Storage::disk('ATMS')->mimeType($file))->header('Content-Length', \Storage::disk('ATMS')->size($file));//->header('Content-Disposition','attachment; filename=' . $FileName);
 
+
+
+	}
+
+
+	public function queryReplay($TaskId,$StepId){
+
+			\MS\Core\Helper\Comman::DB_flush();
+			$status=200;
+			$array=[
+					'msg'=>"OK",
+			 	//	'redirectData'=>action('\B\TMS\Controller@indexData'),
+			 		
+				];
+
+	
+		 
+							
+			$data['TaskId']=\MS\Core\Helper\Comman::de4url($TaskId);
+			$data['StepId']=\MS\Core\Helper\Comman::de4url($StepId);
+
+			$m1=new \B\TMS\Model();
+
+
+			if($m1->where('UniqId',$data['TaskId'])->first()->toArray() ==null){
+
+					$status=422;
+			$array=[
+					'msg'=>["Task Not Found"],
+			 	//	'redirectData'=>action('\B\TMS\Controller@indexData'),
+			 		
+				];
+
+	
+				return response()->json($array, $status);
+
+
+			}
+			$data['taskData']=$m1->where('UniqId',$data['TaskId'])->first()->toArray();
+
+			\MS\Core\Helper\Comman::DB_flush();
+			$m2=new \B\TMS\Model('1',$data['TaskId']) ;
+			
+			if($m2->where('UniqId',$data['StepId'])->first() ==null){
+
+					$status=422;
+			$array=[
+					'msg'=>["Task's Step Details Not Found"],
+			 	//	'redirectData'=>action('\B\TMS\Controller@indexData'),
+			 		
+				];
+
+	
+				return response()->json($array, $status);
+
+
+			}
+
+			$data['stepData']=$m2->where('UniqId',$data['StepId'])->first()->toArray();
+
+			$data['stepData']['DocumentArray']=(array)json_decode($data['stepData']['DocumentArray'],true);
+			$data['stepData']['DocumentVerifiedArray']=(array)json_decode($data['stepData']['DocumentVerifiedArray'],true);
+
+			$data['stepData']['DocumentQueryArray']=(array)json_decode($data['stepData']['DocumentQueryArray'],true);
+			$data['stepData']['DocumentReplyArray']=(array)json_decode($data['stepData']['DocumentReplyArray'],true);
+
+
+
+			
+
+
+
+		//	dd($data);
+
+			return view('ATMS.V.Object.TaskQueryReplay')->with('data',$data);
+
+
+
+
+	}
+
+
+
+	public function queryReplayPost (R\ReplayWithDocuments $r,$TaskId,$StepId){
+					\MS\Core\Helper\Comman::DB_flush();
+
+					$input = $r->all();
+			$status=200;
+			$array=[
+					'msg'=>"OK",
+			 	//	'redirectData'=>action('\B\TMS\Controller@indexData'),
+			 		
+				];
+
+	
+		 
+							
+			$data['TaskId']=\MS\Core\Helper\Comman::de4url($TaskId);
+			$data['StepId']=\MS\Core\Helper\Comman::de4url($StepId);
+
+			$m1=new \B\TMS\Model();
+
+
+			if($m1->where('UniqId',$data['TaskId'])->first()->toArray() ==null){
+
+					$status=422;
+			$array=[
+					'msg'=>["Task Not Found"],
+			 	//	'redirectData'=>action('\B\TMS\Controller@indexData'),
+			 		
+				];
+
+	
+				return response()->json($array, $status);
+
+
+			}
+			$data['taskData']=$m1->where('UniqId',$data['TaskId'])->first()->toArray();
+
+			\MS\Core\Helper\Comman::DB_flush();
+			$m2=new \B\TMS\Model('1',$data['TaskId']) ;
+			
+			if($m2->where('UniqId',$data['StepId'])->first() ==null){
+
+					$status=422;
+			$array=[
+					'msg'=>["Task's Step Details Not Found"],
+			 	//	'redirectData'=>action('\B\TMS\Controller@indexData'),
+			 		
+				];
+
+	
+				return response()->json($array, $status);
+
+
+			}
+
+			$data['stepData']=$m2->where('UniqId',$data['StepId'])->first()->toArray();
+
+			$data['stepData']['DocumentArray']=(array)json_decode($data['stepData']['DocumentArray'],true);
+			$data['stepData']['DocumentVerifiedArray']=(array)json_decode($data['stepData']['DocumentVerifiedArray'],true);
+
+			$data['stepData']['DocumentQueryArray']=(array)json_decode($data['stepData']['DocumentQueryArray'],true);
+			$data['stepData']['DocumentReplyArray']=(array)json_decode($data['stepData']['DocumentReplyArray'],true);
+
+
+		//	dd($data['stepData']['DocumentQueryArray']['QueryDocumentArray']);
+
+			$UniqId=$data['TaskId'];
+
+			$path=[
+
+			'000'=>'Data'.DIRECTORY_SEPARATOR.$UniqId.DIRECTORY_SEPARATOR.'000',
+			'111'=>'Data'.DIRECTORY_SEPARATOR.$UniqId.DIRECTORY_SEPARATOR.'111',
+			'222'=>'Data'.DIRECTORY_SEPARATOR.$UniqId.DIRECTORY_SEPARATOR.'222',
+			'333'=>'Data'.DIRECTORY_SEPARATOR.$UniqId.DIRECTORY_SEPARATOR.'333',
+			'444'=>'Data'.DIRECTORY_SEPARATOR.$UniqId.DIRECTORY_SEPARATOR.'444',
+			'555'=>'Data'.DIRECTORY_SEPARATOR.$UniqId.DIRECTORY_SEPARATOR.'555',
+			'666'=>'Data'.DIRECTORY_SEPARATOR.$UniqId.DIRECTORY_SEPARATOR.'666',
+			'777'=>'Data'.DIRECTORY_SEPARATOR.$UniqId.DIRECTORY_SEPARATOR.'777',
+			'888'=>'Data'.DIRECTORY_SEPARATOR.$UniqId.DIRECTORY_SEPARATOR.'888',
+			'999'=>'Data'.DIRECTORY_SEPARATOR.$UniqId.DIRECTORY_SEPARATOR.'999',
+			];
+
+			 $docArray=current(current($data['stepData']['DocumentQueryArray']));
+			 $documentOutArray=[];
+
+			foreach ($input['replaceFiles'] as $key => $value) {
+
+				//dd($data['stepData']['DocumentArray']);
+				if(array_key_exists($docArray['QueryDocumentArray'][$key]['FileName'], $data['stepData']['DocumentArray'])){	
+						
+						$queryData=$docArray['QueryDocumentArray'][$key];
+
+						//dd($value->getClientOriginalExtension());
+
+						$oldData=$data['stepData']['DocumentArray'][$docArray['QueryDocumentArray'][$key]['FileName']];
+						$newPath=$path[$oldData['TypeOfDocument']].DIRECTORY_SEPARATOR.explode('.', $queryData['FileName'])[0].'.'.$value->getClientOriginalExtension();
+
+					//dd(key($data['stepData']['DocumentQueryArray'][0]));
+					$queryNo=key($data['stepData']['DocumentQueryArray'][0]);
+
+
+			unset($data['stepData']['DocumentArray'][$docArray['QueryDocumentArray'][$key]['FileName']]);
+$data['stepData']['DocumentQueryArray'][0][$queryNo]['Replay']=true;
+	$d1=[
+	"path" => $newPath,
+    "UniqId" => $oldData[ "UniqId"],
+    "DateOfDocument" => $oldData[ "DateOfDocument"],
+    "TypeOfDocument" => $oldData[ "TypeOfDocument"],
+    "NoOfDocument" => $oldData[ "NoOfDocument"],
+    "AmountOfDocument" => $oldData[ "AmountOfDocument"]];
+
+
+  
+	 $data['stepData']['DocumentArray'][ explode('.', $queryData['FileName'])[0].'.'.$value->getClientOriginalExtension() ]=$d1;
+	 $data['stepData']['DocumentReply']=true;
+	 $replyNo=Base::genUniqID();
+
+	 $data['stepData']['DocumentReplyArray'][$replyNo]=[
+
+			'Replay'=>$input['ReplayFromAgency'],
+			'ApprovedBy'=>null,
+			'ReplayStatus'=>0,
+			//'ReplyDocumentArray'=>$selectedFile
+
+	
+
+	 ];
+
+	  $data['stepData']['DocumentReplyArray'][$replyNo][$d1['UniqId']]=$d1;
+
+
+	 
+
+			}
+
+
+
+
+
+
+
+
+	
+
+			}
+
+			
+
+					$dbArray=[
+
+			
+			'DocumentArray'=>collect( $data['stepData']['DocumentArray'])->toJson(),
+			'DocumentQuery'=>false,
+			'DocumentQueryArray'=>collect( $data['stepData']['DocumentQueryArray'])->toJson(),
+			'DocumentReply'=>true,
+			'DocumentReplyArray'=>collect( $data['stepData']['DocumentReplyArray'])->toJson(),
+			
+
+		];
+
+		//\MS\Core\Helper\Comman::DB_flush();
+		
+			dd($m2->MS_update($dbArray , $data['StepId']));
+
+			dd($data['stepData']['DocumentArray']);
 
 
 	}

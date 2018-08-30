@@ -154,6 +154,7 @@
                 $documenyArrayVeri=(array)json_decode($step['DocumentVerifiedArray']);
                 
                 $DocumentQuery=$step['DocumentQuery'];
+                $DocumentQueryReplay=$step['DocumentReply'];
 
 
                  ?>
@@ -267,15 +268,30 @@
 
                @if(!$DocumentQuery)
                  
+
                 <div class="btn btn-info ms-text-black ms-mod-btn" ms-live-link="{{  route('TMS.Task.Approve.Id',['UniqId'=>\MS\Core\Helper\Comman::en4url($data['task']['UniqId']) ,'StepId'=>\MS\Core\Helper\Comman::en4url($step['UniqId']) ] ) }}">
                   <i class="fa fa-check"></i>
                   Approve
                 </div>
 
+               @if(!$DocumentQueryReplay)
+
+               
                 <div class="btn btn-danger ms-text-white ms-mod-btn" ms-live-link="{{  route('TMS.Task.Rise.Step.Query',['UniqId'=>\MS\Core\Helper\Comman::en4url($data['task']['UniqId']) ,'StepId'=>\MS\Core\Helper\Comman::en4url($step['UniqId']) ] ) }}">
                   <i class="fa fa-question"></i>
                   Rise Query
                 </div>
+
+
+                @else
+
+               
+
+                <div class="btn btn-warning ms-text-black ms-mod-btn" ms-live-link="{{  route('TMS.Task.Rise.Step.Query',['UniqId'=>\MS\Core\Helper\Comman::en4url($data['task']['UniqId']) ,'StepId'=>\MS\Core\Helper\Comman::en4url($step['UniqId']) ] ) }}">
+                  <i class="fa fa-eye"></i>
+                  View Replay
+                </div>
+                @endif
 
                 @else
 
@@ -353,6 +369,3 @@
 
                 </div>
                 </div>
-
-
-    
