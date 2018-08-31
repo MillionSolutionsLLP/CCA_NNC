@@ -1,7 +1,7 @@
 
 <div class="">
 <div class="col-lg-2" style="padding-left: 0px; padding-right: 2px;">
-	
+
 @include("Panel.V.Object.side")
 </div>
 

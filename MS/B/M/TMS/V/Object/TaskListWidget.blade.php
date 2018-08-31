@@ -4,7 +4,7 @@
 			$tableId=0;
 		\MS\Core\Helper\Comman::DB_flush();
 		$build=new \MS\Core\Helper\Builder ('B\\TMS');
-		$build->title("View All Assined Task");
+	//	$build->title("View All Assined Task");
 	//	
 		\MS\Core\Helper\Comman::DB_flush();
 		$model=new \B\TMS\Model($tableId);
@@ -21,11 +21,11 @@
 
 				'NameOperator'=>'Name of Operator',
 
-				'IllegalTypeBroadcasting'=>'Type Broacasting',
+				//'IllegalTypeBroadcasting'=>'Type Broacasting',
 				
 
 				'ModePiracy'=>'Mode of Piracy',
-				'NameOfNetwork'=>'LCO name',
+				//'NameOfNetwork'=>'LCO name',
 
 				'Status'=>'Cur. Status',
 
@@ -39,11 +39,7 @@
 
 			// ],
 
-			// 'edit'=>[
-			// 	'method'=>'AMS.Agency.Edit.Id',
-			// 	'key'=>'UniqId',
-
-			// ],
+			
 
 
 		

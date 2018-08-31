@@ -6,6 +6,20 @@
 
 <div class="panel-body">
 
+<div class="col-lg-6">
+	
+@include('TMS.V.Object.TaskListWidget')
+
+</div>
+
+<div class="col-lg-6">
+	
+@include('AMS.V.Object.AgencyWidget')
+
+</div>
+
+
+
 
 
 </div>
