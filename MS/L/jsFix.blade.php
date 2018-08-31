@@ -47,7 +47,7 @@ $("#error").html("");
                 success: completeHandler = function(data) {
             
                 var dataload=0
-               console.log(data.loadData);  
+              // console.log(data.loadData);  
                if("loadData" in data){
 
                      $(".ms-mod-tab").html(data.loadData);;

@@ -834,7 +834,7 @@ public function getUploadedFile($UniqId,$TaskId,$StepId,$TypeOfDocument,$FileNam
 	public function  riseQueryReject($TaskId,$StepId){
 
 
-			        \MS\Core\Helper\Comman::DB_flush();
+			    \MS\Core\Helper\Comman::DB_flush();
 				$data['TaskId']=\MS\Core\Helper\Comman::de4url($TaskId);
 				$data['StepId']=\MS\Core\Helper\Comman::de4url($StepId);
 					$m1=new Model();
@@ -868,6 +868,8 @@ public function getUploadedFile($UniqId,$TaskId,$StepId,$TypeOfDocument,$FileNam
 			 		
 				];
 
+
+
 	
 				return response()->json($array, $status);
 
@@ -887,14 +889,11 @@ public function getUploadedFile($UniqId,$TaskId,$StepId,$TypeOfDocument,$FileNam
 			$array=[
 					'msg'=>"OK",
 			 		'redirectData'=>route('TMS.Task.View.Id',['UniqId'=>\MS\Core\Helper\Comman::en4url($data['TaskId']) ]),
-			 		//'data'=>$input,
-			 	//	'array'=>$return
-
-				];
-
+			 				];
+			return $this->taskViewById(\MS\Core\Helper\Comman::en4url($data['TaskId']));
 	
 		 return response()->json($array, $status);
-			dd($data);
+			//dd($data);
 
 	}
 }
