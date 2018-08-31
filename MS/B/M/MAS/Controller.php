@@ -141,7 +141,7 @@ class Controller extends \App\Http\Controllers\Controller
 				'form-title'=>"Edit Tax Details",
 				'form-content'=>$formClass,
 				
-				'frm-action'=>"\B\MAS\Controller@editTaxPost",
+				'form-action'=>"\B\MAS\Controller@editTaxPost",
 				"form-btn"=>[
 
 								[
@@ -242,7 +242,7 @@ class Controller extends \App\Http\Controllers\Controller
 			'form-title'=>"Edit HSN/SAC Details",
 			'form-content'=>$formClass,
 			'form-btn'=>[],
-			'frm-action'=>"\B\MAS\Controller@editHSNSAC",
+			'form-action'=>"\B\MAS\Controller@editHSNSAC",
 			"form-btn"=>[
 
 							[
@@ -451,7 +451,7 @@ class Controller extends \App\Http\Controllers\Controller
 			'form-title'=>"Edit Company Details",
 			'form-content'=>$formClass,
 			'form-btn'=>[],
-			'frm-action'=>"\B\MAS\Controller@editCompany",
+			'form-action'=>"\B\MAS\Controller@editCompany",
 			"form-btn"=>[
 
 							[

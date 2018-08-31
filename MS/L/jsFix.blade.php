@@ -47,7 +47,7 @@ $("#error").html("");
                 success: completeHandler = function(data) {
             
                 var dataload=0
-               console.log(data.loadData);  
+              // console.log(data.loadData);  
                if("loadData" in data){
 
                      $(".ms-mod-tab").html(data.loadData);;
@@ -153,20 +153,34 @@ $.ajax({
                  
                 // console.log("msg" in data);
                 $(".ms-mod-tab").html(data);
-                $(".ms-mod-tab").slideDown("fast");
-               loadingOff();
+
+            
 
               
                 },
                 error: errorHandler = function(xhr, status, error) {
-                       // console.log(xhr);
-                
-                   // alert("Something went wrong!"+ "Error is : "+status);
+                                   if(xhr.status == 422){
+                         $('html, body').animate({
+                            scrollTop: $("#error").offset().top
+                           }, 300);
+
+                       alert(status+': Access Denied');
+                       }
+
+                 
+       
+
+
+          
+
                 },
                 cache: false,
                 contentType: false,
                 processData: false
             }, 'json');
+
+                 $(".ms-mod-tab").slideDown("fast");
+                 loadingOff();
 
 }
 

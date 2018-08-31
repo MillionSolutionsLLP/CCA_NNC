@@ -92,16 +92,40 @@ public static $routes=[
 
 						[
 						'name'=>'TMS.Task.Get.File.Name',
-						'route'=>'{UniqId}/{TaskId}/{StepId}/{TypeOfDocument}/{FileName}',
+						'route'=>'task/uploadedDoc/{UniqId}/{TaskId}/{StepId}/{TypeOfDocument}/{FileName}',
 						'method'=>'getUploadedFile',
 						'type'=>'get',
 						],
 
 
-							[
+						[
 						'name'=>'TMS.Task.Rise.Step.Query',
 						'route'=>'/task/query/{TaskId}/{StepId}',
 						'method'=>'riseQuery',
+						'type'=>'get',
+						],
+
+
+						[
+						'name'=>'TMS.Task.Rise.Step.Query.Post',
+						'route'=>'/task/query/{TaskId}/{StepId}',
+						'method'=>'riseQueryPost',
+						'type'=>'post',
+						],
+
+
+						[
+						'name'=>'TMS.Task.Rise.Step.Query.View',
+						'route'=>'/task/query/view/{TaskId}/{StepId}/',
+						'method'=>'riseQueryView',
+						'type'=>'get',
+						],
+
+
+						[
+						'name'=>'TMS.Task.Rise.Step.Query.Rejected.Id',
+						'route'=>'/task/query/reject/{TaskId}/{StepId}/',
+						'method'=>'riseQueryReject',
 						'type'=>'get',
 						],
 

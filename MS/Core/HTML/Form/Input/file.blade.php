@@ -32,6 +32,8 @@ if(array_key_exists('data', $data)){
 
 {{Form::label($data['name'], $data['vName'])}}
 
-{{Form::file($data['name'],$data['value'],['class'=>'form-control',] )}}
+
+
+{{Form::file($data['name'],null,['class'=>'form-control',] )}}
 
 </div> 
