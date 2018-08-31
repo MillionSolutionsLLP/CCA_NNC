@@ -9,6 +9,8 @@
                       }else{
                       $userRole=0;
                       }
+
+                      //dd($data);
                       ?>
                     
                         <div class="panel-heading text-capitalize"><i class="fa fa-newspaper-o" aria-hidden="true"></i> Task No. {{  $data['task']['UniqId'] }}
@@ -237,26 +239,69 @@
                   
 
                @if($step['DocumentVerified'])
-                  
-                  <div class="ms-text-white label label-success "> <i class="fa fa-check"></i> Verified by 
+                
+                <div class="btn-group btn-group-xs">
+
+               @if($step['DocumentVerified'] == 1)
+                   <div class="btn btn-success ms-text-white "> <i class="fa fa-check"></i> Verified by 
 
 
-                     @if(\B\Users\Logics::getUserName($step['VerifiedBy']))
+                        @if(\B\Users\Logics::getUserName($step['VerifiedBy']))
 
 
-              {{ \B\Users\Logics::getUserName($step['VerifiedBy'])  }} ( Admin )
+
+                             {{ \B\Users\Logics::getUserName($step['VerifiedBy'])  }} ( Admin )
 
 
-                @elseif(\B\AMS\Logics::getUserName($step['VerifiedBy']))
+                        @elseif(\B\AMS\Logics::getUserName($step['VerifiedBy']))
+               
+                            {{ \B\AMS\Logics::getUserName($step['VerifiedBy']) }} ( Agency ) 
 
-              {{ \B\AMS\Logics::getUserName($step['VerifiedBy']) }} ( Agency ) 
 
-                @else
 
-           No Data Found  {{ $step['VerifiedBy'] }} 
-                @endif
+                        @else
+
+                          No Data Found  {{ $step['VerifiedBy'] }} 
+                        @endif
+
+
+
+
 
                     </div>
+
+                    @elseif($step['DocumentVerified'] == 3)
+
+                    <div class="btn btn-danger ms-text-white "> <i class="fa fa-times"></i> Rejected by 
+
+
+                        @if(\B\Users\Logics::getUserName($step['VerifiedBy']))
+
+
+
+                             {{ \B\Users\Logics::getUserName($step['VerifiedBy'])  }} ( Admin )
+
+
+                        @elseif(\B\AMS\Logics::getUserName($step['VerifiedBy']))
+               
+                            {{ \B\AMS\Logics::getUserName($step['VerifiedBy']) }} ( Agency ) 
+
+
+
+                        @else
+
+                          No Data Found  {{ $step['VerifiedBy'] }} 
+                        @endif
+
+
+
+
+
+                    </div>
+
+                  @endif
+
+                  </div>
 
                @else
 
@@ -287,7 +332,7 @@
 
                
 
-                <div class="btn btn-warning ms-text-black ms-mod-btn" ms-live-link="{{  route('TMS.Task.Rise.Step.Query',['UniqId'=>\MS\Core\Helper\Comman::en4url($data['task']['UniqId']) ,'StepId'=>\MS\Core\Helper\Comman::en4url($step['UniqId']) ] ) }}">
+                <div class="btn btn-warning ms-text-black ms-mod-btn" ms-live-link="{{  route('TMS.Task.Rise.Step.Query.View',['TaskId'=>\MS\Core\Helper\Comman::en4url($data['task']['UniqId']) ,'StepId'=>\MS\Core\Helper\Comman::en4url($step['UniqId']) ] ) }}">
                   <i class="fa fa-eye"></i>
                   View Replay
                 </div>

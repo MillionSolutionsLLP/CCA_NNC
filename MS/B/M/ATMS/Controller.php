@@ -47,6 +47,8 @@ class Controller extends \App\Http\Controllers\Controller
 
 		$uniqId=\MS\Core\Helper\Comman::de4url($UniqId);
 		//$uniqId=$enUniqId;
+		\MS\Core\Helper\Comman::DB_flush();
+		//dd($uniqId);
 		$id=0;
 		$m=new \B\TMS\Model();
 
@@ -58,7 +60,7 @@ class Controller extends \App\Http\Controllers\Controller
 		if(count($rowData)>0){
 
 
-
+				\MS\Core\Helper\Comman::DB_flush();
 			$m2=new \B\TMS\Model('1',$rowData['UniqId']);
 			$rowData2=$m2->MS_all()->toArray();
 			
@@ -258,12 +260,14 @@ class Controller extends \App\Http\Controllers\Controller
 		$status=200;
 			$array=[
 					'msg'=>'OK',
-					'redirectData'=>action('\B\ATMS\Controller@indexData'),
+					'redirectData'=>action('\B\ATMS\Controller@taskViewById',['UniqId'=>\MS\Core\Helper\Comman::en4url($UniqId)] ),
 					
 
 				];
 
 				return response()->json($array, $status);
+
+				//return $this->taskViewById(\MS\Core\Helper\Comman::en4url($UniqId));
 
 
 				
@@ -488,48 +492,61 @@ class Controller extends \App\Http\Controllers\Controller
 						
 						$queryData=$docArray['QueryDocumentArray'][$key];
 
-						//dd($value->getClientOriginalExtension());
-
+						
+						//dd($docArray);
 						$oldData=$data['stepData']['DocumentArray'][$docArray['QueryDocumentArray'][$key]['FileName']];
 						$newPath=$path[$oldData['TypeOfDocument']].DIRECTORY_SEPARATOR.explode('.', $queryData['FileName'])[0].'.'.$value->getClientOriginalExtension();
+						$newOldPath=$path[$oldData['TypeOfDocument']].DIRECTORY_SEPARATOR.explode('.', $docArray['QueryDocumentArray'][$key]['FileName'])[0].'_old.'.explode('.', $docArray['QueryDocumentArray'][$key]['FileName'])[1];
+						//dd($newPath);
+					//	dd(\Storage::disk('ATMS')->exists($oldData['path']));
 
+						if(\Storage::disk('ATMS')->exists($newOldPath))\Storage::disk('ATMS')->	delete($newOldPath);
+						if(\Storage::disk('ATMS')->exists($oldData['path'])) \Storage::disk('ATMS')->move($oldData['path'], $newOldPath);
+
+
+						//dd($docArray['QueryDocumentArray'][$key]['FileName']);
+						$value->storeAs($path[$oldData['TypeOfDocument']],explode('.', $queryData['FileName'])[0].'.'.$value->getClientOriginalExtension(),'ATMS');
+						//dd($value);
+						//dd($newOldPath);
 					//dd(key($data['stepData']['DocumentQueryArray'][0]));
-					$queryNo=key($data['stepData']['DocumentQueryArray'][0]);
+						$queryNo=key($data['stepData']['DocumentQueryArray'][0]);
 
 
-			unset($data['stepData']['DocumentArray'][$docArray['QueryDocumentArray'][$key]['FileName']]);
-$data['stepData']['DocumentQueryArray'][0][$queryNo]['Replay']=true;
-	$d1=[
-	"path" => $newPath,
-    "UniqId" => $oldData[ "UniqId"],
-    "DateOfDocument" => $oldData[ "DateOfDocument"],
-    "TypeOfDocument" => $oldData[ "TypeOfDocument"],
-    "NoOfDocument" => $oldData[ "NoOfDocument"],
-    "AmountOfDocument" => $oldData[ "AmountOfDocument"]];
+						unset($data['stepData']['DocumentArray'][$docArray['QueryDocumentArray'][$key]['FileName']]);
+						$data['stepData']['DocumentQueryArray'][0][$queryNo]['Replay']=true;
+							$d1=[
+							"path" => $newPath,
+						    "UniqId" => $oldData[ "UniqId"],
+						    "DateOfDocument" => $oldData[ "DateOfDocument"],
+						    "TypeOfDocument" => $oldData[ "TypeOfDocument"],
+						    "NoOfDocument" => $oldData[ "NoOfDocument"],
+						    "AmountOfDocument" => $oldData[ "AmountOfDocument"],
+						    "oldpath"=>$newOldPath
+						    ];
 
 
-  
-	 $data['stepData']['DocumentArray'][ explode('.', $queryData['FileName'])[0].'.'.$value->getClientOriginalExtension() ]=$d1;
-	 $data['stepData']['DocumentReply']=true;
-	 $replyNo=Base::genUniqID();
+						  
+							 $data['stepData']['DocumentArray'][ explode('.', $queryData['FileName'])[0].'.'.$value->getClientOriginalExtension() ]=$d1;
+							 $data['stepData']['DocumentReply']=true;
+							 $replyNo=Base::genUniqID();
 
-	 $data['stepData']['DocumentReplyArray'][$replyNo]=[
+							 $data['stepData']['DocumentReplyArray'][$replyNo]=[
 
-			'Replay'=>$input['ReplayFromAgency'],
-			'ApprovedBy'=>null,
-			'ReplayStatus'=>0,
-			//'ReplyDocumentArray'=>$selectedFile
+									'Replay'=>$input['ReplayFromAgency'],
+									'ApprovedBy'=>null,
+									'ReplayStatus'=>0,
+									//'ReplyDocumentArray'=>$selectedFile
 
-	
+							
 
-	 ];
+							 ];
 
-	  $data['stepData']['DocumentReplyArray'][$replyNo][$d1['UniqId']]=$d1;
+							  $data['stepData']['DocumentReplyArray'][$replyNo][$d1['UniqId']]=$d1;
 
 
 	 
 
-			}
+				}
 
 
 
@@ -558,9 +575,19 @@ $data['stepData']['DocumentQueryArray'][0][$queryNo]['Replay']=true;
 
 		//\MS\Core\Helper\Comman::DB_flush();
 		
-			dd($m2->MS_update($dbArray , $data['StepId']));
+		$m2->MS_update($dbArray , $data['StepId']);
 
-			dd($data['stepData']['DocumentArray']);
+		$status=200;
+			$array=[
+					'msg'=>'OK',
+					'redirectData'=>action('\B\ATMS\Controller@taskViewById',['UniqId'=>\MS\Core\Helper\Comman::en4url($data['TaskId'])] ),
+					
+
+				];
+
+				return response()->json($array, $status);
+
+		//	dd($data);
 
 
 	}

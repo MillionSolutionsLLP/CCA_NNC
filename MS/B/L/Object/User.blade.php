@@ -4,6 +4,14 @@
    $user=session('user')['userData'];
  $company=\B\MAS\Model::getCompany();
    // dd($user['name']);
+   $userRole=0;
+              if(session('user.SuperAdmin')){
+                      $userRole=1;
+                      }elseif (session('user.AgencyAdmin')) {
+                      $userRole=2;
+                      }else{
+                      $userRole=0;
+                      }
 
 
 
@@ -56,8 +64,11 @@
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-default" data-dismiss="modal"><i class="fa fa-times"></i> Close</button>
-        <button type="button" class="btn btn-default ms-live-btn" data-dismiss="modal" ms-live-link="{{ action('\B\Users\Controller@editUser',['UniqId'=>\MS\Core\Helper\Comman::en4url('001')]) }}"><i class="fa fa-pencil"></i> Edit</button>
 
+        @if($userRole===1)
+
+        <button type="button" class="btn btn-default ms-live-btn" data-dismiss="modal" ms-live-link="{{ action('\B\Users\Controller@editUser',['UniqId'=>\MS\Core\Helper\Comman::en4url('001')]) }}"><i class="fa fa-pencil"></i> Edit</button>
+        @endif
       </div>
     
                       

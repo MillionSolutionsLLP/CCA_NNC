@@ -9,6 +9,9 @@
                       }else{
                       $userRole=0;
                       }
+
+
+                    //  dd($data);
                       ?>
                     
                         <div class="panel-heading text-capitalize"><i class="fa fa-newspaper-o" aria-hidden="true"></i> Task. {{  $data['task']['UniqId'] }}
@@ -231,8 +234,10 @@
 
                @if($step['DocumentVerified'])
                   
+              <div class="btn-group btn-group-xs">
 
-                   <div class="btn-group btn-group-xs">
+                  @if($step['DocumentVerified'] == 1)
+                   
                   <div class="btn btn-success ms-text-white "> <i class="fa fa-check"></i> Verified by 
 
 
@@ -253,6 +258,36 @@
 
                     </div>
 
+                   
+
+
+                    @elseif($step['DocumentVerified'] == 3)
+
+
+                  
+                  <div class="btn btn-danger ms-text-white "> <i class="fa fa-times"></i> Rejected by 
+
+
+                     @if(\B\Users\Logics::getUserName($step['VerifiedBy']))
+
+
+              {{ \B\Users\Logics::getUserName($step['VerifiedBy'])  }} ( Admin )
+
+
+                @elseif(\B\AMS\Logics::getUserName($step['VerifiedBy']))
+
+              {{ \B\AMS\Logics::getUserName($step['VerifiedBy']) }} ( Agency ) 
+
+                @else
+
+           No Data Found  {{ $step['VerifiedBy'] }} 
+                @endif
+
+                    </div>
+
+
+                    @endif
+
                     </div>
 
                @else
@@ -267,8 +302,9 @@
 
 
 
+
                  
-                <div class="btn btn-info ms-text-black ">
+                <div class="btn btn-warning ms-text-black ">
                   <i class="fa fa-refresh fa-spin fa-fw"></i>
                   Waiting For Admin approval
                 </div>

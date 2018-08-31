@@ -11,7 +11,7 @@
     ];
     $data['form-action']=route('ATMS.Task.Rise.Step.Replay.Post',$data['form-action-para']);
 
-    
+      $docArray=current(current($data['stepData']['DocumentQueryArray']));
 
    // dd($data);
 
@@ -36,7 +36,11 @@
 
 
   <table class="table table-bordered text-capitalize">
-
+<tr>
+  
+  <th> Query From admin </th>
+  <td colspan="2">: {{ $docArray['Query']  }} </td>
+</tr>
 
   <tr>
   	<th>Upload file to Replace</th>
@@ -46,13 +50,7 @@
 
   </tr>
 
-<?php
-  
 
-  $docArray=current(current($data['stepData']['DocumentQueryArray']));
-//dd($docArray);
-
- ?>
 
 
   @foreach($docArray['QueryDocumentArray'] as $docName=>$docDetails)

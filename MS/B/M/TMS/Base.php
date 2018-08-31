@@ -114,6 +114,22 @@ public static $routes=[
 						],
 
 
+						[
+						'name'=>'TMS.Task.Rise.Step.Query.View',
+						'route'=>'/task/query/view/{TaskId}/{StepId}/',
+						'method'=>'riseQueryView',
+						'type'=>'get',
+						],
+
+
+						[
+						'name'=>'TMS.Task.Rise.Step.Query.Rejected.Id',
+						'route'=>'/task/query/reject/{TaskId}/{StepId}/',
+						'method'=>'riseQueryReject',
+						'type'=>'get',
+						],
+
+
 
 
 

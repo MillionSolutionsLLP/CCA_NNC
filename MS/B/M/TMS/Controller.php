@@ -211,7 +211,7 @@ class Controller extends \App\Http\Controllers\Controller
 				$agencJobData[]=$input['UniqId'];
 			}else{
 				$preData=$model3->where('UniqId',$input['HireAgencyCode'])->pluck('AllocatedJobs')->first();
-				dd($preData);
+				//dd($preData);
 				$preData=json_decode($preData,true,2);
 				if(!in_array($input['UniqId'], $preData)){
 								$agencJobData[]=$input['UniqId'];}else{
@@ -408,9 +408,19 @@ public function taskDeleteById($UniqId){
 			\MS\Core\Helper\Comman::DB_flush();
 			
 
+				$status=200;
+			$array=[
+					'msg'=>"OK",
+			 		'redirectData'=>route('TMS.Task.View'),
+			 
 
+				];
+				\MS\Core\Helper\Comman::DB_flush();
+				//return $this->taskViewById(\MS\Core\Helper\Comman::en4url($UniqId));
+	
+		// return response()->json($array, $status);
 			
-			return  $this->taskView();
+		return  $this->taskView();
 
 
 }
@@ -753,4 +763,138 @@ public function getUploadedFile($UniqId,$TaskId,$StepId,$TypeOfDocument,$FileNam
 
 
 			}
+
+
+
+	public function  riseQueryView ($TaskId,$StepId){
+
+		        \MS\Core\Helper\Comman::DB_flush();
+				$data['TaskId']=\MS\Core\Helper\Comman::de4url($TaskId);
+				$data['StepId']=\MS\Core\Helper\Comman::de4url($StepId);
+					$m1=new Model();
+
+
+			if($m1->where('UniqId',$data['TaskId'])->first()->toArray() ==null){
+
+					$status=422;
+			$array=[
+					'msg'=>["Task Not Found"],
+			 	//	'redirectData'=>action('\B\TMS\Controller@indexData'),
+			 		
+				];
+
+	
+				return response()->json($array, $status);
+
+
+			}
+			$data['taskData']=$m1->where('UniqId',$data['TaskId'])->first()->toArray();
+
+			\MS\Core\Helper\Comman::DB_flush();
+			$m2=new Model('1',$data['TaskId']) ;
+			
+			if($m2->where('UniqId',$data['StepId'])->first() ==null){
+
+					$status=422;
+			$array=[
+					'msg'=>["Task's Step Details Not Found"],
+			 	//	'redirectData'=>action('\B\TMS\Controller@indexData'),
+			 		
+				];
+
+	
+				return response()->json($array, $status);
+
+
+			}
+
+			$data['stepData']=$m2->where('UniqId',$data['StepId'])->first()->toArray();
+			$data['stepData']['DocumentArray']=(array)json_decode($data['stepData']['DocumentArray'],true);
+			$data['stepData']['DocumentVerifiedArray']=(array)json_decode($data['stepData']['DocumentVerifiedArray'],true);
+
+			$data['stepData']['DocumentQueryArray']=(array)json_decode($data['stepData']['DocumentQueryArray'],true);
+			$data['stepData']['DocumentReplyArray']=(array)json_decode($data['stepData']['DocumentReplyArray'],true);
+
+
+			
+
+			//dd($data);
+
+
+			return view('TMS.V.Object.TaskApprove')->with('data',$data);
+
+				
+
+
+
+	}
+
+
+
+	public function  riseQueryReject($TaskId,$StepId){
+
+
+			        \MS\Core\Helper\Comman::DB_flush();
+				$data['TaskId']=\MS\Core\Helper\Comman::de4url($TaskId);
+				$data['StepId']=\MS\Core\Helper\Comman::de4url($StepId);
+					$m1=new Model();
+
+
+			if($m1->where('UniqId',$data['TaskId'])->first()->toArray() ==null){
+
+					$status=422;
+			$array=[
+					'msg'=>["Task Not Found"],
+			 	//	'redirectData'=>action('\B\TMS\Controller@indexData'),
+			 		
+				];
+
+	
+				return response()->json($array, $status);
+
+
+			}
+			$data['taskData']=$m1->where('UniqId',$data['TaskId'])->first()->toArray();
+
+			\MS\Core\Helper\Comman::DB_flush();
+			$m2=new Model('1',$data['TaskId']) ;
+			
+			if($m2->where('UniqId',$data['StepId'])->first() ==null){
+
+					$status=422;
+			$array=[
+					'msg'=>["Task's Step Details Not Found"],
+			 	//	'redirectData'=>action('\B\TMS\Controller@indexData'),
+			 		
+				];
+
+	
+				return response()->json($array, $status);
+
+
+			}
+
+			$data['stepData']=$m2->where('UniqId',$data['StepId'])->first()->toArray();
+			$data['stepData']['DocumentArray']=(array)json_decode($data['stepData']['DocumentArray'],true);
+			$data['stepData']['DocumentVerifiedArray']=(array)json_decode($data['stepData']['DocumentVerifiedArray'],true);
+
+			$data['stepData']['DocumentQueryArray']=(array)json_decode($data['stepData']['DocumentQueryArray'],true);
+			$data['stepData']['DocumentReplyArray']=(array)json_decode($data['stepData']['DocumentReplyArray'],true);
+			//dd($m2);
+			$m2->MS_update(['DocumentVerified'=>'3,','VerifiedBy'=>session('user.userData.UniqId')],$data['StepId']);
+			
+			$status=200;
+			$array=[
+					'msg'=>"OK",
+			 		'redirectData'=>route('TMS.Task.View.Id',['UniqId'=>\MS\Core\Helper\Comman::en4url($data['TaskId']) ]),
+			 		//'data'=>$input,
+			 	//	'array'=>$return
+
+				];
+
+	
+		 return response()->json($array, $status);
+			dd($data);
+
+	}
 }
