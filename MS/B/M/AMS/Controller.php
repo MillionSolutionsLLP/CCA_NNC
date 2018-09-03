@@ -232,6 +232,15 @@ class Controller extends \App\Http\Controllers\Controller
 			],
 
 
+			'LoginasAgency'=>[
+				'method'=>'AMS.Agency.Edit.Id',
+				'key'=>'UniqId',
+				'icon'=>'fa fa-sign-in',
+				'vName'=>'Login as Agency'
+
+			],
+
+
 			'view'=>[
 				'method'=>'AMS.Agency.View.Id',
 				'key'=>'UniqId',

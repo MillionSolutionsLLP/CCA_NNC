@@ -213,6 +213,9 @@ if(count($data['List-array'])>0){
 
     <td>
 
+        <?php  $icon='fa fa-file-text-o';
+               $vName='';
+         ?>
 
       <div class="btn-group btn-group-xs " role="group" aria-label="...">
         @if(array_key_exists('edit-btn',$data['List-action']))
@@ -221,10 +224,24 @@ if(count($data['List-array'])>0){
         @if(array_key_exists('delete-btn',$data['List-action']))
         <button type="button" class="btn btn-danger ms-text-black ms-mod-btn" ms-live-link="{{route($data['List-action']['delete-btn']['method'],\MS\Core\Helper\Comman::en4url($object->$data['List-action']['delete-btn']['key']))}}"><i class="fa fa-trash"></i></button>
         @endif
-         @if(array_key_exists('AllocationLater-btn',$data['List-action']))
-        <button type="button" class="btn  ms-text-black btn-info ms-mod-btn" ms-live-link="{{route($data['List-action']['AllocationLater-btn']['method'],\MS\Core\Helper\Comman::en4url($object->$data['List-action']['AllocationLater-btn']['key']))}}"><i class="fa fa-file-text-o"></i></button>
+        @if(array_key_exists('AllocationLater-btn',$data['List-action']))
+        <?php 
+        if(array_key_exists('icon',$data['List-action']['AllocationLater-btn']))$icon=$data['List-action']['AllocationLater-btn']['icon'];
+        if(array_key_exists('vName',$data['List-action']['AllocationLater-btn']))$vName=$data['List-action']['AllocationLater-btn']['vName'];
+         ?>
+        <button type="button" class="btn  ms-text-black btn-info ms-mod-btn" ms-live-link="{{route($data['List-action']['AllocationLater-btn']['method'],\MS\Core\Helper\Comman::en4url($object->$data['List-action']['AllocationLater-btn']['key']))}}"><i class="{{$icon}}"></i></button>
         @endif
        
+        @if(array_key_exists('LoginasAgency-btn',$data['List-action']))
+        <?php 
+        if(array_key_exists('icon',$data['List-action']['LoginasAgency-btn']))$icon=$data['List-action']['LoginasAgency-btn']['icon']; 
+        if(array_key_exists('vName',$data['List-action']['LoginasAgency-btn']))$vName=$data['List-action']['LoginasAgency-btn']['vName'];
+        ?>
+        <button type="button" class="btn  ms-text-black btn-info ms-mod-btn" ms-live-link="{{route($data['List-action']['LoginasAgency-btn']['method'],\MS\Core\Helper\Comman::en4url($object->$data['List-action']['LoginasAgency-btn']['key']))}}"><i class="{{$icon}}"></i>  {{ $vName}}</button>
+        @endif
+       
+
+
 
       </div>
 
