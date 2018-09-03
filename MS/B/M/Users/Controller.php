@@ -299,7 +299,7 @@ class Controller extends \App\Http\Controllers\Controller
 			$build->title("Edit User")->content($id,$data)->note($text)->action("editUserPost");
 
 			$build->btn([
-									'action'=>"\B\Panel\Controller@index_data",
+									'action'=>"\B\Users\Controller@view_all_users",
 									'color'=>"btn-info",
 									'icon'=>"fa fa-fast-backward",
 									'text'=>"Back"
@@ -316,7 +316,7 @@ class Controller extends \App\Http\Controllers\Controller
 		//	$build->content="<div class='ms-mod-tab'>".$build->content."</div>";
 
 		//	dd($build->view()->render());
-			return "<div class='ms-mod-tab'>".$build->view()."</div>";
+			return $build->view();
 	}
 
 
@@ -341,7 +341,7 @@ class Controller extends \App\Http\Controllers\Controller
 			$build->title("Edit User")->content($id,$data)->note($text)->action("editUserPost");
 
 			$build->btn([
-									'action'=>"\B\MAS\Controller@indexData",
+									'action'=>"\B\Users\Controller@view_all_users",
 									'color'=>"btn-info",
 									'icon'=>"fa fa-fast-backward",
 									'text'=>"Back"

@@ -44,7 +44,7 @@
 
 
                               <div class="btn btn-default ms-text-black ms-mod-btn" ms-live-link="{{ route('AMS.Agency.View') }}"><i class="fa fa-arrow-left"  ></i> Go Back to Agency List</div>
-
+                              <div class="btn btn-info ms-text-black ms-mod-btn" ms-live-link="{{ route('AMS.Agency.LoginAsAdmin.Id',['UniqId'=>\MS\Core\Helper\Comman::en4url($data['agency']['UniqId'])]) }}"><i class="fa fa-sign-in"  ></i><br> Login as Agency</div>
                            
                               <div class="btn btn-success ms-text-black ms-mod-btn" ms-live-link="{{ route('AMS.Agency.Edit.Id',['UniqId'=>\MS\Core\Helper\Comman::en4url($data['agency']['UniqId'])]) }}"><i class="fa fa-pencil"  ></i><br>Edit</div>
                               <div class="btn btn-danger ms-text-black ms-mod-btn ms-btn-confirm" ms-live-link="{{ route('AMS.Agency.Delete.Id',['UniqId'=>\MS\Core\Helper\Comman::en4url($data['agency']['UniqId'])]) }}"><i class="fa fa-trash"></i><br>Delete</div>

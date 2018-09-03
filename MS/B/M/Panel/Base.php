@@ -42,7 +42,7 @@ public static $routes=[
 						],
 
 						[
-						'name'=>'Panel.Data',
+						'name'=>'Panel.Data.mod',
 						'route'=>'/mod/data',
 						'method'=>'index_mod_data',
 						'type'=>'get',

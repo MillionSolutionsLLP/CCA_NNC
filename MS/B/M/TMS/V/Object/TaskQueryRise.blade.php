@@ -42,6 +42,8 @@
   	<th>Document Name</th>
   	<th>Type of Document</th>
   	<th>Document Details</th>
+
+    <th>Document Query</th>
   	
 
   </tr>
@@ -88,7 +90,7 @@
                   $c=\MS\Core\Helper\Comman::random(2);
                   array_splice($urlArray, 1, 0, $c);
                   $url=implode('/', $urlArray);
-                 // dd($docPath);  
+                  //dd();  
 
                  //;
                  // if('Panchnma Copy_452'==explode('.',$docName)[0])dd($docPath);
@@ -124,6 +126,10 @@
                </td> 
 
                 @endif
+
+
+
+
                </tr>
                 
              
@@ -132,27 +138,30 @@
 
        </td>
 
-  </tr>
-
-  @endforeach
 
   <?php 
+
+
 
   $dataFortextarea=[
 'lable'=>'Write your query here',
 
-'name'=>'SelectedFilesQuery',
+'name'=>'SelectedFilesQuery['.$docPath['UniqId'].']',
 'value'=>'',
-
+'data'=>['input-size'=>'col-lg1-12'],
   ];
 
 
   ?>
 
-  <tr>
-  	<td colspan="4">  {{\Form::inputTextArea($dataFortextarea,'100')}} </td>
+       <td>  {{\Form::inputTextArea($dataFortextarea,$loop->iteration+1)}} </td>
 
   </tr>
+
+  @endforeach
+
+
+
 
   </table>
 

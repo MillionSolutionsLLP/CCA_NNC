@@ -30,7 +30,7 @@ class UploadDocuments extends FormRequest
             'DateOfDocument.*'  =>'required',
             'agencyDocument'    =>'required',
             'NoOfDocument.*'    =>"required_if:TypeOfDocuments.*,777|required_if:TypeOfDocuments.*,888",
-            'AmountOfDocument.*'=>"required_if:TypeOfDocuments.*,777|required_if:TypeOfDocuments.*,888"
+            'AmountOfDocument.*'=>"required_if:TypeOfDocuments.*,777|required_if:TypeOfDocuments.*,888|numeric"
      
           
           

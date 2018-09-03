@@ -23,7 +23,7 @@
 			$build->title("Edit User")->content($id,$data)->note($text)->action("editUserPost");
 
 			$build->btn([
-									'action'=>"\B\Panel\Controller@index_data",
+									'action'=>"\B\Users\Controller@view_all_users",
 									'color'=>"btn-info",
 									'icon'=>"fa fa-fast-backward",
 									'text'=>"Back"
