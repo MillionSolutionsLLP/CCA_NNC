@@ -60,10 +60,23 @@
               <tr>
                  <?php
 
-                //dd($data);
+              // dd($data);
+                  
+                  $address='';
+
+                  if($data['task']['NameOperatorAddress1'] != null or  $data['task']['NameOperatorAddress1'] !=' ' )$address.=",".$data['task']['NameOperatorAddress1'];
+                  if($data['task']['NameOperatorAddress2'] != null or  $data['task']['NameOperatorAddress2'] !=' ' )$address.=",".$data['task']['NameOperatorAddress2'];
+                  if($data['task']['NameOperatorAddress3'] != null or  $data['task']['NameOperatorAddress3'] !=' ' )$address.=",".$data['task']['NameOperatorAddress3'];
+
+                  $address.=$data['task']['NameOperatorCity'].",".$data['task']['NameOperatorDistrict'].",".$data['task']['NameOperatorState']."-".$data['task']['NameOperatorPincode']
+
                  ?>
+
+
                 <th>Location of Control Room</th>
-                <td>: </td>
+   
+
+                <td>: {{$address}}</td>
 
               </tr>                     	
 

@@ -503,7 +503,21 @@ $.ajax({
                 if(typeof data == "object"){
                   console.log( data);
 
-                  window.location.replace(data.redirectLink);
+                  if('redirectLink' in data){
+
+                     window.location.replace(data.redirectLink);
+
+                  }
+
+                  if('redirectData' in data){
+                 
+                  $(".ms-mod-tab").html(data);
+                  $(".ms-mod-tab").slideDown("fast");
+                   
+
+                  }
+
+                 
 
                 }else
                 {

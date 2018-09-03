@@ -745,8 +745,7 @@ module.exports = Cancel;
 /* 7 */
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(8);
-module.exports = __webpack_require__(35);
+module.exports = __webpack_require__(8);
 
 
 /***/ }),
@@ -1139,7 +1138,16 @@ function getMsModLink(link) {
       if ((typeof data === 'undefined' ? 'undefined' : _typeof(data)) == "object") {
         console.log(data);
 
-        window.location.replace(data.redirectLink);
+        if ('redirectLink' in data) {
+
+          window.location.replace(data.redirectLink);
+        }
+
+        if ('redirectData' in data) {
+
+          $(".ms-mod-tab").html(data);
+          $(".ms-mod-tab").slideDown("fast");
+        }
       } else {
 
         $(".ms-mod-tab").html(data);
@@ -32215,12 +32223,6 @@ module.exports = function spread(callback) {
   };
 };
 
-
-/***/ }),
-/* 35 */
-/***/ (function(module, exports) {
-
-// removed by extract-text-webpack-plugin
 
 /***/ })
 /******/ ]);

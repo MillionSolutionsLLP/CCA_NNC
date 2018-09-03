@@ -244,7 +244,7 @@ class Controller extends \App\Http\Controllers\Controller
 			'DocumentVerified'=>false,
 			'DocumentVerifiedArray'=>json_encode([],true,3),
 			'VerifiedBy'=>null,
-			'TakenBy'=>session('user.UniqId'),
+			'TakenBy'=>session('user.userData.UniqId'),
 			'DocumentQuery'=>false,
 			'DocumentQueryArray'=>json_encode([],true,3),
 			'DocumentReply'=>false,
