@@ -26,6 +26,8 @@ $( ".btn-frm-submit" ).click(function() {
 $( "form" ).submit(function( event ) {
 $("#error").slideUp("5");
 $("#error").html("");
+
+$('.has-error').removeClass('has-error');
   
    // $( ".nav-second-level" ).removeClass( "in" );
     //$(".ms-process-bar").css("width", "20%");
@@ -110,6 +112,12 @@ $("#error").html("");
                    // alert("Something went wrong!"+ "Error is : "+error+","+status);
                      var html="";
                  jQuery.each(xhr.responseJSON.msg,function (item, index){
+
+                 var SelectorId="#"+item;
+                 //alert(SelectorId);
+
+                 $(SelectorId).closest( ".form-group" ).addClass( "has-error" );
+
 
                   html+='<span><i class="fa fa-exclamation" aria-hidden="true"></i> '+index+'</span><br>';
                  $("#error").html(html);

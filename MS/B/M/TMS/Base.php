@@ -58,6 +58,15 @@ public static $routes=[
 						'type'=>'get',
 						],
 
+
+						[
+						'name'=>'TMS.Task.View.By',
+						'route'=>'/task/view/by/{Column}',
+						'method'=>'taskViewByColumn',
+						'type'=>'get',
+						],
+
+
 						[
 						'name'=>'TMS.Task.View.Id',
 						'route'=>'/task/view/{UniqId}',

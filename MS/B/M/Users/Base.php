@@ -28,7 +28,7 @@ public static $field=[
 ['name'=>'LastName','type'=>'string','input'=>'text','data'=>['input-size'=>'col-lg-5']],
 ['name'=>'UserName','type'=>'string','input'=>'text','data'=>['input-size'=>'col-lg-3']],
 ['name'=>'Password','type'=>'string','input'=>'password','data'=>['input-size'=>'col-lg-4']],
-['name'=>'ConfirmPassword','type'=>'string','input'=>'password','data'=>['input-size'=>'col-lg-5']],
+//['name'=>'ConfirmPassword','type'=>'string','input'=>'password','data'=>['input-size'=>'col-lg-5']],
 ['name'=>'MobileNumber','type'=>'string','input'=>'text','data'=>['input-size'=>'col-lg-4']],
 ['name'=>'Email','type'=>'string','input'=>'text','data'=>['input-size'=>'col-lg-4']],
 ['name'=>'OTP','type'=>'string','input'=>'text','data'=>['input-size'=>'col-lg-1']],
@@ -97,10 +97,29 @@ public static $routes=[
 						'type'=>'get',
 						],
 
+
+
+						
+
+						
 						[
-						'name'=>'Users.Add.Form',
+						'name'=>'Users.Edit.Id.Modal',
+						'route'=>'/edit/user/model/{UniqId}',
+						'method'=>'editUserForModal',
+						'type'=>'get',
+						],
+						[
+						'name'=>'Users.Edit.Id',
 						'route'=>'/edit/user/{UniqId}',
 						'method'=>'editUser',
+						'type'=>'get',
+						],
+
+
+[
+						'name'=>'Users.Edit.Id.Mod',
+						'route'=>'/edit/user/mod/{UniqId}',
+						'method'=>'editUserMod',
 						'type'=>'get',
 						],
 
@@ -124,13 +143,30 @@ public static $routes=[
 					];
 
 
+
+
+
 public static $table="Users";
 
 public static $connection ="MSDBC";
 
 
 
+public static $field1=[
+['name'=>'UniqId','type'=>'string','input'=>'auto','callback'=>'genUniqID','data'=>['input-size'=>'col-lg-2']],
 
+['name'=>'FirstName','type'=>'string','input'=>'text','data'=>['input-size'=>'col-lg-5']],
+['name'=>'LastName','type'=>'string','input'=>'text','data'=>['input-size'=>'col-lg-5']],
+['name'=>'UserName','type'=>'string','input'=>'text','data'=>['input-size'=>'col-lg-3']],
+['name'=>'Password','type'=>'string','input'=>'password','data'=>['input-size'=>'col-lg-4']],
+['name'=>'ConfirmPassword','type'=>'string','input'=>'password','data'=>['input-size'=>'col-lg-5']],
+['name'=>'MobileNumber','type'=>'string','input'=>'text','data'=>['input-size'=>'col-lg-3']],
+['name'=>'Email','type'=>'string','input'=>'text','data'=>['input-size'=>'col-lg-5']],
+//['name'=>'OTP','type'=>'string','input'=>'text','data'=>['input-size'=>'col-lg-1']],
+//['name'=>'RoleCode','type'=>'string','input'=>'text','data'=>['input-size'=>'col-lg-2']],
+['name'=>'Status','type'=>'boolean','input'=>'radio','value'=>'status','default'=>'status','data'=>['input-size'=>'col-lg-4']],
+
+];
 
 
 

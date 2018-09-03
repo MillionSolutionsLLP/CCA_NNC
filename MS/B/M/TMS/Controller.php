@@ -238,6 +238,8 @@ class Controller extends \App\Http\Controllers\Controller
 
 
 public function taskView(){
+
+	
 					\MS\Core\Helper\Comman::DB_flush();
 					$tableId=0;
 
@@ -305,6 +307,24 @@ public function taskView(){
 												'color'=>"btn-info",
 												'icon'=>"fa fa-plus",
 												'text'=>"Add Task"
+											]
+
+
+
+											)->btn( 
+											[
+												'action'=>"\\B\\TMS\\Controller@taskViewByColumn",
+												'color'=>"btn-default",
+												'icon'=>"fa fa-eye",
+												'text'=>"Group By Agency",
+												'data'=>'HireAgencyCode'
+											])->btn( 
+											[
+												'action'=>"\\B\\TMS\\Controller@taskViewByColumn",
+												'color'=>"btn-default",
+												'icon'=>"fa fa-eye",
+												'text'=>"Group By Area of Piracy",
+												'data'=>'AreaPiracy'
 											])->addListAction($link)->listGetter(['HireAgencyCode']);	
 
 						return $build->view(true,'list');
@@ -894,6 +914,17 @@ public function getUploadedFile($UniqId,$TaskId,$StepId,$TypeOfDocument,$FileNam
 	
 		 return response()->json($array, $status);
 			//dd($data);
+
+	}
+
+
+	public function taskViewByColumn ($Column){
+
+
+
+		return view('TMS.V.Object.TaskList')->with('data',['columnName'=>$Column]);
+
+
 
 	}
 }

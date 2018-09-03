@@ -1,98 +1,47 @@
-<div class="panel panel-default">
-	
-<div class="panel-heading"><h5><strong> <i class="glyphicon glyphicon-home"></i> Booking Module Home</strong></h5></div>
-<div class="panel-body">
-
-
-<div class="panel-body">
-
-<div class="btn btn-sm btn-info ms-border col-lg-2" style="color:black;">
-	<i class="fa fa-arrow-circle-up" aria-hidden="true"></i><br>Rise Lead
-</div>
-
-<div class="btn btn-sm btn-info ms-border col-lg-2 ms-mod-btn" ms-live-link="{{ action('\B\BM\Controller@addBooking') }}" style="color:black;">
-	<i class="fa fa-arrow-circle-down" aria-hidden="true"></i><br>Book Order
-</div>
-
-<div class="btn btn-sm btn-info ms-border col-lg-2" style="color:black;">
-<i class="fa fa-times" aria-hidden="true"></i><br>Close Order
-</div>
-
-<div class="btn btn-sm btn-info ms-border col-lg-2" style="color:black;">
-<i class="fa fa-search" aria-hidden="true"></i><br>Query Stock
-</div>
-
-<div class="btn btn-sm btn-info ms-border col-lg-2 ms-mod-btn" ms-live-link="{{ action('\B\BM\Controller@viewAllBooking') }}" style="color:black;">
-<i class="fa fa-eye" aria-hidden="true"></i><br>View Orders
-</div>
-
-<div class="btn btn-sm btn-info ms-border col-lg-2" style="color:black;">
-<i class="fa fa-flag-o" aria-hidden="true"></i><br>View Report	
-</div>
-
-<div class="col-lg-12"><br></div>
-
-
-<div class="well well-sm col-lg-3 text-center">
-
-	Total Payment Received
-<strong class="text-success">	<br>₹ {{ \MS\Core\Helper\Comman::toINR($data['total_received']) }}</strong>
-
-
-</div>
-<div class="well well-sm col-lg-3  text-center">
-	Total Due Payment
-<strong class="text-danger">	<br>₹ {{ \MS\Core\Helper\Comman::toINR($data['total_due']) }}</strong>
-
-
-</div>
-
-
-
-<div class="well well-sm col-lg-2  text-center ">
-
-	Total Orders
-<strong>	<br>{{ $data['total_order'] }}</strong>
-
-</div>
-
-
-<div class="well well-sm col-lg-2  text-center ">
-
-	Total Open Orders
-<strong>	<br>{{ $data['total_open_orders'] }}</strong>
-
-</div>
-<div class="well well-sm col-lg-2  text-center">
-	Total Upcoming Orders
-<strong>	<br>{{ $data['total_upcoming_orders'] }}</strong>
-	
-</div>
-
-	
-
-
-
-
-<br>
 <?php
 
-$model=new \B\BM\Model();
-		$tableData=$model->get()->toArray();
-	
-		$data=[
+			$UniqId=$data['UniqId']; 
+			$id=1;
+			$model=new \B\Users\Model();
+			$build=new \MS\Core\Helper\Builder ('B\Users');
+			//dd($model->where('UniqId',\MS\Core\Helper\Comman::de4url($UniqId))->get()->first()->toArray());
+			
+			$nullCheck=$model->where('UniqId',$UniqId)->get();
 
-			'table'=>$tableData,
-		];
-//dd($data);
+			//dd($model->where('UniqId',$UniqId)->get()->first());
+			
+			if($nullCheck =! null ){
+				$data=$model->where('UniqId',$UniqId)->get()->first()->toArray();
+			}else{
+				$data=[];
+			}
+
+
+
+			if(array_key_exists('Password',$data))$data['Password']=\MS\Core\Helper\Comman::en($data['Password'], ENCRYPTION_KEY);
+			$text="After clicking save it will automatically sign out you from Current Session.";
+			$build->title("Edit User")->content($id,$data)->note($text)->action("editUserPost");
+
+			$build->btn([
+									'action'=>"\B\Panel\Controller@index_data",
+									'color'=>"btn-info",
+									'icon'=>"fa fa-fast-backward",
+									'text'=>"Back"
+								]);
+
+			$build->btn([
+									//'action'=>"\\B\\MAS\\Controller@editCompany",
+									'color'=>"btn-success",
+									'icon'=>"fa fa-floppy-o",
+									'text'=>"Save"
+								]);
+
+
+		//	$build->content="<div class='ms-mod-tab'>".$build->content."</div>";
+
+		//	dd($build->view()->render());
+			echo $build->view();
+
+
 ?>
-@include("BM.V.Object.BookingList",['data'=>$data])
 
-
-
-</div>
-
-</div>
-
-
-</div>

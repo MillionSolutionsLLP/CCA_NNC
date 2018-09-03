@@ -20,7 +20,7 @@
                     @if ($page == $paginator->currentPage())
                         <li class="active"><span>{{ $page }}</span></li>
                     @else
-                        <li><span class="ms-mod-btn" ms-live-link="{{ $url }}">{{ $page }}</span></li>
+                        <li><span class="ms-live-btn" ms-live-link="{{ $url }}">{{ $page }}</span></li>
                     @endif
                 @endforeach
             @endif
@@ -28,7 +28,7 @@
 
         {{-- Next Page Link --}}
         @if ($paginator->hasMorePages())
-            <li><span class="ms-mod-btn" ms-live-link="{{ $paginator->nextPageUrl() }}" rel="next">&raquo;</span></li>
+            <li><span class="ms-live-btn" ms-live-link="{{ $paginator->nextPageUrl() }}" rel="next">&raquo;</span></li>
         @else
             <li class="disabled"><span>&raquo;</span></li>
         @endif

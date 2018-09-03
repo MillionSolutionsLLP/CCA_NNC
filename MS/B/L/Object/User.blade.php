@@ -27,9 +27,9 @@
         <h4 class="modal-title text-center"><i class="fa fa-user-circle-o fa-3x" style="padding-top: 10px;padding-bottom: 10px;" aria-hidden="true"></i> <br>Welcome  {{ $user['name']}}<br> <img class="ms-logo"  style="margin-left: 20px;margin-top: 10px;padding: 5px;
     padding-top: 10px;min-height: 60px;" src="{{asset('images/'.env('APP_V_LOGO_LG','billing.png'))}}" /><br></h4>
       </div>
-  <div class="model-footer text-center bg-info">
+  <div class=" text-center bg-info" style="padding:5px;">
         
-         <small class=" p5">Powered by <strong> {{env("APP_V_NAME",'MS System For Cloud ')}}</strong></small>
+         <small class=" ">Powered by <strong> {{env("APP_V_NAME",'MS System For Cloud ')}}</strong></small>
       </div>
       <div class="modal-body">
        
@@ -66,8 +66,8 @@
         <button type="button" class="btn btn-default" data-dismiss="modal"><i class="fa fa-times"></i> Close</button>
 
         @if($userRole===1)
-
-        <button type="button" class="btn btn-default ms-live-btn" data-dismiss="modal" ms-live-link="{{ action('\B\Users\Controller@editUser',['UniqId'=>\MS\Core\Helper\Comman::en4url('001')]) }}"><i class="fa fa-pencil"></i> Edit</button>
+     
+        <button type="button" class="btn btn-default ms-live-btn" data-dismiss="modal" ms-live-link="{{ route('Users.Edit.Id.Modal',['UniqId'=>\MS\Core\Helper\Comman::en4url(session('user.userData.UniqId'))]) }}"><i class="fa fa-pencil"></i> Edit</button>
         @endif
       </div>
     

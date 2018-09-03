@@ -145,7 +145,7 @@ if(count($data['List-array'])>0){
 
     @endif
    @else
-   <tr>
+   </tr>
 
   @endif
 
@@ -249,7 +249,8 @@ if(count($data['List-array'])>0){
     
 
 
-{{ $data['List-Paginate']->links('Pages.Paginate') }}
+  {{ $data['List-Paginate']->links('Pages.Paginate') }}
+
 
   </div>
 

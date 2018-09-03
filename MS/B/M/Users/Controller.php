@@ -188,7 +188,7 @@ class Controller extends \App\Http\Controllers\Controller
 	}
 
 	public function add_form(){
-			$id=0;
+			$id=1;
 			$model=new Model();
 			$build=new \MS\Core\Helper\Builder (__NAMESPACE__);
 		
@@ -220,14 +220,17 @@ class Controller extends \App\Http\Controllers\Controller
 	public function add_form_post(Request $r){
 	
 	$input=$r->all();
-	if(array_key_exists('Password', $input))$input['Password']=\MS\Core\Helper\Comman::en($input['Password'], ENCRYPTION_KEY);
+	
 	$val=\Validator::make($input, [
 	
 	 	'FirstName'=>'required',
-	 	'LastName'=>'required',
-	 	'UserName'=>'required',
-	 	'Password'=>'required',
-	 	'OTP'=>'required',
+	 	//	'LastName'=>'required',
+	 	'UserName'=>'required|min:5|alpha_dash|unique:MSDBC.Users,Username',
+	 	'Password'=>'required|min:6',
+	 	'ConfirmPassword'=>'required|same:Password',
+	 	'Email'=>'required|unique:MSDBC.Users,Email',
+	 	'MobileNumber'=>'required|unique:MSDBC.Users,MobileNumber',
+	 	''
 	 	//'AC'=>'required',
 	 	]
 	 	);
@@ -240,17 +243,85 @@ class Controller extends \App\Http\Controllers\Controller
 	 		return response()->json($array, $status);
         }		
         if(!array_key_exists('RoleCode',$input))$input['RoleCode']='5';
-
+        if(array_key_exists('Password', $input))$input['Password']=\MS\Core\Helper\Comman::en($input['Password'], ENCRYPTION_KEY);
 		$model=new Model();
 		//\MS\Core\Helper\SMS::sendOTP('9662611234',$input['OTP']);
-		dd($model->MS_add($input));
+		$model->MS_add($input);
+
+			$model->MS_update($rData,$id);	
+			$array=[
+	 		'msg'=>"OK",
+	 		'redirectLink'=>action('\B\MAS\Controller@indexData'),
+	 		];
+	 		$json=collect($array)->toJson();
+	 		return response()->json($array, $status);
 		//return $model->MS_add($input);
+	}
+
+
+	public function editUserForModal($UniqId){
+
+
+	$UniqId=\MS\Core\Helper\Comman::de4url($UniqId);
+
+
+	$data=[
+'UniqId'=>$UniqId,
+			
+
+			];
+		return view('Users.V.panel_data')->with('data',$data);
+		
+
+
 	}
 
 
 
 	public function editUser($UniqId){
-			$id=0;
+			$id=1;
+			$model=new Model();
+			$build=new \MS\Core\Helper\Builder (__NAMESPACE__);
+			//dd($model->where('UniqId',\MS\Core\Helper\Comman::de4url($UniqId))->get()->first()->toArray());
+			
+			$nullCheck=$model->where('UniqId',\MS\Core\Helper\Comman::de4url($UniqId))->get();
+			
+			if($nullCheck =! null ){
+				$data=$model->where('UniqId',\MS\Core\Helper\Comman::de4url($UniqId))->get()->first()->toArray();
+			}else{
+				$data=[];
+			}
+
+
+
+			if(array_key_exists('Password',$data))$data['Password']=\MS\Core\Helper\Comman::en($data['Password'], ENCRYPTION_KEY);
+			$text="After clicking save it will automatically sign out you from Current Session.";
+			$build->title("Edit User")->content($id,$data)->note($text)->action("editUserPost");
+
+			$build->btn([
+									'action'=>"\B\Panel\Controller@index_data",
+									'color'=>"btn-info",
+									'icon'=>"fa fa-fast-backward",
+									'text'=>"Back"
+								]);
+
+			$build->btn([
+									//'action'=>"\\B\\MAS\\Controller@editCompany",
+									'color'=>"btn-success",
+									'icon'=>"fa fa-floppy-o",
+									'text'=>"Save"
+								]);
+
+
+		//	$build->content="<div class='ms-mod-tab'>".$build->content."</div>";
+
+		//	dd($build->view()->render());
+			return "<div class='ms-mod-tab'>".$build->view()."</div>";
+	}
+
+
+		public function editUserMod($UniqId){
+			$id=1;
 			$model=new Model();
 			$build=new \MS\Core\Helper\Builder (__NAMESPACE__);
 			//dd($model->where('UniqId',\MS\Core\Helper\Comman::de4url($UniqId))->get()->first()->toArray());
@@ -263,12 +334,14 @@ class Controller extends \App\Http\Controllers\Controller
 				$data=[];
 			}
 
+
+
 			if(array_key_exists('Password',$data))$data['Password']=\MS\Core\Helper\Comman::en($data['Password'], ENCRYPTION_KEY);
 			$text="After clicking save it will automatically sign out you from Current Session.";
 			$build->title("Edit User")->content($id,$data)->note($text)->action("editUserPost");
 
 			$build->btn([
-									'action'=>"\B\Panel\Controller@index_data",
+									'action'=>"\B\MAS\Controller@indexData",
 									'color'=>"btn-info",
 									'icon'=>"fa fa-fast-backward",
 									'text'=>"Back"
@@ -283,7 +356,7 @@ class Controller extends \App\Http\Controllers\Controller
 		//	$build->content="<div class='ms-mod-tab'>".$build->content."</div>";
 
 			//dd($build->content);
-			return "<div class='ms-mod-tab'>".$build->view()."</div>";
+			return $build->view();
 	}
 
 
@@ -296,18 +369,50 @@ class Controller extends \App\Http\Controllers\Controller
 			$status=200;
 			$rData=$r->all();
 
+		$val=\Validator::make($rData, [
+	
+	 	'FirstName'=>'required',
+	 	//	'LastName'=>'required',
+	 	'UserName'=>'required|min:5|alpha_dash',
+	 	//'Password'=>'min:6',
+	 	'ConfirmPassword'=>'required_with:Password|same:Password',
+	 	'Email'=>'required|',
+	 	'MobileNumber'=>'required|',
+	 	''
+	 	//'AC'=>'required',
+	 	]
+	 	);
+
+	 if ($val->fails()) {
+	 		$status=422;
+	 		$array['msg']=$val->errors()->getMessages();
+	 		//dd($array);
+	 		$json=collect($array)->toJson();
+	 		return response()->json($array, $status);
+        }		
 
 			// if(array_key_exists('Password',$rData))$rData['Password']=\MS\Core\Helper\Comman::de($rData['Password'], ENCRYPTION_KEY);
 			$model=new Model();
 
 			$user=$model->where('UniqId',$rData['UniqId'])->get()->first()->toArray();
-			if($user['Password']!=$rData['Password']){
 
-				$rData['Password']=\MS\Core\Helper\Comman::en($rData['Password']);
+			//dd(\MS\Core\Helper\Comman::en($rData['Password']));
+			if($rData['Password'] != null){
+						if($user['Password']!=$rData['Password']){
+			
+							$rData['Password']=\MS\Core\Helper\Comman::en($rData['Password']);
+			
+						}
+			}else{
+
+				if(array_key_exists('ConfirmPassword',$rData))unset($rData['ConfirmPassword']);
+				if(array_key_exists('Password',$rData))unset($rData['Password']);
 
 			}
 
 			
+			
+
 			$model->MS_update($rData,$id);	
 			$array=[
 	 		'msg'=>"OK",
@@ -356,11 +461,11 @@ class Controller extends \App\Http\Controllers\Controller
 
 			// ],
 
-			// 'edit'=>[
-			// 	'method'=>'AMS.Agency.Edit.Id',
-			// 	'key'=>'UniqId',
+			'edit'=>[
+				'method'=>'Users.Edit.Id.Mod',
+				'key'=>'UniqId',
 
-			// ],
+			],
 
 
 			// 'view'=>[

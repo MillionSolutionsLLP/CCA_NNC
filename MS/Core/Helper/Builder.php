@@ -39,9 +39,11 @@ class Builder{
 		return $this;
 	}
 
-	public function listData($data){
+	public function listData($data,$data2=null){
 
 		$this->listData=$data;
+
+		$this->listExtraData=$data2;
 
 
 		return $this;
@@ -453,7 +455,7 @@ switch ($type) {
 			'List-action'=>$this->listAction,
 			'List-dynamic-column'=>$this->listGetter,
 			'Module-Namespace'=>$this->namespace,
-
+			'List-extraData'=>$this->listExtraData,
 
 			//."</div>",
 			

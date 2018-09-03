@@ -34,13 +34,13 @@ box-shadow: 4px 4px 5px 0px rgba(0,0,0,0.5);">
                         </p>
 
                                     
-                    <p class="col-lg-12 text-center ">
-                  
-                        <h5 class="panel-title  text-center">Sign in with your Company Account
+                    <p class="col-lg-12 text-center " style="padding-top:10px;">
+                    <i class="fa fa-user-circle-o fa-4x" aria-hidden="true"></i>                  
+                        <h6 class="panel-title  text-center">Sign in with your Admin Credential
 
 
 
-                        </h5>
+                        </h6>
 
                     </p>
                         
@@ -97,7 +97,7 @@ box-shadow: 4px 4px 5px 0px rgba(0,0,0,0.5);">
 
                         <tr>
                           
-                          <td colspan="2">  <code> <small> Powered by <abbr title="Tier I Solution Package">{{env("APP_V_NAME",'MS System For Cloud ')}}</abbr> & Managed by <abbr title="Million Solutions LLP">MSL </abbr> </code></td>
+                          <td colspan="2">  <code> <small> Powered by <abbr title="MS Custom Cloud Application Series Tier I Solution Package">{{env("APP_V_NAME",'MS System For Cloud ')}}</abbr> & Managed by <abbr title="Million Solutions LLP">MSL </abbr> </code></td>
                         </tr>
 
                         <tr>

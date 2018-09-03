@@ -23,7 +23,7 @@ if(array_key_exists('data', $data)){
 
 ?>
 
-<div class="form-group {{$class}}">
+<div class="form-group has-feedback {{$class}} ">
 
 
 	@if(array_key_exists('link',$data))
@@ -82,7 +82,7 @@ if(array_key_exists('data', $data)){
 
 
 
-{{ Form::label($data['name'], $data['vName']) }}
+{{ Form::label($data['name'], $data['vName'],['class'=>'control-label']) }}
     
 @if(array_key_exists('editLock',$data))
 
@@ -92,6 +92,7 @@ if(array_key_exists('data', $data)){
 
  <fieldset disabled> 
  {{ Form::text($data['name'],$data['value'],['class'=>'form-control','tabindex'=>$index,'readonly','placeholder'=>'Enter '.$data['vName']] ) }}
+ <span class="glyphicon glyphicon-remove form-control-feedback" aria-hidden="true"></span>
  </fieldset>
 
 

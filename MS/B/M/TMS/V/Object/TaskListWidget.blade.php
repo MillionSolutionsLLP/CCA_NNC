@@ -8,8 +8,14 @@
 	//	
 		\MS\Core\Helper\Comman::DB_flush();
 		$model=new \B\TMS\Model($tableId);
-		$model=$model->paginate($tableId);
-	//	dd($model);
+
+//dd($model->MS_all());
+		$model=$model->groupBy('HireAgencyCode')->paginate($tableId);
+
+	//	$model=$model->MS_all();
+
+		
+		//dd($model);
 
 						$diplayArray=[
 				//'UniqId'=>'ID',
@@ -50,13 +56,33 @@
 
 		];
 
+		$data=[
+
+		'paginate'=>false,
+		"paginate-limit"=>5,
+		];
 
 
-						$build->listData($model)->listView($diplayArray)->btn([
+
+						$build->listData($model,$data)->listView($diplayArray)->btn([
 												'action'=>"\\B\\TMS\\Controller@taskAdd",
 												'color'=>"btn-info",
 												'icon'=>"fa fa-plus",
 												'text'=>"Add Task"
+											])->btn( 
+											[
+												'action'=>"\\B\\TMS\\Controller@taskViewByColumn",
+												'color'=>"btn-default",
+												'icon'=>"fa fa-eye",
+												'text'=>"Group By Agency",
+												'data'=>'HireAgencyCode'
+											])->btn( 
+											[
+												'action'=>"\\B\\TMS\\Controller@taskViewByColumn",
+												'color'=>"btn-default",
+												'icon'=>"fa fa-eye",
+												'text'=>"Group By Area of Piracy",
+												'data'=>'AreaPiracy'
 											])->addListAction($link)->listGetter(['HireAgencyCode']);	
 						\MS\Core\Helper\Comman::DB_flush();
 						echo $build->view(true,'list');
