@@ -70,7 +70,7 @@ class Controller extends \App\Http\Controllers\Controller
 	    $agency['email']=$row->pluck('AttConatctNo')->first();
 		$agency['name']=$row->pluck('Name')->first();
 		$agency['jobs']=json_decode($row->pluck('AllocatedJobs')->first(),true,10);
-		$agency['UniqId']=$row->pluck('UniqId');
+		$agency['UniqId']=$row->pluck('UniqId')->first();
 
 
 		$status=200;

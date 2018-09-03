@@ -9,17 +9,14 @@
 
 		$build=new \MS\Core\Helper\Builder (__NAMESPACE__);
 		//$build->title("View All Agency");
-	$id=session('user')['id'];
 
-	$ag=new \B\AMS\Model('0');
-	$uniqId=$ag->where('id',$id)->pluck('UniqId');
-
-	if($uniqId !=null )$uniqId=$uniqId->first();
+		//dd(session()->all());
+	$uniqId=session('user.userData.UniqId');
 
 	$model=new \B\TMS\Model($tableId);
 
 	$model=$model->where('HireAgencyCode',$uniqId);
-
+	//dd($model);
 	//dd($model->where('HireAgencyCode',$uniqId)->get()->toArray());
 		$model=$model->paginate($tableId);
 	//	dd($model);
@@ -32,12 +29,12 @@
 
 				//'NewsDate'=>'Date',
 
-				'NameOwner'=>'City',
+				'NameOwner'=>'Name of Owner',
 
-				'AreaPiracy'=>'State',
+				'AreaPiracy'=>'Area of Piracy',
 				
 
-				'IllegalTypeBroadcasting'=>'Agency ID',
+				'IllegalTypeBroadcasting'=>'Type Illegal Broadcasting',
 
 
 				'Status'=>'Cur. Status',
