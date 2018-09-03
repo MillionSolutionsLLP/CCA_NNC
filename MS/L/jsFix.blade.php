@@ -160,8 +160,9 @@ $.ajax({
                  // alert("Your action taken succefully.!");
                  
                 // console.log("msg" in data);
-                $(".ms-mod-tab").html(data);
 
+           
+           
             
 
               

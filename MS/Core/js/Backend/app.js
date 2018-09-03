@@ -493,12 +493,27 @@ $.ajax({
                     return myXhr;
                 },
                 // Ajax events
-                success: completeHandler = function(data) {
+                success: completeHandler = function(data,textStatus , xhr) {
                  // alert("Your action taken succefully.!");
                  
                 // console.log("msg" in data);
-                $(".ms-mod-tab").html(data);
-                $(".ms-mod-tab").slideDown("fast");
+
+                //console.log(typeof data);
+
+                if(typeof data == "object"){
+                  console.log( data);
+
+                  window.location.replace(data.redirectLink);
+
+                }else
+                {
+
+                   $(".ms-mod-tab").html(data);
+                  $(".ms-mod-tab").slideDown("fast");
+
+                }
+
+               
                
 
                loadingOff();

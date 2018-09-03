@@ -99,6 +99,26 @@ public static $routes=[
 						'method'=>'hookAgencyLoginPost',
 						'type'=>'post',
 						],
+
+
+						[
+						'name'=>'AMS.Agency.LoginAsAdmin.Id',
+						'route'=>'/agency/login/as/{UniqId}',
+						'method'=>'agencyLoginAsbyId',
+						'type'=>'get',
+						],
+
+
+						[
+						'name'=>'AMS.Agency.BackAsAdmin',
+						'route'=>'/agency/login/back',
+						'method'=>'backAgencyAsby',
+						'type'=>'get',
+						],
+
+
+
+
 					];
 
 public static $tableNo="0";

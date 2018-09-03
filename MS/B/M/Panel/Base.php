@@ -28,7 +28,7 @@ public static $field=[
 ];
 public static $routes=[
 						[
-						'name'=>'Panel.Data',
+						'name'=>'Panel.Index',
 						'route'=>'/',
 						'method'=>'index',
 						'type'=>'get',

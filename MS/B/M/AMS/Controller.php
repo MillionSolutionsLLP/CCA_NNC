@@ -233,7 +233,7 @@ class Controller extends \App\Http\Controllers\Controller
 
 
 			'LoginasAgency'=>[
-				'method'=>'AMS.Agency.Edit.Id',
+				'method'=>'AMS.Agency.LoginAsAdmin.Id',
 				'key'=>'UniqId',
 				'icon'=>'fa fa-sign-in',
 				'vName'=>'Login as Agency'
@@ -382,6 +382,75 @@ class Controller extends \App\Http\Controllers\Controller
 			$model->MS_delete($rData,$tableId);	
 			//if($fileExist)$disk->deleteDirectory($UniqId);
 			return  $this->agencyView();
+
+	}
+
+	public function agencyLoginAsbyId($UniqId){
+
+		$UniqId=\MS\Core\Helper\Comman::de4url($UniqId);
+		$session=session('user.userData');
+		//admin data store
+		session()->put('user.adminData', $session);
+
+		//get agency data
+		$id=4;
+		$m1=new Model($id);
+		//dd($m1->where('UniqId',\MS\Core\Helper\Comman::de4url($UniqId))->get());
+		if($nullCheck =! null ){
+				$data=$m1->where('UniqId',$UniqId)->get()->first()->toArray();
+			}else{
+				$data=[];
+			}
+			
+		$agencyData=[
+
+		"name" => $data['Name'],
+ 		"email" => $data['AttName'],
+  		"UniqId" => $data['UniqId'],
+  		];
+
+  		session()->put('user.userData', $agencyData);
+
+  		$status='200';
+
+  		$array=[
+	 		'msg'=>"OK",
+	 	//	'redirect'=>action('\B\Users\Controller@login_form_otp'),
+	 		'redirectLink'=>route('APanel.Index'),
+
+	 		// 	'db Password'=>$psw,
+	 		// 'in Password'=>$input['Password']
+	 		];
+	 		$json=collect($array)->toJson();
+	 		return response()->json($array, $status);
+
+  	//	return redirect()->;
+	//	dd(session()->all());
+
+	}
+
+
+	public function backAgencyAsby(){
+
+		$admin=session('user.adminData');
+		
+		session()->forget('user.adminData');
+		session()->put('user.userData', $admin);
+
+		$status='200';
+
+  		$array=[
+	 		'msg'=>"OK",
+	 	//	'redirect'=>action('\B\Users\Controller@login_form_otp'),
+	 		'redirectLink'=>route('Panel.Index'),
+
+	 		// 	'db Password'=>$psw,
+	 		// 'in Password'=>$input['Password']
+	 		];
+	 		$json=collect($array)->toJson();
+
+	 		return redirect()->route('Panel.Index');
+	 		return response()->json($array, $status);
 
 	}
 }
