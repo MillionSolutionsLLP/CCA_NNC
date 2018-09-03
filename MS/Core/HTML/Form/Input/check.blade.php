@@ -24,7 +24,7 @@ if(array_key_exists('data', $data)){
 		if(array_key_exists('input-size', $data['data']))$class= $data['data']['input-size'];
 
 }
-//dd($class);
+//dd($data);
 
 ?>
 
@@ -36,8 +36,12 @@ if(array_key_exists('data', $data)){
 <div class="checkbox">
 @foreach($data['dataArray'] as $value=>$lable)
 <label tabindex="{{$index}}">
-	{{Form::checkbox($data['name']."[".$value."]")}}
-    {{$lable}}
+	@if(array_key_exists('UniqId2',$lable))
+	{{Form::checkbox($data['name']."[".$lable['UniqId1']."]"."[".$lable['UniqId2']."]")}}
+	@else
+	{{Form::checkbox($data['name']."[".$lable['UniqId1']."]")}}
+	@endif
+    {{$lable['name']}}
   </label>
 @endforeach
 </div>

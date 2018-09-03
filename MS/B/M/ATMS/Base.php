@@ -218,11 +218,33 @@ public static function getTypeofDocuments(){
 
 
 public static function getTypeOfDocumentById($UniqId){
+	
+
 	\MS\Core\Helper\Comman::DB_flush();
+
 	$tableId='3';
 	$m1=new Model($tableId);
-	\MS\Core\Helper\Comman::DB_flush();
-	return $m1->where('UniqId',$UniqId)->first()->toArray();
+	
+
+	if($m1->where('UniqId',$UniqId)->first() !=null){
+
+		$rData=$m1->where('UniqId',$UniqId)->first()->toArray();
+		\MS\Core\Helper\Comman::DB_flush();
+		return $rData ;
+
+	}else{
+
+						if($UniqId == "000"){
+
+							return ['NameOfDocuments'=>"Others"];
+						}else{
+
+							return ['NameOfDocuments'=>$UniqId];
+
+						}
+		
+		}
+	
 
 
 

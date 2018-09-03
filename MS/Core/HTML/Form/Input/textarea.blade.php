@@ -6,8 +6,11 @@ if(array_key_exists('ClassData',$data)){
 
 if(array_key_exists('form-class-div',$data['ClassData']))$class=$data['ClassData']['form-class-div'];
 
+
 }else{
+
 $class="col-lg-6";
+
 
 }
 
@@ -22,5 +25,5 @@ if(array_key_exists('data', $data)){
 
 <div class="form-group {{ $class }} ">
     {{ Form::label($data['name'], $data['vName']) }}
-    {{ Form::textarea($data['name'], $data['value'],['class'=>'form-control','tabindex'=>$index,'placeholder'=>'Enter '.$data['vName']] ) }}
+    {{ Form::textarea($data['name'], $data['value'],['class'=>'form-control','tabindex'=>$index,'placeholder'=>'Enter '.$data['vName'],'rows'=>'1'] ) }}
 </div>

@@ -28,13 +28,13 @@
     <div id="collapseOne" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingOne">
       <div class="panel-body list-group">
        
-		  <a href="#" class="list-group-item ms-mod-btn" ms-live-link="{{ action("\B\MAS\Controller@editCompany") }}"><i class="fa fa-university" aria-hidden="true"></i> Manage Company Details</a>
-		  <a href="#" class="list-group-item ms-mod-btn" ms-live-link="{{ action("\B\MAS\Controller@viewTax") }}"><i class="fa fa-percent" aria-hidden="true"></i> Manage Tax Details</a>
-		  <a href="#" class="list-group-item ms-mod-btn" ms-live-link="{{ action("\B\MAS\Controller@editHSNSAC") }}"><i class="fa fa-code" aria-hidden="true"></i> Manage HSN/SAC</a>
-		  <a href="#" class="list-group-item ms-mod-btn" ms-live-link="{{ action("\B\MAS\Controller@viewTNC") }}"><i class="fa fa-handshake-o" aria-hidden="true"></i> Manage Terms & Conditions</a>
+		  <a href="#" class="list-group-item ms-mod-btn" ms-live-link="{{ action("\B\MAS\Controller@editCompany") }}" ms-breadcrumb="Modules/ Master / Manage Company"><i class="fa fa-university" aria-hidden="true"></i> Manage Company Details</a>
+		  <a href="#" class="list-group-item ms-mod-btn" ms-live-link="{{ action("\B\MAS\Controller@viewTax") }}"  ms-breadcrumb="Modules/ Master / Tax Details"><i class="fa fa-percent" aria-hidden="true"></i> Manage Tax Details</a>
+		  <a href="#" class="list-group-item ms-mod-btn" ms-live-link="{{ action("\B\MAS\Controller@editHSNSAC") }}"  ms-breadcrumb="Modules/ Master / Manage HSN or SAC"><i class="fa fa-code" aria-hidden="true"></i> Manage HSN/SAC</a>
+		  <a href="#" class="list-group-item ms-mod-btn" ms-live-link="{{ action("\B\MAS\Controller@viewTNC") }}"  ms-breadcrumb="Modules/ Master / Manage Terms & Conditions"><i class="fa fa-handshake-o" aria-hidden="true"></i> Manage Terms & Conditions</a>
 
 
-      <a href="#" class="list-group-item ms-mod-btn" ms-live-link="{{ action("\B\Users\Controller@view_all_users") }}"><i class="fa fa-users" aria-hidden="true"></i> Manage Users</a>
+      <a href="#" class="list-group-item ms-mod-btn" ms-live-link="{{ action("\B\Users\Controller@view_all_users") }}"  ms-breadcrumb="Modules/ Master / Manage Users"><i class="fa fa-users" aria-hidden="true"></i> Manage Users</a>
 
 
 

@@ -32,9 +32,9 @@
     <div id="collapseOne" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingOne">
       <div class="panel-body list-group">
        
-		  <a href="#" class="list-group-item ms-mod-btn" ms-live-link="{{ route('AMS.Agency.Add') }}"> <i class="fa fa-plus" aria-hidden="true"></i> Add Agency</a>
+		  <a href="#" class="list-group-item ms-mod-btn" ms-live-link="{{ route('AMS.Agency.Add') }}" ms-breadcrumb="Modules/ Agency Management System / Add Agency"> <i class="fa fa-plus" aria-hidden="true"></i> Add Agency</a>
 
-      <a href="#" class="list-group-item ms-mod-btn" ms-live-link="{{ route('AMS.Agency.View') }}"> <i class="fa fa-eye" aria-hidden="true"></i> View All Agency</a>
+      <a href="#" class="list-group-item ms-mod-btn" ms-live-link="{{ route('AMS.Agency.View') }}" ms-breadcrumb="Modules/ Agency Management System / View  All Agency"> <i class="fa fa-eye" aria-hidden="true"></i> View All Agency</a>
   
     
 
