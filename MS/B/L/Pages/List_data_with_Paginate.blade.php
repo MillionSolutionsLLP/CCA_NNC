@@ -56,7 +56,7 @@ if(count($data['List-array'])>0){
   <div class="panel-body">
 
     @if(array_key_exists('List-btn' ,$data))
-  <div class="col-lg-12" style="margin-bottom: 5px;">
+  <div class="col-lg-12" style="margin-bottom: 5px;margin-left: -15px;">
     
 
      <div class="btn-group">

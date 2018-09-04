@@ -28,7 +28,8 @@
 								'NameOperator'=>'Name of Operator',
 								'AreaPiracy'=>'Area of Piracy',
 								'ModePiracy'=>'Mode of Piracy',
-								'StatusOperator.of.NameOfNetwork'=>'Status of Operator'
+								'StatusOperator.of.NameOfNetwork'=>'Status of Operator',
+								'CurrentStatus.B_TMS_Logics=getCurrentStatus'=>'Cur. Status'
 
 								];
 
@@ -40,7 +41,8 @@
 								'Name of Operator',
 								'Area of Piracy',
 								'Mode of Piracy',
-								'Status of Operator'
+								'Status of Operator',
+								'Cur. Status'
 
 								];
 
@@ -60,7 +62,8 @@
 								'NameOperator'=>'Name of Operator',
 								//'AreaPiracy'=>'Area of Piracy',
 								'ModePiracy'=>'Mode of Piracy',
-								'StatusOperator.of.NameOfNetwork'=>'Status of Operator'
+								'StatusOperator.of.NameOfNetwork'=>'Status of Operator',
+								'CurrentStatus.B_TMS_Logics=getCurrentStatus'=>'Cur. Status'
 
 								];
 
@@ -71,9 +74,9 @@
 								'Agency Name',
 								'Task Code',
 								'Name of Operator',
-								
 								'Mode of Piracy',
-								'Status of Operator'
+								'Status of Operator',
+								'Cur. Status'
 
 								];
 								break;
@@ -89,7 +92,8 @@
 								'NameOperator'=>'Name of Operator',
 								//'AreaPiracy'=>'Area of Piracy',
 								'ModePiracy'=>'Mode of Piracy',
-								'StatusOperator.of.NameOfNetwork'=>'Status of Operator'
+								'StatusOperator.of.NameOfNetwork'=>'Status of Operator',
+								'CurrentStatus.B_TMS_Logics=getCurrentStatus'=>'Cur. Status'
 
 								];
 
@@ -102,7 +106,8 @@
 								'Name of Operator',
 								
 								'Mode of Piracy',
-								'Status of Operator'
+								'Status of Operator',
+								'Cur. Status'
 
 								];
 
@@ -197,8 +202,59 @@
 		</tr>
 
 		@foreach($taskDetails as $key=>$data2)
-		<?php //dd($data2); ?>
-			<tr>
+		<?php 
+
+
+
+  $trColor='';
+  $boldtext='';
+
+
+  //if(session()->has('user.SuperAdmin'))
+
+if(session()->has('user.SuperAdmin')){
+
+//dd(session('user.AgencyAdmin'));
+if(session('user.SuperAdmin') && !(session('user.AgencyAdmin')!=null || session('user.AgencyAdmin')!=0) ){
+
+  if($data2['ReadStatus']!=null){
+
+    if($data2['ReadStatus']==0){
+
+        $trColor='info';
+
+
+        if($data2['ReadUserCode']!=null){
+
+          $data2['ReadUserCode']=json_decode($data2['ReadUserCode'],true,3);
+
+       // dd($object->ReadUserCode);
+
+          if(!in_array(session('user.userData.UniqId'), $data2['ReadUserCode']))$boldtext='ms-text-bold';
+
+
+        }
+
+    }
+
+
+
+
+  
+
+  }
+
+
+}
+
+
+}
+
+
+
+		 ?>
+			<tr class="ms-mod-btn  {{$trColor}} {{$boldtext}}" ms-live-link=" {{ route('TMS.Task.View.Id',['UniqId'=>\MS\Core\Helper\Comman::en4url($data2['UniqId']) ] ) }}">
+
 
 
 			@foreach($data['ColumnList'] as  $cloumName=>$vName)
