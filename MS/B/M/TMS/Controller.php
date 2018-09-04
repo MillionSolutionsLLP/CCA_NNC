@@ -343,7 +343,16 @@ public function taskView(){
 												'icon'=>"fa fa-eye",
 												'text'=>"Group By Area of Piracy",
 												'data'=>'AreaPiracy'
-											])->addListAction($link)->listGetter(['HireAgencyCode','CurrentStatus']);	
+											])
+											->btn( 
+											[
+												'action'=>"\\B\\TMS\\Controller@taskViewByColumn",
+												'color'=>"btn-default",
+												'icon'=>"fa fa-eye",
+												'text'=>"Group By State",
+												'data'=>'NameOperatorState'
+											])
+											->addListAction($link)->listGetter(['HireAgencyCode','CurrentStatus']);	
 
 						return $build->view(true,'list');
 
@@ -898,7 +907,7 @@ public function getUploadedFile($UniqId,$TaskId,$StepId,$TypeOfDocument,$FileNam
 
 			
 
-			//dd($data);
+			//dd($data)
 
 
 			return view('TMS.V.Object.TaskApprove')->with('data',$data);

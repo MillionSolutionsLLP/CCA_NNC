@@ -83,10 +83,20 @@
 												'icon'=>"fa fa-eye",
 												'text'=>"Group By Area of Piracy",
 												'data'=>'AreaPiracy'
-											])->addListAction($link)->listGetter(['HireAgencyCode','CurrentStatus']);	
+											])
+											->btn( 
+											[
+												'action'=>"\\B\\TMS\\Controller@taskViewByColumn",
+												'color'=>"btn-default",
+												'icon'=>"fa fa-eye",
+												'text'=>"Group By State",
+												'data'=>'NameOperatorState'
+											])
+											->addListAction($link)->listGetter(['HireAgencyCode','CurrentStatus']);	
 						\MS\Core\Helper\Comman::DB_flush();
 						echo $build->view(true,'list');
 						
 
 
 ?>
+

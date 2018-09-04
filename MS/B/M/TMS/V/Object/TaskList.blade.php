@@ -76,11 +76,41 @@
 								'Status of Operator'
 
 								];
+								break;
+
+								case 'NameOperatorState':
+								$data1=$model->get()->groupBy($data['columnName'])->toArray();
+								$data['ColumnList']=[
+
+								//'AreaPiracy'=>'Area of Piracy',
+								'HireAgencyCode'=>'Agency Code',
+								'HireAgencyCode.B_AMS_Logics=getAgencyName'=>'Agency Name',
+								'UniqId'=>'Task Code',
+								'NameOperator'=>'Name of Operator',
+								//'AreaPiracy'=>'Area of Piracy',
+								'ModePiracy'=>'Mode of Piracy',
+								'StatusOperator.of.NameOfNetwork'=>'Status of Operator'
+
+								];
+
+
+								$data['ColumnList_Header']=[
+								'STate',
+								'Agency Code',
+								'Agency Name',
+								'Task Code',
+								'Name of Operator',
+								
+								'Mode of Piracy',
+								'Status of Operator'
+
+								];
 
 								break;
-							
-							default:
-								$data1=[];
+
+								
+
+
 								$data['ColumnList']=[];
 								break;
 						}
@@ -128,6 +158,12 @@
 				$groupByTitle=$agency;
 				break;
 
+
+			case 'NameOperatorState':
+			
+				$groupByTitle=$agency;
+				break;
+
 			
 			default:
 				//dd();
@@ -147,6 +183,10 @@
 
 		<td rowspan=" {{ count($taskDetails)+1 }}" >{{ $groupByTitle }} </td>
 		@elseif($data['columnName'] == 'AreaPiracy')
+
+		<td rowspan=" {{ count($taskDetails)+1 }}" >{{ $groupByTitle }} </td>
+
+		@elseif($data['columnName'] == 'NameOperatorState')
 
 		<td rowspan=" {{ count($taskDetails)+1 }}" >{{ $groupByTitle }} </td>
 		@endif
