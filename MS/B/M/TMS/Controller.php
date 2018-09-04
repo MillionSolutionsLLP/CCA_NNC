@@ -105,6 +105,20 @@ class Controller extends \App\Http\Controllers\Controller
 
 
 
+			$input['ReadStatus']=0;
+			$input['ReadUserCode']=collect([session('user.userData.UniqId')])->toJson();
+			$input['ReadUserArray']=collect(
+
+				[ 
+				
+				session('user.userData.UniqId')=>
+				[ 'UserCode'=>session('user.userData.UniqId'),
+				  'Timestamp'=>\Carbon::now()->toDateTimeString(), ]
+
+
+				])->toJson();
+
+
 			$data=[
 				[
 					'id'=>0,
@@ -339,13 +353,55 @@ public function taskViewById($UniqId){
 		$uniqId=\MS\Core\Helper\Comman::de4url($UniqId);
 		//$uniqId=$enUniqId;
 		$id=0;
+
+
+
+
 		$m=new \B\TMS\Model();
 
 		
 		if($m->where('UniqId',$uniqId)->first()!=null){$rowData=$m->where('UniqId',$uniqId)->first()->toArray();}
 		else{$rowData=[];}
 
+	\MS\Core\Helper\Comman::DB_flush();
+			$m1=new \B\TMS\Model();
+
+
+
+
 		if(count($rowData)>0){
+
+
+			$rowData['ReadUserCode']=json_decode($rowData['ReadUserCode'],true,3);
+			$rowData['ReadUserArray']=json_decode($rowData['ReadUserArray'],true,3);
+			$found=0;
+			if(!in_array(session('user.userData.UniqId'), $rowData['ReadUserCode']))$rowData['ReadUserCode'][]=session('user.userData.UniqId');
+
+			if(!array_key_exists(session('user.userData.UniqId'), $rowData['ReadUserArray']))
+			{
+				$found=1;
+				$rowData['ReadUserArray'][session('user.userData.UniqId')]=[
+
+				'UserCode'=>session('user.userData.UniqId'),
+				'Timestamp'=>\Carbon::now()->toDateTimeString(),
+				];
+
+			}
+			//dd($rowData);
+			
+			if($found){
+
+					$upData['ReadUserCode']=collect($rowData['ReadUserCode'])->toJson();
+			$upData['ReadUserArray']=collect($rowData['ReadUserArray'])->toJson();
+
+			$m1->MS_update($upData,$rowData['UniqId']);
+
+			}
+			
+
+				//	dd($rowData);
+
+
 
 \MS\Core\Helper\Comman::DB_flush();
 			\MS\Core\Helper\Comman::DB_flush();

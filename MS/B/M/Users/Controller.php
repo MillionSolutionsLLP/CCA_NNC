@@ -243,15 +243,20 @@ class Controller extends \App\Http\Controllers\Controller
 	 		return response()->json($array, $status);
         }		
         if(!array_key_exists('RoleCode',$input))$input['RoleCode']='5';
+        if(!array_key_exists('OTP',$input))$input['OTP']='12345';
         if(array_key_exists('Password', $input))$input['Password']=\MS\Core\Helper\Comman::en($input['Password'], ENCRYPTION_KEY);
+
+
+        if(array_key_exists('ConfirmPassword', $input))unset($input['ConfirmPassword']);
 		$model=new Model();
 		//\MS\Core\Helper\SMS::sendOTP('9662611234',$input['OTP']);
 		$model->MS_add($input);
 
-			$model->MS_update($rData,$id);	
+			//$model->MS_update($input,$id);
+			 $status=200;	
 			$array=[
 	 		'msg'=>"OK",
-	 		'redirectLink'=>action('\B\MAS\Controller@indexData'),
+	 		'redirectData'=>action('\B\MAS\Controller@indexData'),
 	 		];
 	 		$json=collect($array)->toJson();
 	 		return response()->json($array, $status);
@@ -294,7 +299,11 @@ class Controller extends \App\Http\Controllers\Controller
 
 
 
-			if(array_key_exists('Password',$data))$data['Password']=\MS\Core\Helper\Comman::en($data['Password'], ENCRYPTION_KEY);
+			if(array_key_exists('Password',$data)){
+
+				$data['Password']=\MS\Core\Helper\Comman::en($data['Password'], ENCRYPTION_KEY)
+
+				;}
 			$text="After clicking save it will automatically sign out you from Current Session.";
 			$build->title("Edit User")->content($id,$data)->note($text)->action("editUserPost");
 
@@ -397,15 +406,21 @@ class Controller extends \App\Http\Controllers\Controller
 			$user=$model->where('UniqId',$rData['UniqId'])->get()->first()->toArray();
 
 			//dd(\MS\Core\Helper\Comman::en($rData['Password']));
+			if(array_key_exists('ConfirmPassword',$rData))unset($rData['ConfirmPassword']);
 			if($rData['Password'] != null){
 						if($user['Password']!=$rData['Password']){
+
+							$text="Your password is successfully changed and your new password is ".$rData['Password'].". /n/r <br>-MS-CCA ";
+							//\MS\Core\Helper\SMS::send('9662611234',$text	);
 			
 							$rData['Password']=\MS\Core\Helper\Comman::en($rData['Password']);
 			
 						}
+
+
 			}else{
 
-				if(array_key_exists('ConfirmPassword',$rData))unset($rData['ConfirmPassword']);
+				
 				if(array_key_exists('Password',$rData))unset($rData['Password']);
 
 			}

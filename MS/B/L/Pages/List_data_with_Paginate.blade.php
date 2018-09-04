@@ -108,7 +108,7 @@ if(count($data['List-array'])>0){
 @endif
 
 </div>
-      <table class="table table-responsive table-bordered table-hover">
+      <table class="table table-responsive table-bordered table-hover text-capitalize">
   <tr>
      <th class="text-right">Shortcut<br><span class="label label-default">alt +  I + { 1,2,.. }</span></th>
 
@@ -126,22 +126,61 @@ if(count($data['List-array'])>0){
 <tbody>
 
 
-  @foreach ($data['List-Paginate'] as $object)
+  @foreach ($data['List-Paginate']->sortByDesc('updated_at') as $object)
+
+
+    <?php 
+
+
+  $trColor='';
+  $boldtext='';
+
+  if($object->ReadStatus!=null){
+
+    if($object->ReadStatus==0){
+
+        $trColor='info';
+
+
+        if($object->ReadUserCode!=null){
+
+          $object->ReadUserCode=json_decode($object->ReadUserCode,true,3);
+
+       // dd($object->ReadUserCode);
+
+          if(!in_array(session('user.userData.UniqId'), $object->ReadUserCode))$boldtext='ms-text-bold';
+
+
+        }
+
+    }
+
+
+
+
+  
+
+  }
+
+   ?>
+
+
+
    @if(array_key_exists('view-btn',$data['List-action']))
   
 
   @if($loop->iteration < 10)
 
 
-  <tr class="ms-mod-btn" ms-live-link="{{ route($data['List-action']['view-btn']['method'],\MS\Core\Helper\Comman::en4url($object->$data['List-action']['view-btn']['key'])) }}"      ms-shortcut="i+{{$loop->iteration }}" > 
+  <tr class="ms-mod-btn {{$trColor}} {{$boldtext}}" ms-live-link="{{ route($data['List-action']['view-btn']['method'],\MS\Core\Helper\Comman::en4url($object->$data['List-action']['view-btn']['key'])) }}"      ms-shortcut="i+{{$loop->iteration }}" > 
   
     @elseif($loop->iteration == 10)
 
-  <tr class="ms-mod-btn" ms-live-link="{{ route($data['List-action']['view-btn']['method'],\MS\Core\Helper\Comman::en4url($object->$data['List-action']['view-btn']['key'])) }}"      ms-shortcut="i+0" > 
+  <tr class="ms-mod-btn {{$trColor}} {{$boldtext}}" ms-live-link="{{ route($data['List-action']['view-btn']['method'],\MS\Core\Helper\Comman::en4url($object->$data['List-action']['view-btn']['key'])) }}"      ms-shortcut="i+0" > 
   
 
     @else
-  <tr class="ms-mod-btn" ms-live-link="{{ route($data['List-action']['view-btn']['method'],\MS\Core\Helper\Comman::en4url($object->$data['List-action']['view-btn']['key'])) }}"     > 
+  <tr class="ms-mod-btn {{$trColor}} {{$boldtext}} " ms-live-link="{{ route($data['List-action']['view-btn']['method'],\MS\Core\Helper\Comman::en4url($object->$data['List-action']['view-btn']['key'])) }}"     > 
 
     @endif
    @else

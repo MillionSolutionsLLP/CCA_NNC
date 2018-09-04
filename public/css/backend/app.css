@@ -8568,6 +8568,10 @@ body {
   color: white !important;
 }
 
+.ms-text-bold {
+  font-weight: bold !important;
+}
+
 .pagination > .active > span,
 .pagination > .active > span:focus,
 .pagination > .active > a:focus,

@@ -203,6 +203,7 @@ public static $field=[
 
 ['name'=>'Status','type'=>'boolean','input'=>'radio','value'=>'status','default'=>'status'],
 
+
 ];
 
 
@@ -464,6 +465,13 @@ public static $field7=[
 ['name'=>'Status','type'=>'boolean','input'=>'radio','value'=>'status','default'=>'status'],
 
 ['name'=>'CurrentStatus','vName'=>'Illegal broadcasting','type'=>'string','input'=>'text', 'data'=>['input-size'=>'col-lg-3'] ],
+
+['name'=>'ReadStatus','type'=>'boolean',],
+
+['name'=>'ReadUserCode','type'=>'string',],
+
+['name'=>'ReadUserArray','type'=>'string',],
+
 
 
 ];

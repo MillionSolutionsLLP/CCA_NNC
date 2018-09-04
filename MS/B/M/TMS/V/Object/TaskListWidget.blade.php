@@ -10,7 +10,7 @@
 		$model=new \B\TMS\Model($tableId);
 
 //dd($model->MS_all());
-		$model=$model->groupBy('HireAgencyCode')->paginate($tableId);
+		$model=$model->paginate(5);
 
 	//	$model=$model->MS_all();
 
