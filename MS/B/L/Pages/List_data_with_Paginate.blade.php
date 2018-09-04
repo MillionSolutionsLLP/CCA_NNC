@@ -134,6 +134,14 @@ if(count($data['List-array'])>0){
 
   $trColor='';
   $boldtext='';
+//dd(session()->all());
+
+  //if(session()->has('user.SuperAdmin'))
+
+if(session()->has('user.SuperAdmin')){
+
+//dd(session('user.AgencyAdmin'));
+if(session('user.SuperAdmin') && (session('user.AgencyAdmin')!=null || session('user.AgencyAdmin')!=0) ){
 
   if($object->ReadStatus!=null){
 
@@ -161,6 +169,16 @@ if(count($data['List-array'])>0){
   
 
   }
+
+
+}
+
+
+}
+
+
+
+
 
    ?>
 
