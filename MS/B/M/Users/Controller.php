@@ -479,6 +479,7 @@ class Controller extends \App\Http\Controllers\Controller
 			'edit'=>[
 				'method'=>'Users.Edit.Id.Mod',
 				'key'=>'UniqId',
+				'access'=>'10'
 
 			],
 

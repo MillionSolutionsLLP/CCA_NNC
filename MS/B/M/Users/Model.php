@@ -42,6 +42,26 @@ protected $base_Field;
 
     }
 
+
+
+     public function getUserCodeById($code){
+
+        $m=new Model();
+        //dd($m->where('UniqId',$code)->first()->toArray()['UserName']);
+        $u=$m->where('UniqId',$code)->first();
+        if($u==null){
+            return null;
+        }else{
+
+             return $m->where('UniqId',$code)->first()->toArray()['RoleCode'];
+        }
+
+
+       
+        
+
+    }
+
     public function genuniqid(){
         return Base::genUniqID();
     }

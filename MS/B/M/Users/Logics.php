@@ -10,4 +10,16 @@ class Logics{
 		$m=new Model();
 		return $m->getUserNameById($code);
 	}
+
+
+
+	public static function getUserCode ($code){
+
+
+		$m=new Model();
+		return $m->getUserCodeById($code);
+	}
+
+
 }
+

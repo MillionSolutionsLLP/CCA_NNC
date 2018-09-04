@@ -376,6 +376,7 @@ class Builder{
 		if(array_key_exists('view',$data))$this->listAction['view-btn']=$data['view'];
 		if(array_key_exists('AllocationLater',$data))$this->listAction['AllocationLater-btn']=$data['AllocationLater'];
 		if(array_key_exists('LoginasAgency',$data))$this->listAction['LoginasAgency-btn']=$data['LoginasAgency'];
+		//if(array_key_exists('LoginasAgency',$data))$this->listAction['LoginasAgency-btn']=$data['LoginasAgency'];
 
 
 		return $this;

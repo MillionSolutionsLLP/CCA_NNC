@@ -254,12 +254,37 @@ if(count($data['List-array'])>0){
 
         <?php  $icon='fa fa-file-text-o';
                $vName='';
+
+
          ?>
 
       <div class="btn-group btn-group-xs " role="group" aria-label="...">
         @if(array_key_exists('edit-btn',$data['List-action']))
-        <button type="button" class="btn  ms-text-black btn-success ms-mod-btn" ms-live-link="{{route($data['List-action']['edit-btn']['method'],\MS\Core\Helper\Comman::en4url($object->$data['List-action']['edit-btn']['key']))}}"><i class="fa fa-pencil "></i></button>
+
+          @if(array_key_exists('access',$data['List-action']['edit-btn']))
+
+    
+              @if(\B\Users\Logics::getUserCode(session('user.userData.UniqId'))  >  $data['List-action']['edit-btn']['access'] )
+
+               <button type="button" class="btn  ms-text-black btn-success ms-mod-btn" ms-live-link="{{route($data['List-action']['edit-btn']['method'],\MS\Core\Helper\Comman::en4url($object->$data['List-action']['edit-btn']['key']))}}"><i class="fa fa-pencil "></i></button>
+
+              @else
+
+              
+
+                  @if($object->$data['List-action']['edit-btn']['key'] === session('user.userData.UniqId'))
+                    <button type="button" class="btn  ms-text-black btn-success ms-mod-btn" ms-live-link="{{route($data['List-action']['edit-btn']['method'],\MS\Core\Helper\Comman::en4url($object->$data['List-action']['edit-btn']['key']))}}"><i class="fa fa-pencil "></i></button>
+                  @endif
+              
+              @endif
+
+          @else
+               <button type="button" class="btn  ms-text-black btn-success ms-mod-btn" ms-live-link="{{route($data['List-action']['edit-btn']['method'],\MS\Core\Helper\Comman::en4url($object->$data['List-action']['edit-btn']['key']))}}"><i class="fa fa-pencil "></i></button>
+          @endif
         @endif
+
+
+
         @if(array_key_exists('delete-btn',$data['List-action']))
         <button type="button" class="btn btn-danger ms-text-black ms-mod-btn" ms-live-link="{{route($data['List-action']['delete-btn']['method'],\MS\Core\Helper\Comman::en4url($object->$data['List-action']['delete-btn']['key']))}}"><i class="fa fa-trash"></i></button>
         @endif
