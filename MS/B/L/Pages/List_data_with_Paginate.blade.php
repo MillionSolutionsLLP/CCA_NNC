@@ -141,7 +141,7 @@ if(count($data['List-array'])>0){
 if(session()->has('user.SuperAdmin')){
 
 //dd(session('user.AgencyAdmin'));
-if(session('user.SuperAdmin') && (session('user.AgencyAdmin')!=null || session('user.AgencyAdmin')!=0) ){
+if(session('user.SuperAdmin') && !(session('user.AgencyAdmin')!=null || session('user.AgencyAdmin')!=0) ){
 
   if($object->ReadStatus!=null){
 
@@ -344,14 +344,14 @@ if(session('user.SuperAdmin') && (session('user.AgencyAdmin')!=null || session('
   </table>
 
 
-  <div class="panel-footer">
-    
+    <div class="panel-footer">
+      
 
 
-  {{ $data['List-Paginate']->links('Pages.Paginate') }}
+    {{ $data['List-Paginate']->links('Pages.Paginate') }}
 
 
-  </div>
+    </div>
 
 </div>
 
