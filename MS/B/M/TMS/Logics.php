@@ -34,4 +34,19 @@ class Logics{
 
 		return $model->getTypeOfActionFromId($code);
 	}
+
+
+	public static function  getCurrentStatus($code){
+
+
+		
+		\MS\Core\Helper\Comman::DB_flush();
+		$model=new Model (7);
+
+		//dd($model->getHireAgencyCodeFromId($code));
+
+		return $model->getCurrentStatuseFromId($code);
+
+
+	}
 }

@@ -104,6 +104,7 @@ class Controller extends \App\Http\Controllers\Controller
 			}else{$uniqid=Base::genUniqID();}
 
 
+			$input['CurrentStatus']='0';	
 
 			$input['ReadStatus']=0;
 			$input['ReadUserCode']=collect([session('user.userData.UniqId')])->toJson();
@@ -181,6 +182,7 @@ class Controller extends \App\Http\Controllers\Controller
 			if($OwnerCheck == null)$modelOfOwner->MS_add($dataForOwner);
 
 
+
 		//	dd(Base::migrate([['id'=>'1','code'=>$uniqid]]));
 		//	dd($input);
 	
@@ -255,13 +257,15 @@ public function taskView(){
 
 	
 					\MS\Core\Helper\Comman::DB_flush();
-					$tableId=0;
+					$tableId=7;
 
 		$build=new \MS\Core\Helper\Builder (__NAMESPACE__);
 		$build->title("View All Assined Task");
 	//	
 
 		$model=new Model($tableId);
+
+		//dd($model);
 		$model=$model->paginate($tableId);
 			\MS\Core\Helper\Comman::DB_flush();
 	//	dd($model);
@@ -282,7 +286,7 @@ public function taskView(){
 				'ModePiracy'=>'Mode of Piracy',
 				'NameOfNetwork'=>'LCO name',
 
-				'Status'=>'Cur. Status',
+				'CurrentStatus'=>'Cur. Status',
 
 						];
 
@@ -339,7 +343,7 @@ public function taskView(){
 												'icon'=>"fa fa-eye",
 												'text'=>"Group By Area of Piracy",
 												'data'=>'AreaPiracy'
-											])->addListAction($link)->listGetter(['HireAgencyCode']);	
+											])->addListAction($link)->listGetter(['HireAgencyCode','CurrentStatus']);	
 
 						return $build->view(true,'list');
 

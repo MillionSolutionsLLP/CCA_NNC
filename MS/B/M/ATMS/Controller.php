@@ -234,9 +234,11 @@ class Controller extends \App\Http\Controllers\Controller
 		$m1=new \B\TMS\Model('1',$UniqId);
 
 
-
+		$c1=Base::genUniqID();
 
 		$dbArray=[
+
+			'UniqId'=>$c1,
 
 			'TypeOfAction'=>'3',
 			'DocumentUploaded'=>true,
@@ -256,6 +258,16 @@ class Controller extends \App\Http\Controllers\Controller
 		
 
 		$m1->MS_add($dbArray);
+
+		\MS\Core\Helper\Comman::DB_flush();
+		$m2=new \B\TMS\Model ();
+
+		
+		$m2->MS_update(['CurrentStatus'=>'3'],$UniqId);		
+
+		
+
+
 
 		$status=200;
 			$array=[

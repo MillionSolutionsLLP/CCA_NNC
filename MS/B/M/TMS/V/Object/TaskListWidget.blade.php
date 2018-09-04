@@ -1,7 +1,7 @@
 <?php 
 
 	
-			$tableId=0;
+			$tableId=7;
 		\MS\Core\Helper\Comman::DB_flush();
 		$build=new \MS\Core\Helper\Builder ('B\\TMS');
 	//	$build->title("View All Assined Task");
@@ -33,7 +33,7 @@
 				'ModePiracy'=>'Mode of Piracy',
 				//'NameOfNetwork'=>'LCO name',
 
-				'Status'=>'Cur. Status',
+				'CurrentStatus'=>'Cur. Status',
 
 						];
 
@@ -83,7 +83,7 @@
 												'icon'=>"fa fa-eye",
 												'text'=>"Group By Area of Piracy",
 												'data'=>'AreaPiracy'
-											])->addListAction($link)->listGetter(['HireAgencyCode']);	
+											])->addListAction($link)->listGetter(['HireAgencyCode','CurrentStatus']);	
 						\MS\Core\Helper\Comman::DB_flush();
 						echo $build->view(true,'list');
 						

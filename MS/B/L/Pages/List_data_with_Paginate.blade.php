@@ -213,11 +213,11 @@ if(session('user.SuperAdmin') && !(session('user.AgencyAdmin')!=null || session(
 
      <td>
 
-      @if((string)$object->$key ==  '0')
+      @if((string)$object->$key ===  0)
 
 
       <i class="fa fa-times text-danger"></i>
-      @elseif((string )$object->$key ==  '1')
+      @elseif((string )$object->$key === 1)
 
 
       <i class="fa fa-check text-success"></i>
@@ -236,13 +236,11 @@ if(session('user.SuperAdmin') && !(session('user.AgencyAdmin')!=null || session(
           <?php
 
 
-          // dd($data); 
+         // dd($data); 
 
 
           $class="\\".$data['Module-Namespace']."\\Logics";
           $func="get".$key;
-
-        
 
           ?>
 

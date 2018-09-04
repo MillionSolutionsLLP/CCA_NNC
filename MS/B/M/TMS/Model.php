@@ -63,6 +63,25 @@ protected $base_Field;
     }
 
 
+    public static function getCurrentStatuseFromId($code){
+        \MS\Core\Helper\Comman::DB_flush();
+        $m1=new Model(6);
+
+        if ($m1->where('UniqId',$code)->get() !=  null) {
+
+            $actionType=$m1->where('UniqId',$code)->get()->first()->toArray();
+                
+            //dd($actionType['NameOfAction']);
+            # code...
+        }
+
+        return $actionType['NameOfAction'];
+
+
+       
+
+
+    }
 
    
     public static function getModePiracy(){
