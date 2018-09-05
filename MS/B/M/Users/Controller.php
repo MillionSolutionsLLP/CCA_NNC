@@ -460,10 +460,6 @@ class Controller extends \App\Http\Controllers\Controller
 				'UniqId'=>'ID',
 
 				'UserName'=>'Username',
-
-
-		
-
 				'Status'=>'Cur. Status',
 
 						];

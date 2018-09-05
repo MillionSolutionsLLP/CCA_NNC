@@ -354,6 +354,20 @@
                 @else
 
 
+                <?php  //dd($step) 
+
+                $step['DocumentQueryArray']=json_decode($step['DocumentQueryArray'],true);
+                $step['DocumentArray']=json_decode($step['DocumentArray'],true);
+
+                 ?>
+
+                 @if(count($step['DocumentQueryArray']) != count($step['DocumentArray']))
+                  <div class="btn btn-danger ms-text-white ms-mod-btn" ms-live-link="{{  route('TMS.Task.Rise.Step.Query',['UniqId'=>\MS\Core\Helper\Comman::en4url($data['task']['UniqId']) ,'StepId'=>\MS\Core\Helper\Comman::en4url($step['UniqId']) ] ) }}">
+                  <i class="fa fa-question"></i>
+                  Rise Query
+                </div>
+                 @endif
+
                 <div class="btn btn-warning ms-text-black" >
                   <i class="fa fa-refresh fa-spin fa-fw"></i>
                   Waiting For Agency Replay
@@ -414,6 +428,9 @@
                         @if($userRole==1)
 
                               <div class="btn btn-default ms-text-black ms-mod-btn" ms-live-link="{{ route($link) }}"><i class="fa fa-fast-backward"  ></i> Go Back to Task List</div>
+                              <div class="btn btn-danger ms-text-white ms-mod-btn" ms-live-link="{{route('TMS.Task.View')}}"><i class="fa fa-question"></i> Rise Query</div>
+                              <div class="btn btn-success ms-text-black ms-mod-btn" ms-live-link="{{route('TMS.Task.View')}}"><i class="fa fa-check"></i> Approve</div>
+    
                         @elseif($userRole==2)
 
                         <div class="btn btn-info ms-text-black ms-mod-btn " ms-live-link="{{ route('ATMS.index.Data') }}"><i class="fa fa-fast-backward"  ></i> Go Back to Task List</div>

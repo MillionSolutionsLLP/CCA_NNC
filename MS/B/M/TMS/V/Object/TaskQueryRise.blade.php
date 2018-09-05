@@ -18,7 +18,7 @@
 
 {
       $m1= $m1->where('DocumentVerified','0')->where('DocumentUploaded','1')->get()->toArray();}
-   // dd($m1);
+  //dd($m1);
 
     \MS\Core\Helper\Comman::DB_flush();
 
@@ -46,7 +46,7 @@
 
 
   <tr>
-  <th>Task Id</th>
+  <th>Step Id</th>
   	<th>Document Name</th>
   	<th>Type of Document</th>
   	<th>Document Details</th>
@@ -71,8 +71,10 @@
 
 'name'=>'SelectedFiles',
 'dataArray'=>[  $docDetails['UniqId'] =>[ 'name' =>explode('.',$docName)[0] ,
-  'UniqId1'=>$data['TaskId'],
-  'UniqId2'=>$docDetails['UniqId']
+ // 'UniqId1'=>$data['TaskId'],
+  'UniqId1'=>$data["StepId"],
+  'UniqId2'=>$docDetails['UniqId'],
+  'Attr'=>'file'
   ]
 
 ],
@@ -85,12 +87,17 @@
  // dd($data);
   ?>
 
+<?php
+ 
 
+  //var_dump( $task['UniqId'] ."-".$data['StepId']);
+ ?>
 
+@if(!array_key_exists($docDetails['UniqId'],$data['stepData']['DocumentQueryArray']))
 
   <tr class="info">
     
-       <td>  {{  $data['TaskId'] }}</td>   		
+       <td>  {{  $data['StepId'] }}</td>   		
   		<td>  {{\Form::inputCheck($dataForCheckBox,$loop->iteration)}}</td>
   		<td> {{\B\ATMS\Logics::getTypeOfDocument($docDetails['TypeOfDocument']) ['NameOfDocuments']}}</td>
 
@@ -161,11 +168,11 @@
   <?php 
 
 
-
+//dd();
   $dataFortextarea=[
 'lable'=>'Write your query here',
 
-'name'=>'SelectedFilesQuery['.$docPath['UniqId'].']',
+'name'=>'SelectedFilesQuery['.$data["StepId"].']['.$docPath["UniqId"].'][query]',
 'value'=>'',
 'data'=>['input-size'=>'col-lg1-12'],
   ];
@@ -177,26 +184,42 @@
 
   </tr>
 
+  @endif
+
   @endforeach
 
   <th colspan="4"><i class="fa fa-sort-amount-asc" aria-hidden="true"></i> Recent Documents that required your action </th>
 
-  @foreach($m1 as $task)
+
+<?php
+
+//dd($m1);
+
+ ?>
+
+  @foreach($m1 as  $key => $task)
 
 <?php
   
-  $task['DocumentArray']=json_decode($task['DocumentArray'],true,3);
-  $task['DocumentVerifiedArray']=json_decode($task['DocumentVerifiedArray'],true,3);
+  $task['DocumentArray']=(array)json_decode($task['DocumentArray'],true);
+  $task['DocumentVerifiedArray']=(array)json_decode($task['DocumentVerifiedArray'],true);
+  $task['DocumentQueryArray']=(array)json_decode($task['DocumentQueryArray'],true);
 
 
+  //dd( $task);
   //var_dump( $task['UniqId'] ."-".$data['StepId']);
  ?>
 
 @if($task['UniqId'] != $data['StepId'])
+
+
+
  @foreach(  $task['DocumentArray'] as $docName=>$doc1) 
 
-
  <?php
+
+
+
 
    $dataForCheckBox=[
 'lable'=>' ',
@@ -204,8 +227,11 @@
 'name'=>'SelectedFiles',
 'dataArray'=>[  $doc1['UniqId'] =>[ 'name' =>explode('.',$docName)[0] ,
   
+ // 'UniqId1'=>$data['TaskId'],
   'UniqId1'=>$task['UniqId'],
-  'UniqId2'=>$docDetails['UniqId']
+  'UniqId2'=>$docDetails['UniqId'],
+
+  'Attr'=>'file'  
   ]
 
 ],
@@ -213,9 +239,17 @@
 
   ];
 
- ?>
 
- @if(!array_key_exists($docName, $task['DocumentVerifiedArray']))
+ ?>
+@if(!array_key_exists($docName, $task['DocumentVerifiedArray']))
+
+<?php 
+  
+//dd($task);
+
+?>
+
+ @if(!array_key_exists($doc1['UniqId'], $task['DocumentQueryArray']))
   <tr class="warning" >
       <td>  {{  $task['UniqId'] }}</td> 
       <td>  {{\Form::inputCheck($dataForCheckBox)}}</td>
@@ -286,12 +320,12 @@
 
          <?php 
 
-
+//dd($task['UniqId']);
 
   $dataFortextarea=[
 'lable'=>'Write your query here',
 
-'name'=>'SelectedFilesQuery['.$docPath['UniqId'].']',
+'name'=>'SelectedFilesQuery['.$task["UniqId"].']['.$docPath["UniqId"].'][query]',
 'value'=>'',
 'data'=>['input-size'=>'col-lg1-12'],
   ];
@@ -302,6 +336,8 @@
        <td>  {{\Form::inputTextArea($dataFortextarea,$loop->iteration+1)}} </td>
 
 </tr>
+@endif
+
 @endif
   @endforeach
 @endif

@@ -573,6 +573,14 @@ public function taskApproveById($UniqId,$StepId){
 
 	$m1->MS_update( ['DocumentVerifiedArray'=>json_encode($documentArray),'DocumentVerified'=>1,'VerifiedBy'=>session('user.userData.UniqId')] , $StepId ) ;
 
+	\MS\Core\Helper\Comman::DB_flush();
+		$m2=new \B\TMS\Model ();
+
+		
+		$m2->MS_update(['CurrentStatus'=>'4'],$UniqId);		
+
+		
+
 
 
 	$status=200;
@@ -643,6 +651,8 @@ public function getUploadedFile($UniqId,$TaskId,$StepId,$TypeOfDocument,$FileNam
 
 
 			public function riseQuery($TaskId,$StepId){
+
+
 			\MS\Core\Helper\Comman::DB_flush();
 			$status=200;
 			$array=[
@@ -721,27 +731,35 @@ public function getUploadedFile($UniqId,$TaskId,$StepId,$TypeOfDocument,$FileNam
 
 
 
-			public function riseQueryPost ( R\RiseQuery $r, $TaskId,$StepId){
+public function riseQueryPost ( R\RiseQuery $r, $TaskId,$StepId){
 
 				\MS\Core\Helper\Comman::DB_flush();
 
 				$input=$r->all();
-				$data['TaskId']=\MS\Core\Helper\Comman::de4url($TaskId);
+
+				//dd($input);
+							$data['TaskId']=\MS\Core\Helper\Comman::de4url($TaskId);
 				$data['StepId']=\MS\Core\Helper\Comman::de4url($StepId);
 
 
+	$m1=new Model(1,$data['TaskId']);
 
 
-			$m1=new Model();
+foreach ($input['SelectedFiles'] as $task => $files) {
+			
+			
+			//dd($m1->where('UniqId',$task)->first()==null);
 
+			foreach ($files as $step => $file) {
+			\MS\Core\Helper\Comman::DB_flush();
 
-			if($m1->where('UniqId',$data['TaskId'])->first()->toArray() ==null){
+		
 
+			if($m1->where('UniqId',$task)->first() ==null){
 					$status=422;
 			$array=[
 					'msg'=>["Task Not Found"],
-			 	//	'redirectData'=>action('\B\TMS\Controller@indexData'),
-			 		
+			 				 		
 				];
 
 	
@@ -749,90 +767,128 @@ public function getUploadedFile($UniqId,$TaskId,$StepId,$TypeOfDocument,$FileNam
 
 
 			}
-			$data['taskData']=$m1->where('UniqId',$data['TaskId'])->first()->toArray();
+
+			if(array_key_exists('taskData', $data)){
+							if(!array_key_exists($task, $data['taskData']) ){
+											$data['taskData'][$task]=$m1->where('UniqId',$task)->first()->toArray();
+										}}else{
+
+											$data['taskData'][$task]=$m1->where('UniqId',$task)->first()->toArray();
+
+										}
+			}
+
+			
+			
 
 			\MS\Core\Helper\Comman::DB_flush();
-			$m2=new Model('1',$data['TaskId']) ;
-			
-			if($m2->where('UniqId',$data['StepId'])->first() ==null){
 
-					$status=422;
-			$array=[
-					'msg'=>["Task's Step Details Not Found"],
-			 	//	'redirectData'=>action('\B\TMS\Controller@indexData'),
-			 		
-				];
 
+			$data['taskData'][$task]['DocumentArray']=(array)json_decode($data['taskData'][$task]['DocumentArray'],true);
+			$data['taskData'][$task]['DocumentVerifiedArray']=(array)json_decode($data['taskData'][$task]['DocumentVerifiedArray'],true);
+
+			$data['taskData'][$task]['DocumentQueryArray']=(array)json_decode($data['taskData'][$task]['DocumentQueryArray'],true);
+			$data['taskData'][$task]['DocumentReplyArray']=(array)json_decode($data['taskData'][$task]['DocumentReplyArray'],true);
+
+
+
+
+
+
+}
+
+
+foreach ($data['taskData']as $key => $value) {
 	
-				return response()->json($array, $status);
+			//	$value['FileName']=$key;
+
+				//dd($value);
 
 
-			}
+				foreach ($value['DocumentArray']as $key1 => $value1) {
 
-			$data['stepData']=$m2->where('UniqId',$data['StepId'])->first()->toArray();
-
-			$data['stepData']['DocumentArray']=(array)json_decode($data['stepData']['DocumentArray'],true);
-			$data['stepData']['DocumentVerifiedArray']=(array)json_decode($data['stepData']['DocumentVerifiedArray'],true);
-
-			$data['stepData']['DocumentQueryArray']=(array)json_decode($data['stepData']['DocumentQueryArray'],true);
-			$data['stepData']['DocumentReplyArray']=(array)json_decode($data['stepData']['DocumentReplyArray'],true);
+		
 
 
-			$selectedFile=[];
-			foreach ($data['stepData']['DocumentArray'] as $key => $value) {
-				
-				if(!array_key_exists($value['UniqId'], $input['SelectedFiles'])){
-
-					$data['stepData']['DocumentVerifiedArray'][$key]=$value;
-
-				}else{
-				$value['FileName']=$key;
-				$selectedFile[$value['UniqId']]=$value;
-				}
+			//dd($input['SelectedFiles']);
 
 
-			}
+			//var_dump(array_key_exists($value1['UniqId'], $input['SelectedFiles'][$key]));
+			if(array_key_exists($value1['UniqId'], $input['SelectedFiles'][$key])){
 
-			$QueryData=[];
+						//	if(	)
+			$value1['FileName']=$key1;
+				//$selectedFile[$value1['UniqId']]=$value1;
+
+			
 
 			$QueryNo=Base::genUniqID();
 
-			$QueryData[]=[
+			$QueryData[$value1['UniqId']]=	[
 
 			$QueryNo=>[
-			'Query'=>$input['SelectedFilesQuery'],
+			'Query'=>$input['SelectedFilesQuery'][$key][$value1['UniqId']]['query'],
 			'Replay'=>null,
 			'QueryStatus'=>0,
-			'QueryDocumentArray'=>$selectedFile
+			//'QueryDocumentArray'=>$selectedFile
 
 			],
 
 
 
 			];
-
-
-			if($data['stepData']['DocumentQueryArray'] == null){
-
-				$DocumentQueryArray=collect($QueryData)->toJson();
-
-			}else{
-
-				$DocumentQueryArray=collect($QueryData)->toJson();
+				$QueryData[$value1['UniqId']][$QueryNo]['QueryDocumentArray'][]=$value1;
+				
 			}
-
-			$updateArray=[
-
-
-			'DocumentQuery'=>1,
-			'DocumentQueryArray'=>$DocumentQueryArray,
-			'QueryRisedBy'=>session('user.userData.UniqId'),
-
-			];
+			
 
 
 
-			$m2->MS_update($updateArray,$data['StepId']);
+				}
+
+			//	dd($QueryData);
+
+				
+			
+if(array_key_exists($key, $input['SelectedFiles'])){
+
+				$DocumentQueryArray=collect($QueryData)->toJson();
+				$updateArray[$key]=[
+			
+			
+					'DocumentQuery'=>1,
+					'DocumentQueryArray'=>$DocumentQueryArray,
+					'QueryRisedBy'=>session('user.userData.uniqid()Id'),
+			
+					];
+}else{
+
+	$updateArray=null;
+}
+				
+
+			
+
+
+}
+	
+
+	
+	//dd($updateArray);	
+
+foreach ($updateArray as $key => $value) {
+
+			\MS\Core\Helper\Comman::DB_flush();
+			$m2=new Model('1',$data['TaskId']) ;
+
+
+
+			$m2->MS_update($value,$key);
+	# code...
+}
+
+
+//dd($updateArray);
 
 			$status=200;
 			$array=[

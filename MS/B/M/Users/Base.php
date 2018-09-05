@@ -182,7 +182,7 @@ public static $field1=[
 
 public static function status(){
 	return [
-	'Active','Deactive'
+	1=>'Active',0=>'Deactive'
 	];
 }
 

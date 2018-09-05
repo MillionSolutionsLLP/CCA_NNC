@@ -37,9 +37,37 @@ if(array_key_exists('data', $data)){
 @foreach($data['dataArray'] as $value=>$lable)
 <label tabindex="{{$index}}">
 	@if(array_key_exists('UniqId2',$lable))
-	{{Form::checkbox($data['name']."[".$lable['UniqId1']."]"."[".$lable['UniqId2']."]")}}
+
+			@if(array_key_exists('UniqId3',$lable))
+
+				@if(array_key_exists('Attr',$lable))
+				{{Form::checkbox($data['name']."[".$lable['UniqId1']."][".$lable['UniqId2']."][".$lable['UniqId3']."][".$lable['Attr']."]")}}
+				@else
+
+				{{Form::checkbox($data['name']."[".$lable['UniqId1']."][". $lable['UniqId2'] ."][".$lable['UniqId3']."]")}}
+				@endif
+			@else
+
+
+				@if(array_key_exists('Attr',$lable))
+				{{Form::checkbox($data['name']."[".$lable['UniqId1']."][".$lable['UniqId2']."][".$lable['Attr']."]")}}
+				@else
+
+				{{Form::checkbox($data['name']."[".$lable['UniqId1']."][".$lable['UniqId2']."]")}}
+				@endif
+
+			@endif
+
+
+	
 	@else
+	@if(array_key_exists('UniqId1',$lable))
+
 	{{Form::checkbox($data['name']."[".$lable['UniqId1']."]")}}
+	@else
+	{{Form::checkbox($data['name'].'[]') }}
+	@endif
+
 	@endif
     {{$lable['name']}}
   </label>

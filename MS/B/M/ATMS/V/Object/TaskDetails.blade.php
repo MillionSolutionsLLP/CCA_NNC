@@ -313,7 +313,7 @@
 
                 @else
 
-              <div class="btn btn-warning ms-text-black ms-mod-btn" ms-live-link="{{ route('ATMS.Task.Rise.Step.Replay',['TaskId'=>\MS\Core\Helper\Comman::en4url($data['task']['UniqId']),'StepId'=>\MS\Core\Helper\Comman::en4url($step['UniqId'])])  }}" >
+              <div class="btn btn-danger ms-text-white ms-mod-btn" ms-live-link="{{ route('ATMS.Task.Rise.Step.Replay',['TaskId'=>\MS\Core\Helper\Comman::en4url($data['task']['UniqId']),'StepId'=>\MS\Core\Helper\Comman::en4url($step['UniqId'])])  }}" >
                   <i class="fa fa-reply "></i>
                   Replay to Query
                 </div>

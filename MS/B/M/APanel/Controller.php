@@ -24,7 +24,7 @@ class Controller extends \App\Http\Controllers\Controller
 
 	public function index(){
 
-
+\MS\Core\Helper\Comman::DB_flush();
 
 
 			$data=[
@@ -40,7 +40,7 @@ class Controller extends \App\Http\Controllers\Controller
 		
 	}
 public function indexDataWithSide(){
-
+\MS\Core\Helper\Comman::DB_flush();
 
 			$data=[
 
@@ -61,7 +61,7 @@ public function indexDataWithSide(){
 
 	public function indexData(){
 
-
+\MS\Core\Helper\Comman::DB_flush();
 
 
 			$data=[

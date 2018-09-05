@@ -316,7 +316,7 @@ if(session('user.SuperAdmin') && !(session('user.AgencyAdmin')!=null || session(
 
    <div class="btn-group btn-group-justified">
 	<div class="btn btn-default ms-text-black ms-mod-btn" ms-live-link="{{route('TMS.Task.View')}}"><i class="fa fa-fast-backward"></i> Go Back to Task List</div>
-  	</div>
+	</div>
 
 
   </div>

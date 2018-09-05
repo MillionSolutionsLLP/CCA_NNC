@@ -28,7 +28,7 @@ class RiseQuery extends FormRequest
   
 
             'SelectedFiles'=>'required|array',
-            'SelectedFilesQuery'=>'required',
+         //   'SelectedFiles'=>'required',
           
             ];
 

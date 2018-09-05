@@ -90,9 +90,9 @@ if(count($data['List-array'])>0){
       @else
 
       @if(array_key_exists('color',$btn))
-      {{ Form::button("<i class='".$btn["icon"]."' aria-hidden='true'></i> ".$btn["text"], ['class'=>'btn  btn-frm-submit end-close '.$btn['color'].' ms-text-black'] ) }}
+      {{ Form::div("<i class='".$btn["icon"]."' aria-hidden='true'></i> ".$btn["text"], ['class'=>'btn  btn-frm-submit end-close '.$btn['color'].' ms-text-black'] ) }}
       @else
-      {{ Form::button("<i class='".$btn["icon"]."' aria-hidden='true'></i> ".$btn["text"], ['class'=>'btn btn-success  btn-frm-submit ms-text-black'] ) }}
+      {{ Form::div("<i class='".$btn["icon"]."' aria-hidden='true'></i> ".$btn["text"], ['class'=>'btn btn-success  btn-frm-submit ms-text-black'] ) }}
       @endif
       
 
@@ -213,11 +213,42 @@ if(session('user.SuperAdmin') && !(session('user.AgencyAdmin')!=null || session(
 
      <td>
 
-      @if((string)$object->$key ===  0)
+      @if((string)$object->$key ===  '0')
+
+      @if($key == "CurrentStatus")
+
+         @if(in_array($key, $data['List-dynamic-column']))
 
 
-      <i class="fa fa-times text-danger"></i>
-      @elseif((string )$object->$key === 1)
+
+
+          <?php
+
+
+         // dd($data); 
+
+
+          $class="\\".$data['Module-Namespace']."\\Logics";
+          $func="get".$key;
+
+          ?>
+
+          {{ $class::$func($object->$key) }}
+          @else
+
+          {{ $object->$key }} 
+          @endif
+
+
+
+
+
+      @else
+       <i class="fa fa-times text-danger"></i>
+      @endif
+
+     
+      @elseif((string )$object->$key === '1')
 
 
       <i class="fa fa-check text-success"></i>
