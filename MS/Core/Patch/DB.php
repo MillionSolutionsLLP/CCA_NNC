@@ -21,7 +21,8 @@ public $modules=[
 //'PM',
 'AMS',
 'TMS',
-'ATMS'
+'ATMS',
+'NMS'
 
 ];
 

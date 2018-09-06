@@ -3,10 +3,137 @@ require('./bootstrap');
 
 
 
+setInterval(function() {
+   //alert('a minutes');
+   checkNewNotification ();
+}, 1 * 1000); // 60 * 1000 milsec
+
+
+
+var notificationLink=$('.ms-notification-btn').attr('ms-live-link');
+
+
+var notificationColor=0;
+
+var countCheck=0;
+
+function checkNewNotification (){
+
+
+  $.ajax({
+                url: notificationLink+"/"+countCheck,  //server script to process data
+                type: 'GET',
+                xhr: function() {  // custom xhr
+                    myXhr = $.ajaxSettings.xhr();
+                    if(myXhr.upload){ // if upload property exists
+                       // myXhr.upload.addEventListener('progress', progressHandlingFunction, false); // progressbar
+                    }
+                    return myXhr;
+                },
+                // Ajax events
+                success: completeHandler = function(data,textStatus , xhr) {
+                 // alert("Your action taken succefully.!");
+                 
+                // console.log("msg" in data);
+
+                //console.log(typeof data);
+              
+
+                if(typeof data == "object"){
+                
+
+
+                if(countCheck!=data.countCheck){
+
+               console.log( data);
+
+               countCheck=data.countCheck;
+
+
+              var html="";
+              jQuery.each(data.dData,function (index, item){
+              
+                html=html+"<li style='padding:5px;' class='ms-mod-btn list-group-item-info  ms-text-bold list-group-item-warning' ms-live-link='"+item.NotificationLink+"'>"+item.TextOfNotification+"</li>"
+
+
+              });
+
+
+
+
+               $('#notificationBox').html(html);
+
+              if(notificationColor){
+                $('.ms-notification-btn').removeClass('bg-success');
+                 notificationColor=0;
+
+              }else{
+
+                   $('.ms-notification-btn').addClass('bg-success');
+                  notificationColor=1;
+
+              }
+
+
+
+                }
+
+               
+               
+
+                }else
+                {
+
+                  
+
+                }
+
+               
+               
+
+  
+
+              
+                },
+                error: errorHandler = function(xhr, status, error) {
+               if(xhr.status == 422){
+                       
+                       
+                  if(typeof data == "object"){
+                  
+
+                countCheck=xhr.responseJSON.countCheck;
+
+                }
+
+                }
+
+
+
+                },
+                cache: false,
+                contentType: false,
+                processData: false
+            }, 'json');
+
+
+  var returnValue =false;
+
+//console.log(countCheck);
+
+
+
+  return returnValue;
+
+}
+
+
+
 
 $( document ).ready(function() {
   
      $('[data-toggle="tooltip"]').tooltip();
+     $('[data-toggle="dropdown"]').dropdown();
 setInterval(function(){
    var date = new Date();
    var currentTime = new Date ( );

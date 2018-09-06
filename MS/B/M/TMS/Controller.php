@@ -27,8 +27,7 @@ class Controller extends \App\Http\Controllers\Controller
 		//	);
 
 	// 	dd(session()->all());
-
-
+		
 			$data=[
 
 			
@@ -93,6 +92,10 @@ class Controller extends \App\Http\Controllers\Controller
 
 
 	public function taskAddPost(R\AddTask $r){
+
+
+
+		
 			\MS\Core\Helper\Comman::DB_flush();
 
 			$input=$r->input();
@@ -194,7 +197,7 @@ class Controller extends \App\Http\Controllers\Controller
 
 					[
 
-					'UniqId'=>$uniqid=Base::genUniqID(),
+					'UniqId'=>Base::genUniqID(),
 
 					'TypeOfAction'=>'0',
 
@@ -212,6 +215,25 @@ class Controller extends \App\Http\Controllers\Controller
 
 					];
 			//dd($uniqid);
+
+				
+			\MS\Core\Helper\Comman::DB_flush();	
+			\B\NMS\Logics::newNotification(
+
+				session('user.userData.UniqId'),
+				1,
+				111,
+				' no.'.$uniqid,
+				route('TMS.Task.View.Id',
+				
+				['UniqId'=>
+											\MS\Core\Helper\Comman::en4url($uniqid	)])
+				);
+
+
+
+				
+		
 			\MS\Core\Helper\Comman::DB_flush();
 			$model2=new Model('1',$input['UniqId']);
 			//dd($model2);
@@ -372,11 +394,15 @@ public function taskViewById($UniqId){
 
 
 
+
+
 		$m=new \B\TMS\Model();
 
 		
 		if($m->where('UniqId',$uniqId)->first()!=null){$rowData=$m->where('UniqId',$uniqId)->first()->toArray();}
 		else{$rowData=[];}
+
+		//dd($m)	;
 
 	\MS\Core\Helper\Comman::DB_flush();
 			$m1=new \B\TMS\Model();
@@ -414,12 +440,12 @@ public function taskViewById($UniqId){
 			}
 			
 
-				//	dd($rowData);
 
 
 
-\MS\Core\Helper\Comman::DB_flush();
+			//\MS\Core\Helper\Comman::DB_flush();
 			\MS\Core\Helper\Comman::DB_flush();
+
 			$m2=new Model('1',$rowData['UniqId']);
 			$rowData2=$m2->MS_all()->toArray();
 
@@ -853,6 +879,8 @@ foreach ($data['taskData']as $key => $value) {
 if(array_key_exists($key, $input['SelectedFiles'])){
 
 				$DocumentQueryArray=collect($QueryData)->toJson();
+
+			//	dd($value);
 				$updateArray[$key]=[
 			
 			

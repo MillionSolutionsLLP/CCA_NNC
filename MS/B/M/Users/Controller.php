@@ -208,6 +208,8 @@ class Controller extends \App\Http\Controllers\Controller
 								]);
 
 		//	$build->content="<div class='ms-mod-tab'>".$build->content."</div>";
+		
+
 
 			//dd($build->content);
 			return "<div class='ms-mod-tab'>".$build->view()."</div>";
@@ -218,8 +220,18 @@ class Controller extends \App\Http\Controllers\Controller
 
 
 	public function add_form_post(Request $r){
+
+
+
 	
 	$input=$r->all();
+
+	\B\NMS\Base::migrate([ 
+[
+'id'=>0,
+'code'=>$input['UniqId']
+]
+		]);
 	
 	$val=\Validator::make($input, [
 	

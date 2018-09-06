@@ -16,7 +16,20 @@ class EventServiceProvider extends ServiceProvider
         'App\Events\Event' => [
             'App\Listeners\EventListener',
         ],
+    
+
+        '\B\TMS\E\TaskCreated'=>[
+            '\B\TMS\E\L\TaskAdded'
+
+        ],
+
     ];
+
+    protected $subscribe = [
+    'B\TMS\E\L\TaskAdded',
+];
+
+
 
     /**
      * Register any events for your application.
